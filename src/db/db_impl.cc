@@ -955,6 +955,7 @@ Status DBImpl::TEST_CompactMemTable() {
   return s;
 }
 
+//::young compaction code 1
 void DBImpl::CompactLevelThread() {
   MutexLock l(&mutex_);
   FileLevelFilterBuilder file_level_filter_builder(options_.filter_policy);
@@ -1014,6 +1015,7 @@ void DBImpl::RecordBackgroundError(const Status& s) {
   }
 }
 
+//::young:: first compaction point 
 Status DBImpl::BackgroundCompactionGuards(FileLevelFilterBuilder* file_level_filter_builder) {
   int x, y, z;
   mutex_.AssertHeld();
@@ -1153,7 +1155,8 @@ Status DBImpl::OpenCompactionOutputFile(CompactionState* compact) {
     mutex_.Lock();
     file_number = versions_->NewFileNumber();
     pending_outputs_.insert(file_number);
-    CompactionState::Output out;
+    
+//::young compaction code 1CompactionState::Output out;
     out.number = file_number;
     out.smallest.Clear();
     out.largest.Clear();
@@ -1260,6 +1263,8 @@ Status DBImpl::InstallCompactionResults(CompactionState* compact, const int leve
   return versions_->LogAndApply(compact->compaction->edit(), &mutex_, &bg_log_cv_, &bg_log_occupied_, file_numbers, file_level_filters, 0);
 }
 
+
+//::young:: compaction work point
 Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
 		std::vector<GuardMetaData*> complete_guards_used_in_bg_compaction,
 		FileLevelFilterBuilder* file_level_filter_builder) {
@@ -1314,6 +1319,7 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
   // If the compaction level is the last level, get the guards of the same level
   // Else, get the guards of the next level since the new files will be populated to next level
   guards = complete_guards_used_in_bg_compaction;
+  //::young:: get guard size when compaction
   unsigned num_guards = guards.size(), current_guard = 0;
 
   start_timer(BGC_ITERATE_KEYS_AND_SPLIT);

@@ -118,6 +118,7 @@
 ./util/testutil.h
 ./util/histogram.h
 ./leveldb-dump-all.cc
+./config.h
 ./helpers/memenv/memenv_test.cc
 ./helpers/memenv/memenv.cc
 ./helpers/memenv/memenv.h

@@ -427,6 +427,7 @@ class Version {
   FileMetaData* file_to_compact_;
   int file_to_compact_level_;
 
+  // ::young:: score description
   // Level that should be compacted next and its compaction score.
   // Score < 1 means compaction is not strictly needed.  These fields
   // are initialized by Finalize().
