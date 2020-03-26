@@ -955,7 +955,7 @@ Status DBImpl::TEST_CompactMemTable() {
   return s;
 }
 
-//::young compaction code 1
+//::young compaction first start point !!!
 void DBImpl::CompactLevelThread() {
   MutexLock l(&mutex_);
   FileLevelFilterBuilder file_level_filter_builder(options_.filter_policy);
@@ -1015,7 +1015,7 @@ void DBImpl::RecordBackgroundError(const Status& s) {
   }
 }
 
-//::young:: first compaction point 
+//::young:: second compaction point 
 Status DBImpl::BackgroundCompactionGuards(FileLevelFilterBuilder* file_level_filter_builder) {
   int x, y, z;
   mutex_.AssertHeld();
@@ -1084,7 +1084,7 @@ Status DBImpl::BackgroundCompactionGuards(FileLevelFilterBuilder* file_level_fil
     record_timer(BGC_ADD_GUARDS_TO_EDIT);
 
     start_timer(BGC_DO_COMPACTION_WORK_GUARDS);
-    status = DoCompactionWorkGuards(compact, complete_guards_used_in_bg_compaction, file_level_filter_builder);
+    status = DoCompactionWorkGuards(compact, complete_guards_used_in_bg_compaction, file_level_filter_builder); //::young:: do compaction work for guard
     record_timer(BGC_DO_COMPACTION_WORK_GUARDS);
 
     if (!status.ok()) {
