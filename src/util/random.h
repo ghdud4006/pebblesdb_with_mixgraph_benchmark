@@ -6,6 +6,8 @@
 #define STORAGE_LEVELDB_UTIL_RANDOM_H_
 
 #include <stdint.h>
+#include <algorithm>
+#include <random>
 
 namespace leveldb {
 
