@@ -356,10 +356,12 @@ struct ThreadState {
   Random rand;         // Has different seeds for different threads
   Stats stats;
   SharedState* shared;
+  Random64 mixgraph_rand;
 
   ThreadState(int index)
       : tid(index),
         rand(1000 + index),
+        mixgraph_rand((FLAGS_seed ? FLAGS_seed : 1000) + index),
         stats(),
         shared() {
   }
