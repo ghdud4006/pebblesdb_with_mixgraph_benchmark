@@ -387,7 +387,7 @@ class Benchmark {
   int key_size_;
   double read_random_exp_range_;
   std::vector<std::string> keys_;
-  nt64_t keys_per_prefix_;
+  int64_t keys_per_prefix_;
   int prefix_size_;
 
   DBImpl* dbfull() {
