@@ -1156,7 +1156,8 @@ Status DBImpl::OpenCompactionOutputFile(CompactionState* compact) {
     file_number = versions_->NewFileNumber();
     pending_outputs_.insert(file_number);
     
-//::young compaction code 1CompactionState::Output out;
+//::young compaction code 1
+    CompactionState::Output out;
     out.number = file_number;
     out.smallest.Clear();
     out.largest.Clear();
