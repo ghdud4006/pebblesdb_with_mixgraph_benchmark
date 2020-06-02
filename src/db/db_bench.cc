@@ -1692,7 +1692,7 @@ class Benchmark {
     while (!duration.Done(1)) {
       // DBWithColumnFamilies* db_with_cfh = SelectDBWithCfh(thread);
       int64_t ini_rand, rand_v, key_rand, key_seed;
-      ini_rand = GetRandomKey(&thread->rand);
+      ini_rand = GetRandomKey(&thread->mixgraph_rand);
       rand_v = ini_rand % FLAGS_num;
       double u = static_cast<double>(rand_v) / FLAGS_num;
 
