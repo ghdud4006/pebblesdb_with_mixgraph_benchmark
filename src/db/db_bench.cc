@@ -380,6 +380,7 @@ class Benchmark {
   WriteOptions write_options_;
   int reads_;
   int heap_counter_;
+  int key_size_;
 
   DBImpl* dbfull() {
     return reinterpret_cast<DBImpl*>(db_);
@@ -1533,6 +1534,81 @@ class Benchmark {
   int64_t ops_;
   uint64_t start_at_;
 };
+
+  int64_t GetRandomKey(Random64* rand) {
+    uint64_t rand_int = rand->Next();
+    int64_t key_rand;
+    if (read_random_exp_range_ == 0) {
+      key_rand = rand_int % FLAGS_num;
+    } else {
+      const uint64_t kBigInt = static_cast<uint64_t>(1U) << 62;
+      long double order = -static_cast<long double>(rand_int % kBigInt) /
+                          static_cast<long double>(kBigInt) *
+                          read_random_exp_range_;
+      long double exp_ran = std::exp(order);
+      uint64_t rand_num =
+          static_cast<int64_t>(exp_ran * static_cast<long double>(FLAGS_num));
+      // Map to a different number to avoid locality.
+      const uint64_t kBigPrime = 0x5bd1e995;
+      // Overflow is like %(2^64). Will have little impact of results.
+      key_rand = static_cast<int64_t>((rand_num * kBigPrime) % FLAGS_num);
+    }
+    return key_rand;
+  }
+
+  // Generate key according to the given specification and random number.
+  // The resulting key will have the following format (if keys_per_prefix_
+  // is positive), extra trailing bytes are either cut off or padded with '0'.
+  // The prefix value is derived from key value.
+  //   ----------------------------
+  //   | prefix 00000 | key 00000 |
+  //   ----------------------------
+  // If keys_per_prefix_ is 0, the key is simply a binary representation of
+  // random number followed by trailing '0's
+  //   ----------------------------
+  //   |        key 00000         |
+  //   ----------------------------
+  void GenerateKeyFromInt(uint64_t v, int64_t num_keys, Slice* key) {
+    if (!keys_.empty()) {
+      assert(FLAGS_use_existing_keys);
+      assert(keys_.size() == static_cast<size_t>(num_keys));
+      assert(v < static_cast<uint64_t>(num_keys));
+      *key = keys_[v];
+      return;
+    }
+    char* start = const_cast<char*>(key->data());
+    char* pos = start;
+    if (keys_per_prefix_ > 0) {
+      int64_t num_prefix = num_keys / keys_per_prefix_;
+      int64_t prefix = v % num_prefix;
+      int bytes_to_fill = std::min(prefix_size_, 8);
+      if (port::kLittleEndian) {
+        for (int i = 0; i < bytes_to_fill; ++i) {
+          pos[i] = (prefix >> ((bytes_to_fill - i - 1) << 3)) & 0xFF;
+        }
+      } else {
+        memcpy(pos, static_cast<void*>(&prefix), bytes_to_fill);
+      }
+      if (prefix_size_ > 8) {
+        // fill the rest with 0s
+        memset(pos + 8, '0', prefix_size_ - 8);
+      }
+      pos += prefix_size_;
+    }
+
+    int bytes_to_fill = std::min(key_size_ - static_cast<int>(pos - start), 8);
+    if (port::kLittleEndian) {
+      for (int i = 0; i < bytes_to_fill; ++i) {
+        pos[i] = (v >> ((bytes_to_fill - i - 1) << 3)) & 0xFF;
+      }
+    } else {
+      memcpy(pos, static_cast<void*>(&v), bytes_to_fill);
+    }
+    pos += bytes_to_fill;
+    if (key_size_ > pos - start) {
+      memset(pos, '0', key_size_ - (pos - start));
+    }
+  }
 
   //  Copyright (c) 2011-present, Facebook, Inc.  All rights reserved.
   //  This source code is licensed under both the GPLv2 (found in the
