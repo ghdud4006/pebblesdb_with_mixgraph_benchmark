@@ -14,10 +14,10 @@
 #include <cstdlib>
 #include <sys/mman.h>
 #include <sys/time.h>
-#include <sys/time.h>
 #include <sys/resource.h>
 #include <fstream>
 #include <cmath>
+#include <inttypes.h>
 
 #include <sys/types.h>
 #include <stdio.h>
@@ -385,6 +385,10 @@ class Benchmark {
   int reads_;
   int heap_counter_;
   int key_size_;
+  double read_random_exp_range_;
+  std::vector<std::string> keys_;
+  nt64_t keys_per_prefix_;
+  int prefix_size_;
 
   DBImpl* dbfull() {
     return reinterpret_cast<DBImpl*>(db_);
@@ -475,7 +479,11 @@ class Benchmark {
     value_size_(FLAGS_value_size),
     entries_per_batch_(1),
     write_options_(),
+    key_size_(FLAGS_key_size),
+    read_random_exp_range_(0.0),
     reads_(FLAGS_reads < 0 ? FLAGS_num : FLAGS_reads),
+    keys_per_prefix_(FLAGS_keys_per_prefix),
+    prefix_size_(FLAGS_prefix_size),
     heap_counter_(0) {
     std::vector<std::string> files;
     Env::Default()->GetChildren(FLAGS_db, &files);
