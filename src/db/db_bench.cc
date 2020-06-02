@@ -90,7 +90,6 @@ static const char* FLAGS_benchmarks =
     "snappyuncomp,"
     "acquireload,"
     "filter,"
-    "mixgraph,"
     ;
 
 // Number of key/values to place in database
@@ -1518,7 +1517,7 @@ class Benchmark {
     max_ops_= max_ops;
     ops_per_stage_ = (ops_per_stage > 0) ? ops_per_stage : max_ops;
     ops_ = 0;
-    start_at_ = FLAGS_env->NowMicros();
+    start_at_ = Env::Default()->NowMicros();
   }
 
   int64_t GetStage() { return std::min(ops_, max_ops_ - 1) / ops_per_stage_; }
@@ -1531,7 +1530,7 @@ class Benchmark {
       // Recheck every appx 1000 ops (exact iff increment is factor of 1000)
       auto granularity = FLAGS_ops_between_duration_checks;
       if ((ops_ / granularity) != ((ops_ - increment) / granularity)) {
-        uint64_t now = FLAGS_env->NowMicros();
+        uint64_t now = Env::Default()->NowMicros();
         return ((now - start_at_) / 1000000) >= max_seconds_;
       } else {
         return false;
