@@ -13,6 +13,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <fstream>
+#include <cmath>
 
 #include <sys/types.h>
 #include <stdio.h>
@@ -952,7 +953,7 @@ class Benchmark {
       } else if (name == Slice("filter")) {
         PrintStats("leveldb.filter");
       } else if (name == Slice("mixgraph")) {
-        fresh_db=flase;
+        fresh_db=false;
         method = &Benchmark::MixGraph;
       }
       else {
@@ -1699,11 +1700,13 @@ class Benchmark {
           exit(1);
         }
 
-        if (thread->shared->write_rate_limiter) {
-          thread->shared->write_rate_limiter->Request(
-              key.size() + val_size, Env::IO_HIGH, nullptr /*stats*/,
-              RateLimiter::OpType::kWrite);
-        }
+        
+        //if (thread->shared->write_rate_limiter) {
+        //  thread->shared->write_rate_limiter->Request(
+        //      key.size() + val_size, Env::IO_HIGH, nullptr /*stats*/,
+        //      RateLimiter::OpType::kWrite);
+        //}
+        
         //thread->stats.FinishedOps(db_with_cfh, db_with_cfh->db, 1, kWrite);
         thread->stats.FinishedSingleOp();
       } else if (query_type == 2) {
@@ -1746,11 +1749,11 @@ class Benchmark {
 
     thread->stats.AddBytes(bytes);
     thread->stats.AddMessage(msg);
-
-    if (FLAGS_perf_level > ROCKSDB_NAMESPACE::PerfLevel::kDisable) {
-      thread->stats.AddMessage(std::string("PERF_CONTEXT:\n") +
-                               get_perf_context()->ToString());
-    }
+  
+    //if (FLAGS_perf_level > ROCKSDB_NAMESPACE::PerfLevel::kDisable) {
+    //  thread->stats.AddMessage(std::string("PERF_CONTEXT:\n") +
+    //                           get_perf_context()->ToString());
+    //}
   }
 
   void DoWrite(ThreadState* thread, bool seq) {
