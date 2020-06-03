@@ -18,6 +18,7 @@
 #include <fstream>
 #include <cmath>
 #include <inttypes.h>
+#include <gflags/gflags.h>
 
 #include <sys/types.h>
 #include <stdio.h>
@@ -148,6 +149,73 @@ static bool FLAGS_use_existing_db = false;
 
 // Use the db with the following name.
 static const char* FLAGS_db = NULL;
+
+// the parameters of mix_graph
+DEFINE_double(keyrange_dist_a, 0.0,
+              "The parameter 'a' of prefix average access distribution "
+              "f(x)=a*exp(b*x)+c*exp(d*x)");
+DEFINE_double(keyrange_dist_b, 0.0,
+              "The parameter 'b' of prefix average access distribution "
+              "f(x)=a*exp(b*x)+c*exp(d*x)");
+DEFINE_double(keyrange_dist_c, 0.0,
+              "The parameter 'c' of prefix average access distribution"
+              "f(x)=a*exp(b*x)+c*exp(d*x)");
+DEFINE_double(keyrange_dist_d, 0.0,
+              "The parameter 'd' of prefix average access distribution"
+              "f(x)=a*exp(b*x)+c*exp(d*x)");
+DEFINE_int64(keyrange_num, 1,
+             "The number of key ranges that are in the same prefix "
+             "group, each prefix range will have its key access "
+             "distribution");
+DEFINE_double(key_dist_a, 0.0,
+              "The parameter 'a' of key access distribution model "
+              "f(x)=a*x^b");
+DEFINE_double(key_dist_b, 0.0,
+              "The parameter 'b' of key access distribution model "
+              "f(x)=a*x^b");
+DEFINE_double(value_theta, 0.0,
+              "The parameter 'theta' of Generized Pareto Distribution "
+              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
+DEFINE_double(value_k, 0.0,
+              "The parameter 'k' of Generized Pareto Distribution "
+              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
+DEFINE_double(value_sigma, 0.0,
+              "The parameter 'theta' of Generized Pareto Distribution "
+              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
+DEFINE_double(iter_theta, 0.0,
+              "The parameter 'theta' of Generized Pareto Distribution "
+              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
+DEFINE_double(iter_k, 0.0,
+              "The parameter 'k' of Generized Pareto Distribution "
+              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
+DEFINE_double(iter_sigma, 0.0,
+              "The parameter 'sigma' of Generized Pareto Distribution "
+              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
+DEFINE_double(mix_get_ratio, 1.0,
+              "The ratio of Get queries of mix_graph workload");
+DEFINE_double(mix_put_ratio, 0.0,
+              "The ratio of Put queries of mix_graph workload");
+DEFINE_double(mix_seek_ratio, 0.0,
+              "The ratio of Seek queries of mix_graph workload");
+DEFINE_int64(mix_max_scan_len, 10000, "The max scan length of Iterator");
+DEFINE_int64(mix_ave_kv_size, 512,
+             "The average key-value size of this workload");
+DEFINE_int64(mix_max_value_size, 1024, "The max value size of this workload");
+DEFINE_double(
+    sine_mix_rate_noise, 0.0,
+    "Add the noise ratio to the sine rate, it is between 0.0 and 1.0");
+DEFINE_bool(sine_mix_rate, false,
+            "Enable the sine QPS control on the mix workload");
+DEFINE_uint64(
+    sine_mix_rate_interval_milliseconds, 10000,
+    "Interval of which the sine wave read_rate_limit is recalculated");
+DEFINE_int64(mix_accesses, -1,
+             "The total query accesses of mix_graph workload");
+
+DEFINE_uint64(
+    benchmark_read_rate_limit, 0,
+    "If non-zero, db_bench will rate-limit the reads from RocksDB. This "
+    "is the global rate in ops/second.");
 
 namespace leveldb {
 
