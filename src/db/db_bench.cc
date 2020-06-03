@@ -5,6 +5,7 @@
 // Copyright (c) 2011 The LevelDB Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
+#ifdef GFLAGS
 
 #include <cassert>
 #include <iostream>
@@ -49,6 +50,9 @@
 	#define print_timer_info(a, b, c)
 #endif
 
+using GFLAGS_NAMESPACE::ParseCommandLineFlags;
+using GFLAGS_NAMESPACE::RegisterFlagValidator;
+using GFLAGS_NAMESPACE::SetUsageMessage;
 
 // Comma-separated list of operations to run in the specified order
 //   Actual benchmarks:
