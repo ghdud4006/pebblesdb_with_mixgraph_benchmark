@@ -110,6 +110,7 @@ noinst_HEADERS += util/random.h
 noinst_HEADERS += util/string_builder.h
 noinst_HEADERS += util/testharness.h
 noinst_HEADERS += util/testutil.h
+noinst_HEADERS += util/gflags_compat.h
 
 lib_LTLIBRARIES = libpebblesdb.la
 

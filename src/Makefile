@@ -429,13 +429,13 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/young/Database/pebblesdb/src/missing aclocal-1.15
+ACLOCAL = ${SHELL} /home/young/Working/pebblesdb/src/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 0
 AR = ar
-AUTOCONF = ${SHELL} /home/young/Database/pebblesdb/src/missing autoconf
-AUTOHEADER = ${SHELL} /home/young/Database/pebblesdb/src/missing autoheader
-AUTOMAKE = ${SHELL} /home/young/Database/pebblesdb/src/missing automake-1.15
+AUTOCONF = ${SHELL} /home/young/Working/pebblesdb/src/missing autoconf
+AUTOHEADER = ${SHELL} /home/young/Working/pebblesdb/src/missing autoheader
+AUTOMAKE = ${SHELL} /home/young/Working/pebblesdb/src/missing automake-1.15
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -474,7 +474,7 @@ LIPO =
 LN_S = ln -s
 LTLIBOBJS = 
 LT_SYS_LIBRARY_PATH = 
-MAKEINFO = ${SHELL} /home/young/Database/pebblesdb/src/missing makeinfo
+MAKEINFO = ${SHELL} /home/young/Working/pebblesdb/src/missing makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -501,10 +501,10 @@ STRIP = strip
 VERSION = 1.0.dev
 WANAL_CFLAGS =  
 WANAL_CXXFLAGS =  
-abs_builddir = /home/young/Database/pebblesdb/src
-abs_srcdir = /home/young/Database/pebblesdb/src
-abs_top_builddir = /home/young/Database/pebblesdb/src
-abs_top_srcdir = /home/young/Database/pebblesdb/src
+abs_builddir = /home/young/Working/pebblesdb/src
+abs_srcdir = /home/young/Working/pebblesdb/src
+abs_top_builddir = /home/young/Working/pebblesdb/src
+abs_top_srcdir = /home/young/Working/pebblesdb/src
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = g++
@@ -534,7 +534,7 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/young/Database/pebblesdb/src/install-sh
+install_sh = ${SHELL} /home/young/Working/pebblesdb/src/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -587,7 +587,7 @@ noinst_HEADERS = db/builder.h db/dbformat.h db/db_impl.h \
 	util/coding.h util/crc32c.h util/hash.h util/histogram.h \
 	util/logging.h util/mutexlock.h util/posix_logger.h \
 	util/random.h util/string_builder.h util/testharness.h \
-	util/testutil.h
+	util/testutil.h util/gflags_compat.h
 lib_LTLIBRARIES = libpebblesdb.la
 libpebblesdb_la_SOURCES = db/builder.cc db/c.cc db/dbformat.cc \
 	db/db_impl.cc db/db_iter.cc db/filename.cc db/log_reader.cc \

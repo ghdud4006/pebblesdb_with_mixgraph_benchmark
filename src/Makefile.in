@@ -587,7 +587,7 @@ noinst_HEADERS = db/builder.h db/dbformat.h db/db_impl.h \
 	util/coding.h util/crc32c.h util/hash.h util/histogram.h \
 	util/logging.h util/mutexlock.h util/posix_logger.h \
 	util/random.h util/string_builder.h util/testharness.h \
-	util/testutil.h
+	util/testutil.h util/gflags_compat.h
 lib_LTLIBRARIES = libpebblesdb.la
 libpebblesdb_la_SOURCES = db/builder.cc db/c.cc db/dbformat.cc \
 	db/db_impl.cc db/db_iter.cc db/filename.cc db/log_reader.cc \
