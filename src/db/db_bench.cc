@@ -1760,7 +1760,8 @@ class Benchmark {
       value_max = FLAGS_mix_max_value_size;
     }
 
-    ReadOptions options(FLAGS_verify_checksum, true);
+    //ReadOptions options(FLAGS_verify_checksum, true);
+    ReadOptions options;
     std::unique_ptr<const char[]> key_guard;
     Slice key = AllocateKey(&key_guard);
     //PinnableSlice pinnable_val;
