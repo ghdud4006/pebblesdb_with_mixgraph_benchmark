@@ -217,6 +217,38 @@ DEFINE_uint64(
     "If non-zero, db_bench will rate-limit the reads from RocksDB. This "
     "is the global rate in ops/second.");
 
+DEFINE_int64(seed, 0, "Seed base for random number generators. "
+             "When 0 it is deterministic.");
+
+DEFINE_int32(key_size, 16, "size of each key");
+
+DEFINE_int64(keys_per_prefix, 0, "control average number of keys generated "
+             "per prefix, 0 means no special handling of the prefix, "
+             "i.e. use the prefix comes with the generated random number.");
+
+DEFINE_int32(prefix_size, 0, "control the prefix size for HashSkipList and "
+             "plain table");
+
+// The default reduces the overhead of reading time with flash. With HDD, which
+// offers much less throughput, however, this number better to be set to 1.
+DEFINE_int32(ops_between_duration_checks, 1000,
+             "Check duration limit every x ops");
+
+DEFINE_bool(use_existing_keys, false,
+            "If true, uses existing keys in the DB, "
+            "rather than generating new ones. This involves some startup "
+            "latency to load all keys into memory. It is supported for the "
+            "same read/overwrite benchmarks as `-use_existing_db=true`, which "
+            "must also be set for this flag to be enabled. When this flag is "
+            "set, the value for `-num` will be ignored.");
+
+DEFINE_bool(verify_checksum, true,
+            "Verify checksum for every block read"
+            " from storage");
+
+DEFINE_int32(duration, 0, "Time in seconds for the random-ops tests to run."
+             " When 0 then num & reads determine the test duration");
+
 namespace leveldb {
 
 namespace {
