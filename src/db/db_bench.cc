@@ -2277,7 +2277,7 @@ int main(int argc, char** argv) {
       FLAGS_keyrange_dist_c = d;
     } else if (sscanf(argv[i], "--keyrange_dist_d=%lf%c", &d, &junk) == 1) {
       FLAGS_keyrange_dist_d = d;
-    } else if (sscanf(argv[i], "--keyrange_num=%llu%c", &n64, &junk) == 1) {
+    } else if (sscanf(argv[i], "--keyrange_num=%lld%c", &n64, &junk) == 1) {
       FLAGS_keyrange_num = n64;
     } else if (sscanf(argv[i], "--key_dist_a=%lf%c", &d, &junk) == 1) {
       FLAGS_key_dist_a = d;
@@ -2301,19 +2301,19 @@ int main(int argc, char** argv) {
       FLAGS_mix_put_ratio = d;
     } else if (sscanf(argv[i], "--mix_seek_ratio=%lf%c", &d, &junk) == 1) {
       FLAGS_mix_seek_ratio = d;
-    } else if (sscanf(argv[i], "--mix_max_scan_len=%llu%c", &n64, &junk) == 1) {
+    } else if (sscanf(argv[i], "--mix_max_scan_len=%lld%c", &n64, &junk) == 1) {
       FLAGS_mix_max_scan_len = n64;
-    } else if (sscanf(argv[i], "--mix_ave_kv_size=%llu%c", &n64, &junk) == 1) {
+    } else if (sscanf(argv[i], "--mix_ave_kv_size=%lld%c", &n64, &junk) == 1) {
       FLAGS_mix_ave_kv_size = n64;
-    } else if (sscanf(argv[i], "--mix_max_value_size=%llu%c", &n64, &junk) == 1) {
+    } else if (sscanf(argv[i], "--mix_max_value_size=%lld%c", &n64, &junk) == 1) {
       FLAGS_mix_max_value_size = n64;
     } else if (sscanf(argv[i], "--sine_mix_rate_noise=%lf%c", &d, &junk) == 1) {
       FLAGS_sine_mix_rate_noise = d;
-    } else if (sscanf(argv[i], "--sine_mix_rate_interval_milliseconds=%llu%c", &n64, &junk) == 1) {
+    } else if (sscanf(argv[i], "--sine_mix_rate_interval_milliseconds=%lld%c", &n64, &junk) == 1) {
       FLAGS_sine_mix_rate_interval_milliseconds = n64;
     } else if (sscanf(argv[i], "--key_size=%d%c", &n32, &junk) == 1) {
       FLAGS_key_size = n32;
-    } else if (sscanf(argv[i], "--keys_per_prefix=%llu%c", &n64, &junk) == 1) {
+    } else if (sscanf(argv[i], "--keys_per_prefix=%lld%c", &n64, &junk) == 1) {
       FLAGS_keys_per_prefix = n64;
     } else if (sscanf(argv[i], "--prefix_size=%d%c", &n32, &junk) == 1) {
       FLAGS_prefix_size = n32;
