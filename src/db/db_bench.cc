@@ -5,8 +5,6 @@
 // Copyright (c) 2011 The LevelDB Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
-#ifdef GFLAGS
-
 #include <cassert>
 #include <iostream>
 #include <string>
@@ -36,7 +34,6 @@
 #include "util/random.h"
 #include "util/testutil.h"
 #include "util/testharness.h"
-#include "util/gflags_compat.h"
 
 #define MAX_TRACE_OPS 100000000
 #define MAX_VALUE_SIZE (1024 * 1024)
@@ -49,10 +46,6 @@
 	#define micros(a)
 	#define print_timer_info(a, b, c)
 #endif
-
-using GFLAGS_NAMESPACE::ParseCommandLineFlags;
-using GFLAGS_NAMESPACE::RegisterFlagValidator;
-using GFLAGS_NAMESPACE::SetUsageMessage;
 
 // Comma-separated list of operations to run in the specified order
 //   Actual benchmarks:
@@ -155,103 +148,62 @@ static bool FLAGS_use_existing_db = false;
 static const char* FLAGS_db = NULL;
 
 // the parameters of mix_graph
-DEFINE_double(keyrange_dist_a, 0.0,
-              "The parameter 'a' of prefix average access distribution "
-              "f(x)=a*exp(b*x)+c*exp(d*x)");
-DEFINE_double(keyrange_dist_b, 0.0,
-              "The parameter 'b' of prefix average access distribution "
-              "f(x)=a*exp(b*x)+c*exp(d*x)");
-DEFINE_double(keyrange_dist_c, 0.0,
-              "The parameter 'c' of prefix average access distribution"
-              "f(x)=a*exp(b*x)+c*exp(d*x)");
-DEFINE_double(keyrange_dist_d, 0.0,
-              "The parameter 'd' of prefix average access distribution"
-              "f(x)=a*exp(b*x)+c*exp(d*x)");
-DEFINE_int64(keyrange_num, 1,
-             "The number of key ranges that are in the same prefix "
-             "group, each prefix range will have its key access "
-             "distribution");
-DEFINE_double(key_dist_a, 0.0,
-              "The parameter 'a' of key access distribution model "
-              "f(x)=a*x^b");
-DEFINE_double(key_dist_b, 0.0,
-              "The parameter 'b' of key access distribution model "
-              "f(x)=a*x^b");
-DEFINE_double(value_theta, 0.0,
-              "The parameter 'theta' of Generized Pareto Distribution "
-              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
-DEFINE_double(value_k, 0.0,
-              "The parameter 'k' of Generized Pareto Distribution "
-              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
-DEFINE_double(value_sigma, 0.0,
-              "The parameter 'theta' of Generized Pareto Distribution "
-              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
-DEFINE_double(iter_theta, 0.0,
-              "The parameter 'theta' of Generized Pareto Distribution "
-              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
-DEFINE_double(iter_k, 0.0,
-              "The parameter 'k' of Generized Pareto Distribution "
-              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
-DEFINE_double(iter_sigma, 0.0,
-              "The parameter 'sigma' of Generized Pareto Distribution "
-              "f(x)=(1/sigma)*(1+k*(x-theta)/sigma)^-(1/k+1)");
-DEFINE_double(mix_get_ratio, 1.0,
-              "The ratio of Get queries of mix_graph workload");
-DEFINE_double(mix_put_ratio, 0.0,
-              "The ratio of Put queries of mix_graph workload");
-DEFINE_double(mix_seek_ratio, 0.0,
-              "The ratio of Seek queries of mix_graph workload");
-DEFINE_int64(mix_max_scan_len, 10000, "The max scan length of Iterator");
-DEFINE_int64(mix_ave_kv_size, 512,
-             "The average key-value size of this workload");
-DEFINE_int64(mix_max_value_size, 1024, "The max value size of this workload");
-DEFINE_double(
-    sine_mix_rate_noise, 0.0,
-    "Add the noise ratio to the sine rate, it is between 0.0 and 1.0");
-DEFINE_bool(sine_mix_rate, false,
-            "Enable the sine QPS control on the mix workload");
-DEFINE_uint64(
-    sine_mix_rate_interval_milliseconds, 10000,
-    "Interval of which the sine wave read_rate_limit is recalculated");
-DEFINE_int64(mix_accesses, -1,
-             "The total query accesses of mix_graph workload");
+static double FLAGS_keyrange_dist_a = 0.0;
+static double FLAGS_keyrange_dist_b = 0.0;
+static double FLAGS_keyrange_dist_c = 0.0;
+static double FLAGS_keyrange_dist_d = 0.0;
 
-DEFINE_uint64(
-    benchmark_read_rate_limit, 0,
-    "If non-zero, db_bench will rate-limit the reads from RocksDB. This "
-    "is the global rate in ops/second.");
+static int64_t FLAGS_keyrange_num = 1;
 
-DEFINE_int64(seed, 0, "Seed base for random number generators. "
-             "When 0 it is deterministic.");
+static double FLAGS_key_dist_a = 0.0;
+static double FLAGS_key_dist_b = 0.0;
 
-DEFINE_int32(key_size, 16, "size of each key");
+static double FLAGS_value_theta = 0.0;
 
-DEFINE_int64(keys_per_prefix, 0, "control average number of keys generated "
-             "per prefix, 0 means no special handling of the prefix, "
-             "i.e. use the prefix comes with the generated random number.");
+static double FLAGS_value_theta = 0.0;
+static double FLAGS_value_k = 0.0;
+static double FLAGS_value_sigma = 0.0;
 
-DEFINE_int32(prefix_size, 0, "control the prefix size for HashSkipList and "
-             "plain table");
+static double FLAGS_iter_theta = 0.0;
+static double FLAGS_iter_k = 0.0;
+static double FLAGS_iter_sigma = 0.0;
+
+static double FLAGS_mix_get_ratio = 1.0;
+static double FLAGS_mix_put_ratio = 0.0;
+static double FLAGS_mix_seek_ratio = 0.0;
+
+static int64_t FLAGS_mix_max_scan_len = 10000;
+static int64_t FLAGS_mix_ave_kv_size = 512;
+static int64_t FLAGS_mix_max_value_size = 1024;
+
+static double FLAGS_sine_mix_rate_noise = 0.0;
+
+static bool FLAGS_sine_mix_rate = false;
+
+static uint64_t FLAGS_sine_mix_rate_interval_milliseconds = 10000;
+
+static int64_t FLAGS_mix_accesses = -1;
+
+static uint64_t FLAGS_benchmark_read_rate_limit = 0;
+
+static int64_t FLAGS_seed = 0;
+
+static int32_t FLAGS_key_size = 16;
+
+static int64_t FLAGS_keys_per_prefix = 0;
+
+static int32_t FLAGS_prefix_size = 0;
 
 // The default reduces the overhead of reading time with flash. With HDD, which
 // offers much less throughput, however, this number better to be set to 1.
-DEFINE_int32(ops_between_duration_checks, 1000,
-             "Check duration limit every x ops");
+static int32_t ops_between_duration_checks = 1000;
 
-DEFINE_bool(use_existing_keys, false,
-            "If true, uses existing keys in the DB, "
-            "rather than generating new ones. This involves some startup "
-            "latency to load all keys into memory. It is supported for the "
-            "same read/overwrite benchmarks as `-use_existing_db=true`, which "
-            "must also be set for this flag to be enabled. When this flag is "
-            "set, the value for `-num` will be ignored.");
+static bool use_existing_keys = false;
 
-DEFINE_bool(verify_checksum, true,
-            "Verify checksum for every block read"
-            " from storage");
+static bool verify_checksum = true;
 
-DEFINE_int32(duration, 0, "Time in seconds for the random-ops tests to run."
-             " When 0 then num & reads determine the test duration");
+static int32_t duration = 0;
+
 
 namespace leveldb {
 
@@ -2278,6 +2230,8 @@ int main(int argc, char** argv) {
   for (int i = 1; i < argc; i++) {
     double d;
     int n;
+    int64_t n64;
+    int32_t n32;
     char junk;
     if (leveldb::Slice(argv[i]).starts_with("--benchmarks=")) {
       FLAGS_benchmarks = argv[i] + strlen("--benchmarks=");
@@ -2317,6 +2271,54 @@ int main(int argc, char** argv) {
       FLAGS_base_key = n;
     } else if (strncmp(argv[i], "--db=", 5) == 0) {
       FLAGS_db = argv[i] + 5;
+    } else if (sscanf(argv[i], "--keyrange_dist_a=%d%c", &d, &junk) == 1) {
+      FLAGS_keyrange_dist_a = d;
+    } else if (sscanf(argv[i], "--keyrange_dist_b=%d%c", &d, &junk) == 1) {
+      FLAGS_keyrange_dist_b = d;
+    } else if (sscanf(argv[i], "--keyrange_dist_c=%d%c", &d, &junk) == 1) {
+      FLAGS_keyrange_dist_c = d;
+    } else if (sscanf(argv[i], "--keyrange_dist_d=%d%c", &d, &junk) == 1) {
+      FLAGS_keyrange_dist_d = d;
+    } else if (sscanf(argv[i], "--keyrange_num=%d%c", &n64, &junk) == 1) {
+      FLAGS_keyrange_num = n64;
+    } else if (sscanf(argv[i], "--key_dist_a=%d%c", &d, &junk) == 1) {
+      FLAGS_key_dist_a = d;
+    } else if (sscanf(argv[i], "--key_dist_b=%d%c", &d, &junk) == 1) {
+      FLAGS_key_dist_b = d;
+    } else if (sscanf(argv[i], "--value_theta=%d%c", &d, &junk) == 1) {
+      FLAGS_value_theta = d;
+    } else if (sscanf(argv[i], "--value_k=%d%c", &d, &junk) == 1) {
+      FLAGS_value_k = d;
+    } else if (sscanf(argv[i], "--value_sigma=%d%c", &d, &junk) == 1) {
+      FLAGS_value_sigma = d;
+    } else if (sscanf(argv[i], "--iter_theta=%d%c", &d, &junk) == 1) {
+      FLAGS_iter_theta = d;
+    } else if (sscanf(argv[i], "--iter_k=%d%c", &d, &junk) == 1) {
+      FLAGS_iter_k = d;
+    } else if (sscanf(argv[i], "--iter_sigma=%d%c", &d, &junk) == 1) {
+      FLAGS_iter_sigma = d;
+    } else if (sscanf(argv[i], "--mix_get_ratio=%d%c", &d, &junk) == 1) {
+      FLAGS_mix_get_ratio = d;
+    } else if (sscanf(argv[i], "--mix_put_ratio=%d%c", &d, &junk) == 1) {
+      FLAGS_mix_put_ratio = d;
+    } else if (sscanf(argv[i], "--mix_seek_ratio=%d%c", &d, &junk) == 1) {
+      FLAGS_mix_seek_ratio = d;
+    } else if (sscanf(argv[i], "--mix_max_scan_len=%d%c", &n64, &junk) == 1) {
+      FLAGS_mix_max_scan_len = n64;
+    } else if (sscanf(argv[i], "--mix_ave_kv_size=%d%c", &n64, &junk) == 1) {
+      FLAGS_mix_ave_kv_size = n64;
+    } else if (sscanf(argv[i], "--mix_max_value_size=%d%c", &n64, &junk) == 1) {
+      FLAGS_mix_max_value_size = n64;
+    } else if (sscanf(argv[i], "--sine_mix_rate_noise=%d%c", &d, &junk) == 1) {
+      FLAGS_sine_mix_rate_noise = d;
+    } else if (sscanf(argv[i], "--sine_mix_rate_interval_milliseconds=%d%c", &n64, &junk) == 1) {
+      FLAGS_sine_mix_rate_interval_milliseconds = n64;
+    } else if (sscanf(argv[i], "--key_size=%d%c", &n32, &junk) == 1) {
+      key_size = n32;
+    } else if (sscanf(argv[i], "--keys_per_prefix=%d%c", &n64, &junk) == 1) {
+      keys_per_prefix = n64;
+    } else if (sscanf(argv[i], "--prefix_size=%d%c", &n32, &junk) == 1) {
+      prefix_size = n32;
     } else {
       fprintf(stderr, "Invalid flag '%s'\n", argv[i]);
       exit(1);
@@ -2334,5 +2336,3 @@ int main(int argc, char** argv) {
   benchmark.Run();
   return 0;
 }
-
-#endif
