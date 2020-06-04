@@ -179,7 +179,7 @@ static double FLAGS_sine_mix_rate_noise = 0.0;
 
 static bool FLAGS_sine_mix_rate = false;
 
-static uint64_t FLAGS_sine_mix_rate_interval_milliseconds = 10000;
+//static uint64_t FLAGS_sine_mix_rate_interval_milliseconds = 10000;
 
 static int64_t FLAGS_mix_accesses = -1;
 
@@ -2310,8 +2310,8 @@ int main(int argc, char** argv) {
       FLAGS_mix_max_value_size = n64;
     } else if (sscanf(argv[i], "--sine_mix_rate_noise=%lf%c", &d, &junk) == 1) {
       FLAGS_sine_mix_rate_noise = d;
-    } else if (sscanf(argv[i], "--sine_mix_rate_interval_milliseconds=%" PRId64 "%c", &n64, &junk) == 1) {
-      FLAGS_sine_mix_rate_interval_milliseconds = n64;
+    //} else if (sscanf(argv[i], "--sine_mix_rate_interval_milliseconds=%" PRId64 "%c", &n64, &junk) == 1) {
+    //  FLAGS_sine_mix_rate_interval_milliseconds = n64;
     } else if (sscanf(argv[i], "--key_size=%d%c", &n32, &junk) == 1) {
       FLAGS_key_size = n32;
     } else if (sscanf(argv[i], "--keys_per_prefix=%" PRId64 "%c", &n64, &junk) == 1) {
