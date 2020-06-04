@@ -17,6 +17,8 @@
 #include <fstream>
 #include <cmath>
 #include <inttypes.h>
+#include <stdint.h>
+#define __STDC_FORMAT_MACROS
 
 #include <sys/types.h>
 #include <stdio.h>
