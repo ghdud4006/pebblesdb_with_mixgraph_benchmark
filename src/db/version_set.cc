@@ -2577,6 +2577,7 @@ uint64_t VersionSet::GetOverlappingRangeBetweenFiles(FileMetaData* f1, FileMetaD
 void VersionSet::Finalize(Version* v) {
   // Compute the ratio of disk usage to its limit
   for (unsigned level = 0; level < config::kNumLevels; ++level) {
+	//young" get max_file_number per guard from user parameter.
 	int max_files_per_segment = config::kMaxFilesPerGuardSentinel;
 	if (MaxFilesPerGuardForLevel(level) > 0) {
 		max_files_per_segment= MaxFilesPerGuardForLevel(level);
@@ -2610,7 +2611,7 @@ void VersionSet::Finalize(Version* v) {
     	  max_score_in_level = std::max(max_score_in_level, v->guard_compaction_scores_[level][i]);
       }
       v->compaction_scores_[level] = max_score_in_level;
-    } else { //young" not level-0
+    } else { //young" not level-0 case
 	//young" compute the compaction scores for all levels.
       // Compute the ratio of current size to size limit.
       double score1, score2;
@@ -2624,8 +2625,9 @@ void VersionSet::Finalize(Version* v) {
       const int num_sentinel_files = v->sentinel_files_[level].size();
       const uint64_t sentinel_bytes = TotalFileSize(v->sentinel_files_[level]);
       level_bytes += sentinel_bytes;
+      //young" compute score of sentinel guard by total_file_size
       score1 = sentinel_bytes / MaxBytesPerGuardForLevel(level);
-      //young" compute score of guard
+      //young" compute score of sentinel guard by max_file_number
       score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(max_files_per_segment+1);
       score = std::max(score1, score2);
       v->sentinel_compaction_scores_[level] = score;
@@ -2636,8 +2638,10 @@ void VersionSet::Finalize(Version* v) {
     	  GuardMetaData* g = v->guards_[level][i];
     	  const uint64_t guard_file_bytes = TotalFileSize(g->file_metas); // total file size of current guard
     	  level_bytes += guard_file_bytes; // caculate total file size of current level
-    	  score1 = guard_file_bytes / MaxBytesPerGuardForLevel(level); // score1 = guard_size / max_guard_size
-    	  score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1); // score2 = 
+    	   //young" compute score of guard by total_file_size
+	  score1 = guard_file_bytes / MaxBytesPerGuardForLevel(level); // score1 = guard_size / max_guard_size
+	   //young" compute score of guard by max_file_number
+    	  score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1); 
           score = std::max(score1, score2);
           v->guard_compaction_scores_[level].push_back(score);
     	  max_score_in_level = std::max(max_score_in_level, v->guard_compaction_scores_[level][i]);
