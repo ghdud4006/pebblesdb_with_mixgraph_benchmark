@@ -80,3 +80,14 @@ gdb.txt
 .settings/
 nbproject/
 CMakeFiles
+
+*.sh
+src/autom4te.cache/requests
+src/config.log
+src/config.status
+src/cscope.files
+src/db_bench
+src/leveldb-verify
+src/leveldbutil
+src/libtool
+src/mixgraph_test.sh
