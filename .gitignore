@@ -81,7 +81,6 @@ gdb.txt
 nbproject/
 CMakeFiles
 
-*.sh
 src/autom4te.cache/requests
 src/config.log
 src/config.status
