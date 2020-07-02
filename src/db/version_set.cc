@@ -53,6 +53,7 @@
 
 namespace leveldb {
 
+//young" maximum level size 
 static double MaxBytesForLevel(unsigned level) {
   assert(level < leveldb::config::kNumLevels);
   static const double bytes[] = {64 * 1048576.0,
@@ -77,6 +78,7 @@ static double MinBytesForLevel(unsigned level) {
   return bytes[level];
 }
 
+//young" maximum guard size for level 
 static double MaxBytesPerGuardForLevel(unsigned level) {
   assert(level < leveldb::config::kNumLevels);
   static const double bytes[] = {64 * 1048576.0,
@@ -1410,6 +1412,7 @@ std::string Version::DebugString() const {
         r.append("]\n");
     }
 
+    //young" appending guard information
     // Appending guard information
     const std::vector<GuardMetaData*>& guards = guards_[level];
     r.append(" ------ Guards ------\n");
@@ -2601,12 +2604,14 @@ void VersionSet::Finalize(Version* v) {
       for (unsigned i = 0; i < v->guards_[level].size(); i++) {
     	  GuardMetaData* g = v->guards_[level][i];
     	  std::string guard_user_key = g->guard_key.user_key().ToString();
+	  //young" give score to guard on Level-0
     	  v->guard_compaction_scores_[level].push_back(g->files.size() /
     			  static_cast<double>(config::kL0_GuardCompactionTrigger));
     	  max_score_in_level = std::max(max_score_in_level, v->guard_compaction_scores_[level][i]);
       }
       v->compaction_scores_[level] = max_score_in_level;
-    } else {
+    } else { //young" not level-0
+	//young" compute the compaction scores for all levels.
       // Compute the ratio of current size to size limit.
       double score1, score2;
       const uint64_t max_bytes = MaxBytesForLevel(level);
@@ -2620,18 +2625,19 @@ void VersionSet::Finalize(Version* v) {
       const uint64_t sentinel_bytes = TotalFileSize(v->sentinel_files_[level]);
       level_bytes += sentinel_bytes;
       score1 = sentinel_bytes / MaxBytesPerGuardForLevel(level);
+      //young" compute score of guard
       score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(max_files_per_segment+1);
       score = std::max(score1, score2);
       v->sentinel_compaction_scores_[level] = score;
       double max_score_in_level = v->sentinel_compaction_scores_[level];
 
-      //::young:: new per guard score
+      //young" new per guard score (setting score)
       for (unsigned i = 0; i < num_guards; i++) {
     	  GuardMetaData* g = v->guards_[level][i];
-    	  const uint64_t guard_file_bytes = TotalFileSize(g->file_metas);
-    	  level_bytes += guard_file_bytes;
-    	  score1 = guard_file_bytes / MaxBytesPerGuardForLevel(level);
-    	  score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1);
+    	  const uint64_t guard_file_bytes = TotalFileSize(g->file_metas); // total file size of current guard
+    	  level_bytes += guard_file_bytes; // caculate total file size of current level
+    	  score1 = guard_file_bytes / MaxBytesPerGuardForLevel(level); // score1 = guard_size / max_guard_size
+    	  score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1); // score2 = 
           score = std::max(score1, score2);
           v->guard_compaction_scores_[level].push_back(score);
     	  max_score_in_level = std::max(max_score_in_level, v->guard_compaction_scores_[level][i]);
@@ -2720,7 +2726,7 @@ std::string VersionSet::GetCurrentVersionState() {
 	return current_->DebugString();
 }
 
-//::young:: NumGuardFiles
+//young" NumGuardFiles
 int VersionSet::NumGuardFiles(unsigned level) const {
   assert(level < config::kNumLevels);
   int num_guard_files = 0;
@@ -3125,7 +3131,7 @@ static bool OldestFirst(FileMetaData* a, FileMetaData* b) {
 }
 
 
-//::young:: pick compaction for guards
+//young" pick compaction for guards
 Compaction* VersionSet::PickCompactionForGuards(Version* v, unsigned level, std::vector<GuardMetaData*> *complete_guards_used_in_bg_compaction, bool force_compact) {
 	  assert(level < config::kNumLevels);
 
@@ -3244,7 +3250,7 @@ Compaction* VersionSet::PickCompactionForGuards(Version* v, unsigned level, std:
 			  if (horizontal_compaction) {
 				  uint64_t total_size = TotalFileSize(v->sentinel_files_[current_level]);
 				  uint64_t avg_file_size = total_size / static_cast<double> (config::kMaxFilesPerGuardSentinel);
-					//::young:: horizontal compaction avg_file_size, total_size
+					//young" horizontal compaction avg_file_size, total_size
 				  for (unsigned i = 0; i < v->sentinel_files_[current_level].size(); i++) {
 					  FileMetaData* f = v->sentinel_files_[current_level][i];
 					  if (add_all_sentinel_files || f->file_size < avg_file_size) {

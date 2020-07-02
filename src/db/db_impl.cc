@@ -955,7 +955,7 @@ Status DBImpl::TEST_CompactMemTable() {
   return s;
 }
 
-//::young compaction first start point !!!
+//young" compaction first start point !!!
 void DBImpl::CompactLevelThread() {
   MutexLock l(&mutex_);
   FileLevelFilterBuilder file_level_filter_builder(options_.filter_policy);
@@ -1015,7 +1015,7 @@ void DBImpl::RecordBackgroundError(const Status& s) {
   }
 }
 
-//::young:: second compaction point 
+//young" second compaction point 
 Status DBImpl::BackgroundCompactionGuards(FileLevelFilterBuilder* file_level_filter_builder) {
   int x, y, z;
   mutex_.AssertHeld();
@@ -1084,7 +1084,7 @@ Status DBImpl::BackgroundCompactionGuards(FileLevelFilterBuilder* file_level_fil
     record_timer(BGC_ADD_GUARDS_TO_EDIT);
 
     start_timer(BGC_DO_COMPACTION_WORK_GUARDS);
-    status = DoCompactionWorkGuards(compact, complete_guards_used_in_bg_compaction, file_level_filter_builder); //::young:: do compaction work for guard
+    status = DoCompactionWorkGuards(compact, complete_guards_used_in_bg_compaction, file_level_filter_builder); //young" do compaction work for guard
     record_timer(BGC_DO_COMPACTION_WORK_GUARDS);
 
     if (!status.ok()) {
@@ -1156,7 +1156,7 @@ Status DBImpl::OpenCompactionOutputFile(CompactionState* compact) {
     file_number = versions_->NewFileNumber();
     pending_outputs_.insert(file_number);
     
-//::young compaction code 1
+//young" compaction code 1
     CompactionState::Output out;
     out.number = file_number;
     out.smallest.Clear();
@@ -1265,7 +1265,7 @@ Status DBImpl::InstallCompactionResults(CompactionState* compact, const int leve
 }
 
 
-//::young:: compaction work point
+//young" compaction work point
 Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
 		std::vector<GuardMetaData*> complete_guards_used_in_bg_compaction,
 		FileLevelFilterBuilder* file_level_filter_builder) {
@@ -1320,7 +1320,7 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
   // If the compaction level is the last level, get the guards of the same level
   // Else, get the guards of the next level since the new files will be populated to next level
   guards = complete_guards_used_in_bg_compaction;
-  //::young:: get guard size when compaction
+  //young" get guard size when compaction
   unsigned num_guards = guards.size(), current_guard = 0;
 
   start_timer(BGC_ITERATE_KEYS_AND_SPLIT);

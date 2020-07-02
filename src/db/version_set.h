@@ -379,6 +379,7 @@ class Version {
 		  sentinel_compaction_scores_[level] = 1.5;
 	  }
 	  for (int i = 0; i < guards_[level].size(); i++) {
+		  //young" give score to guard when segments of guard is exceeded.
 		  if (guards_[level][i]->number_segments > 0) {
 			  guard_compaction_scores_[level][i] = 1.5;
 		  }
@@ -427,7 +428,7 @@ class Version {
   FileMetaData* file_to_compact_;
   int file_to_compact_level_;
 
-  // ::young:: score description
+  //young" score description
   // Level that should be compacted next and its compaction score.
   // Score < 1 means compaction is not strictly needed.  These fields
   // are initialized by Finalize().

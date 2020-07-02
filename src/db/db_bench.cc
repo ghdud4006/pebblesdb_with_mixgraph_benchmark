@@ -1708,7 +1708,7 @@ class Benchmark {
     RandomGenerator gen;
     Status s;
 
-    //young:: add
+    //young" add
     std::string value;
 
     if (value_max > FLAGS_mix_max_value_size) {
