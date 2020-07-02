@@ -33,7 +33,12 @@ guard_key is the smallest key served by the guard file. In each level,
 there can be only one guard starting with a given key, so (level, key)
 uniquely identifies a guard.
 */
+//young" GuardMetadata
 struct GuardMetaData {
+  //young" read/write counter for guard
+  int read_count;
+  int write_count;
+
   int refs;
   int level;
   uint64_t number_segments;
@@ -45,7 +50,7 @@ struct GuardMetaData {
   std::vector<uint64_t> files;
   std::vector<FileMetaData*> file_metas;
   
-GuardMetaData() : refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
+GuardMetaData() : read_count(0), write_count(0), refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
 };
  
 class VersionEdit {
