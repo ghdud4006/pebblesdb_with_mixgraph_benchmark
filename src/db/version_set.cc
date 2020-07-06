@@ -915,8 +915,11 @@ Status Version::Get(const ReadOptions& options,
     	for (size_t i = 0; i < sentinel_files_[level].size(); i++) {
     		FileMetaData* f = sentinel_files_[level][i];
     		// Optimization: Adding only the files where the required key lies between smallest and largest
+		//young" catch the correct sentinel file
     		if (ucmp->Compare(user_key, f->smallest.user_key()) >= 0
     				&& ucmp->Compare(user_key, f->largest.user_key()) <= 0) {
+			//young" increase read_count of the correct sentinel file
+			f->read_count++;
     			tmp2.push_back(f);
     		}
     	}
@@ -930,7 +933,9 @@ Status Version::Get(const ReadOptions& options,
    		num_files = tmp2.size();
    		vrecord_timer(GET_SORT_SENTINEL_FILES, BEGIN, 1);
     } else if (g->number_segments > 0) {
-		//young" read count point.
+		//young" increase guard->read_count
+		g->read_count++;
+
 		vstart_timer(GET_CHECK_GUARD_FILES, BEGIN, 1);
 		for (size_t i = 0; i < g->number_segments; i++) {
 			FileMetaData* f = g->file_metas[i];
