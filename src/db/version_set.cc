@@ -904,6 +904,7 @@ Status Version::Get(const ReadOptions& options,
     // of the sentinel files of that level.
 
     vstart_timer(GET_FIND_LIST_OF_FILES, BEGIN, 1);
+    //young" find sentinel file on Get
     if (num_guards == 0				// If there are no guards in the level, look at the sentinel files
     		|| (guard_index == 0	// If there are guards in the level and guard_index is 0, key can either be in sentinel or in the first(0-index) guard
     		&& num_guards > 0

@@ -17,6 +17,10 @@ class VersionSet;
 struct GuardMetaData; 
  
 struct FileMetaData {
+  //young" read/write counter for sentinel files
+  int read_count;
+  int write_count;
+
   int refs;
   int allowed_seeks;          // Seeks allowed until compaction
   uint64_t number;
