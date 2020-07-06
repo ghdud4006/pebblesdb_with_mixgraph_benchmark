@@ -1594,6 +1594,7 @@ int64_t DBImpl::TEST_MaxNextLevelOverlappingBytes() {
   return versions_->MaxNextLevelOverlappingBytes();
 }
 
+//young" DBImpl::Get()
 Status DBImpl::Get(const ReadOptions& options,
                    const Slice& key,
                    std::string* value) {
@@ -1637,6 +1638,7 @@ Status DBImpl::Get(const ReadOptions& options,
       record_timer(GET_TIME_TO_CHECK_MEM_IMM);
 
       start_timer(GET_TIME_TO_CHECK_VERSION);
+      //young" call Version->Get()
       s = current->Get(options, lkey, value, &stats);
       total_files_read += current->num_files_read;
       record_timer(GET_TIME_TO_CHECK_VERSION);

@@ -852,6 +852,7 @@ void Version::ForEachOverlapping(Slice user_key, Slice internal_key,
   }
 }
 
+//young" Version::Get
 Status Version::Get(const ReadOptions& options,
                     const LookupKey& k,
                     std::string* value,
@@ -886,11 +887,13 @@ Status Version::Get(const ReadOptions& options,
 
     vstart_timer(GET_FIND_GUARD, BEGIN, 1);
     // Get the guard_index in whose range the key lies in
+    //young" FindGuard on Version::Get
 	uint32_t guard_index = FindGuard(vset_->icmp_, guards_[level], ikey);
 	vrecord_timer(GET_FIND_GUARD, BEGIN, 1);
 
     // Once we find the guard, we need to do binary searches inside
     // the files of each guard.
+    //young" GuardMetaData on Version->Get()
     GuardMetaData *g;
     if (num_guards > 0) {
     	g = guards_[level][guard_index];
@@ -926,6 +929,7 @@ Status Version::Get(const ReadOptions& options,
    		num_files = tmp2.size();
    		vrecord_timer(GET_SORT_SENTINEL_FILES, BEGIN, 1);
     } else if (g->number_segments > 0) {
+		//young" read count point.
 		vstart_timer(GET_CHECK_GUARD_FILES, BEGIN, 1);
 		for (size_t i = 0; i < g->number_segments; i++) {
 			FileMetaData* f = g->file_metas[i];
@@ -2625,6 +2629,7 @@ void VersionSet::Finalize(Version* v) {
       const int num_sentinel_files = v->sentinel_files_[level].size();
       const uint64_t sentinel_bytes = TotalFileSize(v->sentinel_files_[level]);
       level_bytes += sentinel_bytes;
+
       //young" compute score of sentinel guard by total_file_size
       score1 = sentinel_bytes / MaxBytesPerGuardForLevel(level);
       //young" compute score of sentinel guard by max_file_number
