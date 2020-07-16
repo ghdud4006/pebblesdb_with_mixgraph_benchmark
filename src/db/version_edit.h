@@ -39,9 +39,14 @@ uniquely identifies a guard.
 */
 //young" GuardMetadata
 struct GuardMetaData {
+  //young" maximum guard can have file (default=2)
+  int kMaxFiles;
+  //young" guard's last accessed time to measure hotness by cost-benefit
+  uint64_t read_last_accessed_time;
+  uint64_t write_last_accessed_time;
   //young" read/write counter for guard
-  int read_count;
-  int write_count;
+  uint64_t read_count;
+  uint64_t write_count;
 
   int refs;
   int level;
@@ -54,7 +59,7 @@ struct GuardMetaData {
   std::vector<uint64_t> files;
   std::vector<FileMetaData*> file_metas;
   
-GuardMetaData() : read_count(0), write_count(0), refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
+GuardMetaData() : kMaxFiles(2), read_last_accessed_time(0), write_last_accessed_time(0), read_count(0), write_count(0), refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
 };
  
 class VersionEdit {
