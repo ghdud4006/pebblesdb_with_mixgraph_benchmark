@@ -41,11 +41,13 @@ class TableBuilder {
   // without changing any fields.
   Status ChangeOptions(const Options& options);
 
+  //young" TableBuilder::Add()
   // Add key,value to the table being constructed.
   // REQUIRES: key is after any previously added key according to comparator.
   // REQUIRES: Finish(), Abandon() have not been called
   void Add(const Slice& key, const Slice& value);
-
+  
+  //young" TableBuilder::Flush()
   // Advanced operation: flush any buffered key/value pairs to file.
   // Can be used to ensure that two adjacent entries never live in
   // the same data block.  Most clients should not need to use this method.
@@ -55,6 +57,7 @@ class TableBuilder {
   // Return non-ok iff some error has been detected.
   Status status() const;
 
+  //young" TableBuilder::Finish()
   // Finish building the table.  Stops using the file passed to the
   // constructor after this function returns.
   // REQUIRES: Finish(), Abandon() have not been called

@@ -1080,6 +1080,7 @@ Status DBImpl::BackgroundCompactionGuards(FileLevelFilterBuilder* file_level_fil
 		}
     }
     start_timer(BGC_ADD_GUARDS_TO_EDIT);
+    //young" edit guard on compaction
     versions_->current()->AddGuardsToEdit(compact->compaction->edit(), level_to_load_from_complete_guards);
     record_timer(BGC_ADD_GUARDS_TO_EDIT);
 
@@ -1147,6 +1148,7 @@ void DBImpl::CleanupCompaction(CompactionState* compact) {
   delete compact;
 }
 
+//young" make new TableBuilder for output file of compaction
 Status DBImpl::OpenCompactionOutputFile(CompactionState* compact) {
   assert(compact != NULL);
   assert(compact->builder == NULL);
@@ -1156,7 +1158,6 @@ Status DBImpl::OpenCompactionOutputFile(CompactionState* compact) {
     file_number = versions_->NewFileNumber();
     pending_outputs_.insert(file_number);
     
-//young" compaction code 1
     CompactionState::Output out;
     out.number = file_number;
     out.smallest.Clear();
@@ -1396,6 +1397,7 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
       // Open output file if necessary
       if (compact->builder == NULL) {
     	start_timer(BGC_OPEN_COMPACTION_OUTPUT_FILE);
+	//young" OpenCompactionOutputFile() to make output file 
         status = OpenCompactionOutputFile(compact);
         record_timer(BGC_OPEN_COMPACTION_OUTPUT_FILE);
         if (!status.ok()) {
@@ -1428,6 +1430,7 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
       // Open output file again in case the file was closed after reaching the guard  limit
       if (compact->builder == NULL) {
       	start_timer(BGC_OPEN_COMPACTION_OUTPUT_FILE);
+	//young" OpenCompactionOutputFile() to make output file
         status = OpenCompactionOutputFile(compact);
         record_timer(BGC_OPEN_COMPACTION_OUTPUT_FILE);
         if (!status.ok()) {
@@ -1438,6 +1441,7 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
         compact->current_output()->smallest.DecodeFrom(key);
       }
       compact->current_output()->largest.DecodeFrom(key);
+      //young" Add key-values to new sstable
       compact->builder->Add(key, input->value());
 
 #ifdef FILE_LEVEL_FILTER
