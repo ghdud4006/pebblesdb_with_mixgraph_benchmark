@@ -17,9 +17,14 @@ class VersionSet;
 struct GuardMetaData; 
  
 struct FileMetaData {
-  //young" read/write counter for sentinel files
-  int read_count;
-  int write_count;
+  //young" maximum sentinel files can have file (default=2)
+  int kMaxFiles;
+  //young" each sentinel file's last accessed time to measure hotness by cost-benefit
+  uint64_t read_last_accessed_time;
+  uint64_t write_last_accessed_time;
+  //young" read/write counter for each sentinel files
+  uint64_t read_count;
+  uint64_t write_count;
 
   int refs;
   int allowed_seeks;          // Seeks allowed until compaction
