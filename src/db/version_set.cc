@@ -915,11 +915,6 @@ Status Version::Get(const ReadOptions& options,
     	for (size_t i = 0; i < sentinel_files_[level].size(); i++) {
     		FileMetaData* f = sentinel_files_[level][i];
     		// Optimization: Adding only the files where the required key lies between smallest and largest
-		//young" increase read count of the correct sentinel file
-			read_current_time++;
-			f->read_count++;
-			f->last_accessed_time = read_current_time;
-
 		//young" catch the correct sentinel file
     		if (ucmp->Compare(user_key, f->smallest.user_key()) >= 0
     				&& ucmp->Compare(user_key, f->largest.user_key()) <= 0) {
