@@ -2652,7 +2652,9 @@ void VersionSet::Finalize(Version* v) {
     	   //young" compute score of guard by total_file_size
 	  score1 = guard_file_bytes / MaxBytesPerGuardForLevel(level); // score1 = guard_size / max_guard_size
 	   //young" compute score of guard by max_file_number
-    	  score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1); 
+    	  //score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1);
+	  //young" guard's file exceeds g->kMaxFiles
+  	  score2 = static_cast<double>(g->files.size()) / static_cast<double>(g->kMaxFiles);
           score = std::max(score1, score2);
           v->guard_compaction_scores_[level].push_back(score);
     	  max_score_in_level = std::max(max_score_in_level, v->guard_compaction_scores_[level][i]);
