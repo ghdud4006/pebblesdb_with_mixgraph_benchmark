@@ -215,6 +215,8 @@ DBImpl::DBImpl(const Options& raw_options, const std::string& dbname)
       bg_memtable_cv_(&mutex_),
       bg_log_cv_(&mutex_),
       bg_log_occupied_(false),
+      read_current_time(0),
+      write_current_time(0),
       manual_compaction_(NULL),
       manual_garbage_cutoff_(raw_options.manual_garbage_collection ?
                              SequenceNumber(0) : kMaxSequenceNumber),

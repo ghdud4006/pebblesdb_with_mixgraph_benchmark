@@ -228,6 +228,10 @@ class DBImpl : public DB {
   port::CondVar bg_log_cv_;
   bool bg_log_occupied_;
 
+  //young" global timer
+  uint64_t read_current_time;
+  uint64_t write_current_time;
+
   // Information for a manual compaction
   struct ManualCompaction {
     ManualCompaction()
