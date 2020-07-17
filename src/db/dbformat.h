@@ -30,6 +30,17 @@ static const unsigned kL0_GuardCompactionTrigger = 2;
 
 static const unsigned kMaxFilesPerGuardSentinel = 10;
 
+//young" guard's kMaxFiles is evaluated by cost-benefit policy every hotness_check_cycle operations.
+static const unsigned hotness_check_cycle = 60000;
+//young" if [current_time - last_accessed_time] exceeds lifetime, the guard is evaluated as expired.
+static const unsigned read_lifetime = 30000;
+static const unsigned write_lifetime = 30000;
+//young" kMaxFiles according to each guard's hotness
+static const unsigned kMaxFiles_for_read_intensive = 1;
+static const unsigned kMaxFiles_for_read_write_mixed = 2;
+static const unsigned kMaxFiles_for_write_intensive = 4;
+static const unsigned kMaxFiles_for_write_only = 8;
+
 // Soft limit on number of level-0 files.  We could slow down writes at this
 // point, but don't.
 static const unsigned kL0_SlowdownWritesTrigger = 8;
