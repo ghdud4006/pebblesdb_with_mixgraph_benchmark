@@ -15,17 +15,22 @@ namespace leveldb {
 class VersionSet;
 
 struct GuardMetaData; 
- 
-struct FileMetaData {
-  //young" maximum sentinel files can have file (default=2)
+
+//young" metadata for hotness information of sentinel guard
+struct SentinelGuardHotnessData {
+  //young" maximum guard can have file (default=2)
   int kMaxFiles;
-  //young" each sentinel file's last accessed time to measure hotness by cost-benefit
+  //young" guard's last accessed time to measure hotness by cost-benefit
   uint64_t read_last_accessed_time;
   uint64_t write_last_accessed_time;
-  //young" read/write counter for each sentinel files
+  //young" read/write counter for guard
   uint64_t read_count;
   uint64_t write_count;
 
+  SentinelGuardHotnessData() : kMaxFiles(2), read_last_accessed_time(0), write_last_accessed_time(0), read_count(0), write_count(0) { }
+};
+ 
+struct FileMetaData {
   int refs;
   int allowed_seeks;          // Seeks allowed until compaction
   uint64_t number;

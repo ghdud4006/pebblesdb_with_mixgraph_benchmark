@@ -1828,6 +1828,7 @@ class VersionSet::Builder {
       }
       vrecord_timer(MTC_SAVETO_ADD_COMPLETE_GUARDS, BGC_SAVETO_ADD_COMPLETE_GUARDS, mtc);
 
+      //young"" addding files to guard and sentinels
       // Adding files to guards and sentinels
       // NOTE: The files are not added to complete guards (they are not necessary)
       vstart_timer(MTC_SAVETO_POPULATE_FILES, BGC_SAVETO_POPULATE_FILES, mtc);
@@ -1848,6 +1849,8 @@ class VersionSet::Builder {
 	  return false;
   }
 
+
+  //young" populate files to guard !!!!!
   // To add the file information to the guards and sentinels
   void PopulateFilesToGuardsAndSentinels(Version* v, unsigned level) {
 	  std::vector<GuardMetaData*>* guards = &v->guards_[level];
@@ -1882,6 +1885,7 @@ class VersionSet::Builder {
 			  FileMetaData* current_file = files[file_no];
 			  if (guard_no == guards->size()
 					  || vset_->icmp_.Compare(current_file->largest, guards->at(guard_no)->guard_key) < 0) {
+				  //young" add new file to guard
 				  // Need to insert this file to sentinel
 				  if (guard_no == 0) {
 					 sentinel_files->push_back(current_file);
@@ -1891,6 +1895,11 @@ class VersionSet::Builder {
 						 guards->at(guard_no-1)->files.push_back(current_file->number);
 						 guards->at(guard_no-1)->file_metas.push_back(current_file);
 						 guards->at(guard_no-1)->number_segments++;
+
+						 //young" write count point
+						 write_current_time++;
+						 guards->at(guard_no-1)->write_count++;
+						 guards->at(guard_no-1)->write_last_accessed_time = write_current_time;
 
 						 if (first_entry) {
 							  guards->at(guard_no-1)->smallest = current_file->smallest;

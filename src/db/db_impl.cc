@@ -1083,10 +1083,12 @@ Status DBImpl::BackgroundCompactionGuards(FileLevelFilterBuilder* file_level_fil
     }
     start_timer(BGC_ADD_GUARDS_TO_EDIT);
     //young" edit guard on compaction
+    //young" make new guard before do compaction work
     versions_->current()->AddGuardsToEdit(compact->compaction->edit(), level_to_load_from_complete_guards);
     record_timer(BGC_ADD_GUARDS_TO_EDIT);
 
     start_timer(BGC_DO_COMPACTION_WORK_GUARDS);
+    //young" add files to guard
     status = DoCompactionWorkGuards(compact, complete_guards_used_in_bg_compaction, file_level_filter_builder); //young" do compaction work for guard
     record_timer(BGC_DO_COMPACTION_WORK_GUARDS);
 
@@ -1320,6 +1322,7 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
   std::vector<GuardMetaData*> guards;
   int compaction_level = compact->compaction->level();
 
+  //young" get the guard to add files on compaction 
   // If the compaction level is the last level, get the guards of the same level
   // Else, get the guards of the next level since the new files will be populated to next level
   guards = complete_guards_used_in_bg_compaction;
