@@ -397,7 +397,7 @@ class Version {
   */
 
   void IncreaseReadCurrentTime() {
-	this.read_current_time++;
+	read_current_time++;
   }
   /* 
   void IncreaseWriteCurrentTime () {
@@ -411,7 +411,7 @@ class Version {
   */
 
   uint64_t GetReadCurrentTime() {
-	return this.read_current_time;
+	return read_current_time;
   }
   /* 
   uint64_t GetWriteCurrentTime() {
@@ -425,7 +425,7 @@ class Version {
   */
 
   void SetReadCurrentTime(uint64_t new_) {
-	this.read_current_time = new_;
+	read_current_time = new_;
   }
   /* 
   void SetWriteCurrentTime(uint64_t new_) {
