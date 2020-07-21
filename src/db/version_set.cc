@@ -919,11 +919,16 @@ Status Version::Get(const ReadOptions& options,
     		if (ucmp->Compare(user_key, f->smallest.user_key()) >= 0
     				&& ucmp->Compare(user_key, f->largest.user_key()) <= 0) {
 
-			//young" when the correct sentinel file is accessed, read counters are updated.
-			read_current_time++;
+			//young" read count point for sentinel guard
+			this.total_current_time++;
+			this.read_current_time++;
 			f->read_count++;
-			f->last_accessed_time = read_current_time;
-
+			f->read_last_accessed_time = this.read_current_time;
+			//young" hotness update point on read
+		        if (this.total_current_time % config::hotness_check_cycle == 0) {
+	  			this.hotness_check = true;
+			}
+ 
     			tmp2.push_back(f);
     		}
     	}
@@ -939,11 +944,15 @@ Status Version::Get(const ReadOptions& options,
     } else if (g->number_segments > 0) {
 		vstart_timer(GET_CHECK_GUARD_FILES, BEGIN, 1);
 
-		//young" when guard is accessed, read counters are updated.
-		read_current_time++;
+		//young" read count point for guard 
+		this.total_current_time++;
+		this.read_current_time++;
 		g->read_count++;
-		g->last_accessed_time = read_current_time;
-
+		g->read_last_accessed_time = this.read_current_time;
+	        if (this.total_current_time % config::hotness_check_cycle == 0) {
+  			this.hotness_check = true;
+		}
+ 
 		for (size_t i = 0; i < g->number_segments; i++) {
 			FileMetaData* f = g->file_metas[i];
     		// Optimization: Adding only the files where the required key lies between smallest and largest
@@ -964,6 +973,7 @@ Status Version::Get(const ReadOptions& options,
     	num_files = 0;
     	files = NULL;
     }
+
     vrecord_timer(GET_FIND_LIST_OF_FILES, BEGIN, 1);
 
 #ifndef READ_PARALLEL
@@ -1621,7 +1631,7 @@ class VersionSet::Builder {
   }
 
 #pragma GCC diagnostic pop
-
+  //young" Apply VersionEdit to new Version
   // Apply all of the edits in *edit to the current state.
   void Apply(VersionEdit* edit) {
     // Update compaction pointers
@@ -1835,6 +1845,15 @@ class VersionSet::Builder {
       PopulateFilesToGuardsAndSentinels(v, level);
       vrecord_timer(MTC_SAVETO_POPULATE_FILES, BGC_SAVETO_POPULATE_FILES, mtc);
 
+      //young" new Version gets hotness information from old Version. 
+      v->SetHotnessCheck(base_->GetHotnessCheck());
+      v->SetTotalCurrentTime(base_->GetTotalCurrentTime());
+      v->SetReadCurrentTime(base_->GetReadCurrentTime());
+      //v->SetWriteCurrentTime(base_->GetWriteCurrentTime());
+      for(int i=0; i<config::kNumLevels; i++) {
+	    v->SetSentinelMaxFiles(i, base_->GetSentinelMaxFiles(i));
+      }
+
     }
   }
 
@@ -1881,6 +1900,7 @@ class VersionSet::Builder {
 		  if (guard_no < guards->size()) {
 			  guard_key = guards->at(guard_no)->guard_key;
 		  }
+
 		  for (; file_no < files.size(); file_no++) {
 			  FileMetaData* current_file = files[file_no];
 			  if (guard_no == guards->size()
@@ -1888,6 +1908,16 @@ class VersionSet::Builder {
 				  //young" add new file to guard
 				  // Need to insert this file to sentinel
 				  if (guard_no == 0) {
+					 //young" write count point for sentinels
+					 //&v->IncreaseTotalCurrentTime();
+					 //&v->IncreaseWriteCurrentTime();
+					 //current_file->write_count++;
+					 //current_file->write_last_accessed_time = &v->GetWriteCurrentTime();
+					 //young" hotness update point on write
+			   	  	 //if ((&v->GetTotalCurrentTime() % config::hotness_check_cycle) == 0) {
+				 	 //	&v->hotness_check = true;	
+				  	 //}
+
 					 sentinel_files->push_back(current_file);
 					 continue;
 				  } else {
@@ -1896,10 +1926,15 @@ class VersionSet::Builder {
 						 guards->at(guard_no-1)->file_metas.push_back(current_file);
 						 guards->at(guard_no-1)->number_segments++;
 
-						 //young" write count point
-						 write_current_time++;
-						 guards->at(guard_no-1)->write_count++;
-						 guards->at(guard_no-1)->write_last_accessed_time = write_current_time;
+						 //young" write count point for guard
+						 //&v->IncreaseTotalCurrentTime();
+						 //&v->IncreaseWriteCurrentTime();
+						 //guards->at(guard_no-1)->write_count++;
+						 //guards->at(guard_no-1)->write_last_accessed_time = &v->GetWriteCurrentTime();				
+              					 //young" hotness update point on write
+				   	  	 //if ((&v->GetTotalCurrentTime() % config::hotness_check_cycle) == 0) {
+					 	 //	&v->hotness_check = true;	
+					  	 //}
 
 						 if (first_entry) {
 							  guards->at(guard_no-1)->smallest = current_file->smallest;
@@ -1921,7 +1956,6 @@ class VersionSet::Builder {
 				  break;
 			  }
 		  }
-
 	  }
   }
 
@@ -2278,6 +2312,7 @@ void VersionSet::RemoveFileMetaDataFromTableCache(uint64_t file_number) {
 	table_cache_->RemoveFileMetaDataMapForFile(file_number);
 }
 
+//young" new version
 Status VersionSet::LogAndApply(VersionEdit* edit, port::Mutex* mu, port::CondVar* cv, bool* wt,
 		std::vector<uint64_t> file_numbers, std::vector<std::string*> file_level_filters, int mtc = 0) {
   int cg_sizes[config::kNumLevels];
@@ -2302,6 +2337,7 @@ Status VersionSet::LogAndApply(VersionEdit* edit, port::Mutex* mu, port::CondVar
   edit->SetNextFile(next_file_number_);
   edit->SetLastSequence(last_sequence_);
 
+  //young" make new Version 
   Version* v = new Version(this);
   {
     Builder builder(this, current_);
@@ -2313,6 +2349,7 @@ Status VersionSet::LogAndApply(VersionEdit* edit, port::Mutex* mu, port::CondVar
     	cg_sizes[level] = current()->complete_guards_[level].size();
     }
     start_timer(MTC_LAA_SAVETO, BGC_LAA_SAVETO, mtc);
+    //young" adjust edit to new version
     builder.SaveTo(v, mtc, edit);
     record_timer(MTC_LAA_SAVETO, BGC_LAA_SAVETO, mtc);
   }
@@ -2601,6 +2638,19 @@ uint64_t VersionSet::GetOverlappingRangeBetweenFiles(FileMetaData* f1, FileMetaD
 }
 
 void VersionSet::Finalize(Version* v) {
+  //young" update kMaxFilesPerGuard by hotnes
+  /*
+  if(v->GetHotnessCheck()) {
+	for(unsigned level = 1; level < config::kNumLevels; ++level) {
+		
+		for(unsigned i = 0; i < v->guards_[level].size(); i++) {
+			
+		}	
+	}
+	v->SetHotnessCheck(false);
+  }
+  */
+  
   // Compute the ratio of disk usage to its limit
   for (unsigned level = 0; level < config::kNumLevels; ++level) {
 	//young" get max_file_number per guard from user parameter.
@@ -2655,7 +2705,26 @@ void VersionSet::Finalize(Version* v) {
       //young" compute score of sentinel guard by total_file_size
       score1 = sentinel_bytes / MaxBytesPerGuardForLevel(level);
       //young" compute score of sentinel guard by max_file_number
-      score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(max_files_per_segment+1);
+      //score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(max_files_per_segment+1);
+
+      //young" calculate total sentinel's read_count and most last_accessed_time
+      uint64_t sentinel_read_count = 0;
+      uint64_t sentinel_read_accessed_time = 0;
+      for (unsigned i = 0; i < num_sentinel_files; i++) {
+	sentinel_read_count += v->sentinel_files_[level][i]->read_count;
+	sentinel_read_accessed_time = std::max(v->sentinel_files_[level][i]->read_last_accessed_time, sentinel_read_accessed_time);
+      }
+      //young" caclulate score of sentinel guard by read hotness
+      uint64_t sentinel_age = (v->read_current_time - sentiel_read_accessed_time); 
+      if(sentinel_age > config::read_lifetime) { //read is expired
+      	for(unsigned i = 0; i < num_sentinel_files; i++) {
+		v->sentinel_files_[level][i]->read_count = 0;
+	}
+	score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(max_files_per_segment+1); //do tiering
+      } else { //read is activated
+	score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(1); //do leveling
+      }
+
       score = std::max(score1, score2);
       v->sentinel_compaction_scores_[level] = score;
       double max_score_in_level = v->sentinel_compaction_scores_[level];
@@ -2670,7 +2739,17 @@ void VersionSet::Finalize(Version* v) {
 	   //young" compute score of guard by max_file_number
     	  //score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1);
 	  //young" guard's file exceeds g->kMaxFiles
-  	  score2 = static_cast<double>(g->files.size()) / static_cast<double>(g->kMaxFiles);
+  	  //score2 = static_cast<double>(g->files.size()) / static_cast<double>(g->kMaxFiles);
+
+	  //young" calculate score by gurad read hotness
+	  uint64_t guard_age = (v->read_current_time - g->read_last_accessed_time); 
+	  if(guard_age > config::read_lifetime) { //read is expired
+ 		g->read_count = 0;
+		score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1);
+	  } else { //read is activated
+		score2 = static_cast<double>(g->files.size()) / static_cast<double>(1);
+	  }
+
           score = std::max(score1, score2);
           v->guard_compaction_scores_[level].push_back(score);
     	  max_score_in_level = std::max(max_score_in_level, v->guard_compaction_scores_[level][i]);

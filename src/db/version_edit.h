@@ -15,22 +15,15 @@ namespace leveldb {
 class VersionSet;
 
 struct GuardMetaData; 
-
-//young" metadata for hotness information of sentinel guard
-struct SentinelGuardHotnessData {
-  //young" maximum guard can have file (default=2)
-  int kMaxFiles;
-  //young" guard's last accessed time to measure hotness by cost-benefit
+ 
+struct FileMetaData {
+  //young" sentinel guard's last accessed time to measure hotness by cost-benefit
   uint64_t read_last_accessed_time;
   uint64_t write_last_accessed_time;
-  //young" read/write counter for guard
+  //young" read/write counter for sentinel guard
   uint64_t read_count;
   uint64_t write_count;
 
-  SentinelGuardHotnessData() : kMaxFiles(2), read_last_accessed_time(0), write_last_accessed_time(0), read_count(0), write_count(0) { }
-};
- 
-struct FileMetaData {
   int refs;
   int allowed_seeks;          // Seeks allowed until compaction
   uint64_t number;
@@ -39,7 +32,7 @@ struct FileMetaData {
   InternalKey largest;        // Largest internal key served by table
   GuardMetaData* guard;       // The guard that the file belongs to.
   
-FileMetaData() : refs(0), allowed_seeks(1 << 30), number(0), file_size(0), smallest(), largest(), guard() { }
+FileMetaData() : read_last_accessed_time(0), write_last_accessed_time(0), read_count(0), write_count(0), refs(0), allowed_seeks(1 << 30), number(0), file_size(0), smallest(), largest(), guard() { }
 };
 
 /* 
@@ -69,7 +62,7 @@ struct GuardMetaData {
   std::vector<uint64_t> files;
   std::vector<FileMetaData*> file_metas;
   
-GuardMetaData() : kMaxFiles(2), read_last_accessed_time(0), write_last_accessed_time(0), read_count(0), write_count(0), refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
+GuardMetaData() : kMaxFiles(config::kMaxFilesPerGuardSentinel), read_last_accessed_time(0), write_last_accessed_time(0), read_count(0), write_count(0), refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
 };
  
 class VersionEdit {
@@ -150,6 +143,9 @@ class VersionEdit {
 	  meta.number = number;
 	  meta.refs = refs;
 	  sentinel_files_[level].push_back(meta);
+	  //young" 
+	  //sentinel_guard_hotness_[level].
+	  //sentinel_guard_hotness_[level].
   }
 
   void AddSentinelFileNo(int level, uint64_t number) {

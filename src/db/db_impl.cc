@@ -215,8 +215,6 @@ DBImpl::DBImpl(const Options& raw_options, const std::string& dbname)
       bg_memtable_cv_(&mutex_),
       bg_log_cv_(&mutex_),
       bg_log_occupied_(false),
-      read_current_time(0),
-      write_current_time(0),
       manual_compaction_(NULL),
       manual_garbage_cutoff_(raw_options.manual_garbage_collection ?
                              SequenceNumber(0) : kMaxSequenceNumber),
@@ -957,7 +955,7 @@ Status DBImpl::TEST_CompactMemTable() {
   return s;
 }
 
-//young" compaction first start point !!!
+//young" compaction first start point
 void DBImpl::CompactLevelThread() {
   MutexLock l(&mutex_);
   FileLevelFilterBuilder file_level_filter_builder(options_.filter_policy);
@@ -1082,7 +1080,6 @@ Status DBImpl::BackgroundCompactionGuards(FileLevelFilterBuilder* file_level_fil
 		}
     }
     start_timer(BGC_ADD_GUARDS_TO_EDIT);
-    //young" edit guard on compaction
     //young" make new guard before do compaction work
     versions_->current()->AddGuardsToEdit(compact->compaction->edit(), level_to_load_from_complete_guards);
     record_timer(BGC_ADD_GUARDS_TO_EDIT);

@@ -28,7 +28,8 @@ static const unsigned kL0_SentinelCompactionTrigger = 2;
 
 static const unsigned kL0_GuardCompactionTrigger = 2;
 
-static const unsigned kMaxFilesPerGuardSentinel = 10;
+//static const unsigned kMaxFilesPerGuardSentinel = 2;
+static const unsigned kMaxFilesPerGuardSentinel = 2;
 
 //young" guard's kMaxFiles is evaluated by cost-benefit policy every hotness_check_cycle operations.
 static const unsigned hotness_check_cycle = 60000;
