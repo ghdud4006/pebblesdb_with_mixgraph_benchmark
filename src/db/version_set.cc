@@ -921,9 +921,9 @@ Status Version::Get(const ReadOptions& options,
 
 			//young" read count point for sentinel guard
 			//this.total_current_time++;
-			this.read_current_time++;
+			read_current_time++;
 			f->read_count++;
-			f->read_last_accessed_time = this.read_current_time;
+			f->read_last_accessed_time = read_current_time;
 			//young" hotness update point on read
 			/*
 		        if (this.total_current_time % config::hotness_check_cycle == 0) {
@@ -948,9 +948,9 @@ Status Version::Get(const ReadOptions& options,
 
 		//young" read count point for guard 
 		//this.total_current_time++;
-		this.read_current_time++;
+		read_current_time++;
 		g->read_count++;
-		g->read_last_accessed_time = this.read_current_time;
+		g->read_last_accessed_time = read_current_time;
 		/*
 	        if (this.total_current_time % config::hotness_check_cycle == 0) {
   			this.hotness_check = true;
@@ -2719,7 +2719,7 @@ void VersionSet::Finalize(Version* v) {
 	sentinel_read_accessed_time = std::max(v->sentinel_files_[level][i]->read_last_accessed_time, sentinel_read_accessed_time);
       }
       //young" caclulate score of sentinel guard by read hotness
-      uint64_t sentinel_age = (v->GetReadCurrentTime() - sentiel_read_accessed_time); 
+      uint64_t sentinel_age = (v->GetReadCurrentTime() - sentinel_read_accessed_time); 
       if(sentinel_age > config::read_lifetime) { //read is expired
       	for(unsigned i = 0; i < num_sentinel_files; i++) {
 		v->sentinel_files_[level][i]->read_count = 0;
