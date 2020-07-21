@@ -920,14 +920,16 @@ Status Version::Get(const ReadOptions& options,
     				&& ucmp->Compare(user_key, f->largest.user_key()) <= 0) {
 
 			//young" read count point for sentinel guard
-			this.total_current_time++;
+			//this.total_current_time++;
 			this.read_current_time++;
 			f->read_count++;
 			f->read_last_accessed_time = this.read_current_time;
 			//young" hotness update point on read
+			/*
 		        if (this.total_current_time % config::hotness_check_cycle == 0) {
 	  			this.hotness_check = true;
 			}
+			*/
  
     			tmp2.push_back(f);
     		}
@@ -945,13 +947,15 @@ Status Version::Get(const ReadOptions& options,
 		vstart_timer(GET_CHECK_GUARD_FILES, BEGIN, 1);
 
 		//young" read count point for guard 
-		this.total_current_time++;
+		//this.total_current_time++;
 		this.read_current_time++;
 		g->read_count++;
 		g->read_last_accessed_time = this.read_current_time;
+		/*
 	        if (this.total_current_time % config::hotness_check_cycle == 0) {
   			this.hotness_check = true;
 		}
+		*/
  
 		for (size_t i = 0; i < g->number_segments; i++) {
 			FileMetaData* f = g->file_metas[i];
@@ -1846,13 +1850,13 @@ class VersionSet::Builder {
       vrecord_timer(MTC_SAVETO_POPULATE_FILES, BGC_SAVETO_POPULATE_FILES, mtc);
 
       //young" new Version gets hotness information from old Version. 
-      v->SetHotnessCheck(base_->GetHotnessCheck());
-      v->SetTotalCurrentTime(base_->GetTotalCurrentTime());
+      //v->SetHotnessCheck(base_->GetHotnessCheck());
+      //v->SetTotalCurrentTime(base_->GetTotalCurrentTime());
       v->SetReadCurrentTime(base_->GetReadCurrentTime());
       //v->SetWriteCurrentTime(base_->GetWriteCurrentTime());
-      for(int i=0; i<config::kNumLevels; i++) {
-	    v->SetSentinelMaxFiles(i, base_->GetSentinelMaxFiles(i));
-      }
+      //for(int i=0; i<config::kNumLevels; i++) {
+	//    v->SetSentinelMaxFiles(i, base_->GetSentinelMaxFiles(i));
+      //}
 
     }
   }
@@ -2715,7 +2719,7 @@ void VersionSet::Finalize(Version* v) {
 	sentinel_read_accessed_time = std::max(v->sentinel_files_[level][i]->read_last_accessed_time, sentinel_read_accessed_time);
       }
       //young" caclulate score of sentinel guard by read hotness
-      uint64_t sentinel_age = (v->read_current_time - sentiel_read_accessed_time); 
+      uint64_t sentinel_age = (v->GetReadCurrentTime() - sentiel_read_accessed_time); 
       if(sentinel_age > config::read_lifetime) { //read is expired
       	for(unsigned i = 0; i < num_sentinel_files; i++) {
 		v->sentinel_files_[level][i]->read_count = 0;
@@ -2742,7 +2746,7 @@ void VersionSet::Finalize(Version* v) {
   	  //score2 = static_cast<double>(g->files.size()) / static_cast<double>(g->kMaxFiles);
 
 	  //young" calculate score by gurad read hotness
-	  uint64_t guard_age = (v->read_current_time - g->read_last_accessed_time); 
+	  uint64_t guard_age = (v->GetReadCurrentTime() - g->read_last_accessed_time); 
 	  if(guard_age > config::read_lifetime) { //read is expired
  		g->read_count = 0;
 		score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1);

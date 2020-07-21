@@ -19,10 +19,10 @@ struct GuardMetaData;
 struct FileMetaData {
   //young" sentinel guard's last accessed time to measure hotness by cost-benefit
   uint64_t read_last_accessed_time;
-  uint64_t write_last_accessed_time;
+  //uint64_t write_last_accessed_time;
   //young" read/write counter for sentinel guard
   uint64_t read_count;
-  uint64_t write_count;
+  //uint64_t write_count;
 
   int refs;
   int allowed_seeks;          // Seeks allowed until compaction
@@ -32,7 +32,11 @@ struct FileMetaData {
   InternalKey largest;        // Largest internal key served by table
   GuardMetaData* guard;       // The guard that the file belongs to.
   
-FileMetaData() : read_last_accessed_time(0), write_last_accessed_time(0), read_count(0), write_count(0), refs(0), allowed_seeks(1 << 30), number(0), file_size(0), smallest(), largest(), guard() { }
+FileMetaData() : read_last_accessed_time(0), 
+//write_last_accessed_time(0), 
+read_count(0), 
+//write_count(0), 
+refs(0), allowed_seeks(1 << 30), number(0), file_size(0), smallest(), largest(), guard() { }
 };
 
 /* 
@@ -43,13 +47,13 @@ uniquely identifies a guard.
 //young" GuardMetadata
 struct GuardMetaData {
   //young" maximum guard can have file (default=2)
-  int kMaxFiles;
+  //int kMaxFiles;
   //young" guard's last accessed time to measure hotness by cost-benefit
   uint64_t read_last_accessed_time;
-  uint64_t write_last_accessed_time;
+  //uint64_t write_last_accessed_time;
   //young" read/write counter for guard
   uint64_t read_count;
-  uint64_t write_count;
+  //uint64_t write_count;
 
   int refs;
   int level;
@@ -62,7 +66,12 @@ struct GuardMetaData {
   std::vector<uint64_t> files;
   std::vector<FileMetaData*> file_metas;
   
-GuardMetaData() : kMaxFiles(config::kMaxFilesPerGuardSentinel), read_last_accessed_time(0), write_last_accessed_time(0), read_count(0), write_count(0), refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
+GuardMetaData() : //kMaxFiles(config::kMaxFilesPerGuardSentinel), 
+read_last_accessed_time(0),
+//write_last_accessed_time(0),
+ read_count(0), 
+//write_count(0),
+ refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
 };
  
 class VersionEdit {

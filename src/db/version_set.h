@@ -390,43 +390,51 @@ class Version {
     int num_files_read;
   
   //young" methods for global timer
+  /*
   void IncreaseTotalCurrentTime() {
 	this.total_current_time++;
   }
+  */
 
   void IncreaseReadCurrentTime() {
 	this.read_current_time++;
   }
-  
+  /* 
   void IncreaseWriteCurrentTime () {
 	this.write_current_time++;
   }
-
+  */
+  /*
   uint64_t GetTotalCurrentTime() {
 	return this.total_current_time;
   }
+  */
 
   uint64_t GetReadCurrentTime() {
 	return this.read_current_time;
   }
-  
+  /* 
   uint64_t GetWriteCurrentTime() {
 	return this.write_current_time;
   }
-
+  */
+  /*
   void SetTotalCurrentTime(uint64_t new_) {
 	this.total_current_time = new_;
   }
+  */
 
   void SetReadCurrentTime(uint64_t new_) {
 	this.read_current_time = new_;
   }
-  
+  /* 
   void SetWriteCurrentTime(uint64_t new_) {
 	this.write_current_time = new_;
   }
+  */
 
   //young" methods for sentinel's hotness
+  /*
   int GetSentinelMaxFiles(int level) {
 	return this.sentinel_kMaxFiles[level];
   }
@@ -434,8 +442,9 @@ class Version {
   void SetSentinelMaxFiles(int level, int max_files) {
 	this.sentinel_kMaxFiles[level] = max_files;
   }
+*/
 
-
+/*
   //young " methods for hotness check
   void SetHotnessCheck(bool new_) {
 	this.hotness_check = new_;
@@ -444,7 +453,7 @@ class Version {
   bool GetHotnessCheck() {
 	return this.hotness_check;
   }
-
+*/
     
  private:
   friend class Compaction;
@@ -483,15 +492,15 @@ class Version {
   int num_complete_guards_[config::kNumLevels];
 
   //young" need to hotness_check
-  bool hotness_check;
+  //bool hotness_check;
 
   //young" hotness information for sentinel files per each level
-  int sentinel_kMaxFiles[config::kNumLevels];
+  //int sentinel_kMaxFiles[config::kNumLevels];
 
   //young" global timer in Version class
-  uint64_t total_current_time;
+  //uint64_t total_current_time;
   uint64_t read_current_time;
-  uint64_t write_current_time;
+  //uint64_t write_current_time;
   
   // Next file to compact based on seek stats.
   FileMetaData* file_to_compact_;
@@ -510,14 +519,17 @@ class Version {
 
   explicit Version(VersionSet* vset)
       : vset_(vset), next_(this), prev_(this), refs_(0), 
-	hotness_check(false), total_current_time(0), read_current_time(0), write_current_time(0),
+	//hotness_check(false), 
+	//total_current_time(0), 
+	read_current_time(0), 
+	//write_current_time(0),
         file_to_compact_(NULL),
         file_to_compact_level_(-1) {
     for (unsigned i = 0; i < config::kNumLevels; ++i) {
       compaction_scores_[i] = -1;
       num_complete_guards_[i] = 0;
       //young" initialize sentinel hotness data
-      sentinel_kMaxFiles[i] = config::kMaxFilesPerGuardSentinel;
+      //sentinel_kMaxFiles[i] = config::kMaxFilesPerGuardSentinel;
     }
   }
 
