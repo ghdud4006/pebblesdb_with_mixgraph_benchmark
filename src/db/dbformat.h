@@ -33,7 +33,6 @@ static const unsigned kMaxFilesPerGuardSentinel = 2;
 // Hotness metrics
 static const unsigned adjustPartialTiering = true;
 static const unsigned read_lifetime = 30000;
-static const unsigned read_hot_count_limit = 10000;
 
 // Soft limit on number of level-0 files.  We could slow down writes at this
 // point, but don't.

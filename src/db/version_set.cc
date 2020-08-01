@@ -1883,10 +1883,9 @@ class VersionSet::Builder {
 				  // Need to insert this file to sentinel
 				  if (guard_no == 0) {
 					 //young" Write count point for sentinels
-					 //&v->IncreaseTotalCurrentTime();
-					 //&v->IncreaseWriteCurrentTime();
+					 //v->IncreaseWriteCurrentTime();
 					 //current_file->write_count++;
-					 //current_file->write_last_accessed_time = &v->GetWriteCurrentTime();
+					 //current_file->write_last_accessed_time = v->GetWriteCurrentTime();
 
 					 sentinel_files->push_back(current_file);
 					 continue;
@@ -1897,10 +1896,9 @@ class VersionSet::Builder {
 						 guards->at(guard_no-1)->number_segments++;
 
 						 //young" Write count point for guard
-						 //&v->IncreaseTotalCurrentTime();
-						 //&v->IncreaseWriteCurrentTime();
+						 //v->IncreaseWriteCurrentTime();
 						 //guards->at(guard_no-1)->write_count++;
-						 //guards->at(guard_no-1)->write_last_accessed_time = &v->GetWriteCurrentTime();				
+						 //guards->at(guard_no-1)->write_last_accessed_time = v->GetWriteCurrentTime();				
 
 						 if (first_entry) {
 							  guards->at(guard_no-1)->smallest = current_file->smallest;
@@ -2604,9 +2602,10 @@ uint64_t VersionSet::GetOverlappingRangeBetweenFiles(FileMetaData* f1, FileMetaD
 
 void VersionSet::Finalize(Version* v, Version* current_) {
 
-  //Get hotness metrics
+  // Hotness metrics
   uint64_t read_lifetime = config::read_lifetime;
-  uint64_t read_hot_count_limit = config::read_hot_count_limit;
+  uint64_t sum_guard_read_count = 0;
+  uint64_t num_guards_read = 1;
 
   // Compute the ratio of disk usage to its limit
   for (unsigned level = 0; level < config::kNumLevels; ++level) {
@@ -2646,18 +2645,23 @@ void VersionSet::Finalize(Version* v, Version* current_) {
       
       // The new version inherits hotness information from current version.
       v->read_current_time = current_->read_current_time;
+      v->mean_read_count = current_->mean_read_count;
 
       unsigned next = 0;
       for(unsigned i = 0; i < current_->guards_[level].size(); i++) {
 	  GuardMetaData* g = current_->guards_[level][i];
-	  Slice guard_key = g->guard_key.user_key(), next_guard_key;
-
+	  Slice guard_key = g->guard_key.user_key(), next_guard_key; 
+	  
           // Check whether read hotness of guard is expired.
           if (current_->read_current_time - g->read_last_accessed_time > read_lifetime) {
                 g->read_count = 0;
                 g->read_last_accessed_time = 0;
           }
-
+ 	  
+	  // Count sum to compute mean of read count
+          sum_guard_read_count += g->read_count;
+	  num_guards_read++;
+	
 	  if (i + 1 < current_->guards_[level].size()) {
 		next_guard_key = current_->guards_[level][i+1]->guard_key.user_key();
 	  } else {
@@ -2700,7 +2704,7 @@ void VersionSet::Finalize(Version* v, Version* current_) {
 
       score1 = sentinel_bytes / MaxBytesPerGuardForLevel(level);
       
-      score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(max_files_per_segment+1); //do tiering
+      score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(max_files_per_segment+1);
 
       score = std::max(score1, score2);
       v->sentinel_compaction_scores_[level] = score;
@@ -2715,7 +2719,7 @@ void VersionSet::Finalize(Version* v, Version* current_) {
 
 	  // When PartialTiering is adjusted to db, If read is cold, do tiering. Else if read is hot, do leveling.
           if (config::adjustPartialTiering) {
-                if (g->read_count < read_hot_count_limit) {
+                if (g->read_count < static_cast<uint64_t>(v->mean_read_count)) {
                         score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1);
                 } else {
                         score2 = static_cast<double>(g->files.size()) / static_cast<double>(2);
@@ -2731,6 +2735,8 @@ void VersionSet::Finalize(Version* v, Version* current_) {
       v->compaction_scores_[level] = max_score_in_level;
     }
   }
+  // The new version gets means of total guards's read count.
+  v->mean_read_count = (sum_guard_read_count / num_guards_read);
 }
 
 Status VersionSet::WriteSnapshot(log::Writer* log) {
