@@ -955,7 +955,6 @@ Status DBImpl::TEST_CompactMemTable() {
   return s;
 }
 
-//young" compaction first start point
 void DBImpl::CompactLevelThread() {
   MutexLock l(&mutex_);
   FileLevelFilterBuilder file_level_filter_builder(options_.filter_policy);
@@ -1015,7 +1014,6 @@ void DBImpl::RecordBackgroundError(const Status& s) {
   }
 }
 
-//young" second compaction point 
 Status DBImpl::BackgroundCompactionGuards(FileLevelFilterBuilder* file_level_filter_builder) {
   int x, y, z;
   mutex_.AssertHeld();
@@ -1044,13 +1042,13 @@ Status DBImpl::BackgroundCompactionGuards(FileLevelFilterBuilder* file_level_fil
 	start_timer(BGC_PICK_COMPACTION_LEVEL);
     unsigned level = versions_->PickCompactionLevel(levels_locked_, straight_reads_ > kStraightReads, &force_compact);
     record_timer(BGC_PICK_COMPACTION_LEVEL);
-
+    
     start_timer(BGC_PICK_COMPACTION);
     if (level != config::kNumLevels) {
+      //young" (PickCompactionForGuards) (BackgroundCompactionGuards)
       c = versions_->PickCompactionForGuards(versions_->current(), level, &complete_guards_used_in_bg_compaction, force_compact);
     }
     record_timer(BGC_PICK_COMPACTION);
-
     if (c) {
       assert(!levels_locked_[c->level() + 0]);
       if (c->level() + 1 < config::kNumLevels) {
@@ -1080,13 +1078,12 @@ Status DBImpl::BackgroundCompactionGuards(FileLevelFilterBuilder* file_level_fil
 		}
     }
     start_timer(BGC_ADD_GUARDS_TO_EDIT);
-    //young" make new guard before do compaction work
+    //young" (AddGuardsToEdit) Make empty complete_guards (BackgroundCompactionGuards)
     versions_->current()->AddGuardsToEdit(compact->compaction->edit(), level_to_load_from_complete_guards);
     record_timer(BGC_ADD_GUARDS_TO_EDIT);
-
     start_timer(BGC_DO_COMPACTION_WORK_GUARDS);
-    //young" add files to guard
-    status = DoCompactionWorkGuards(compact, complete_guards_used_in_bg_compaction, file_level_filter_builder); //young" do compaction work for guard
+    //young" (DoCompactionWorkGuards) (BackgroundCompactionGuards)
+    status = DoCompactionWorkGuards(compact, complete_guards_used_in_bg_compaction, file_level_filter_builder); 
     record_timer(BGC_DO_COMPACTION_WORK_GUARDS);
 
     if (!status.ok()) {
@@ -1149,7 +1146,6 @@ void DBImpl::CleanupCompaction(CompactionState* compact) {
   delete compact;
 }
 
-//young" make new TableBuilder for output file of compaction
 Status DBImpl::OpenCompactionOutputFile(CompactionState* compact) {
   assert(compact != NULL);
   assert(compact->builder == NULL);
@@ -1267,7 +1263,6 @@ Status DBImpl::InstallCompactionResults(CompactionState* compact, const int leve
 }
 
 
-//young" compaction work point
 Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
 		std::vector<GuardMetaData*> complete_guards_used_in_bg_compaction,
 		FileLevelFilterBuilder* file_level_filter_builder) {
@@ -1303,6 +1298,7 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
   bg_compaction_cv_.Signal();
 
   start_timer(BGC_MAKE_INPUT_ITERATOR);
+  //young" Make compaction input iterator (InstallCompactionResults)
   Iterator* input = versions_->MakeInputIteratorForGuardsInALevel(compact->compaction);
   record_timer(BGC_MAKE_INPUT_ITERATOR);
 
@@ -1319,17 +1315,17 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
   std::vector<GuardMetaData*> guards;
   int compaction_level = compact->compaction->level();
 
-  //young" get the guard to add files on compaction 
   // If the compaction level is the last level, get the guards of the same level
   // Else, get the guards of the next level since the new files will be populated to next level
   guards = complete_guards_used_in_bg_compaction;
-  //young" get guard size when compaction
+
   unsigned num_guards = guards.size(), current_guard = 0;
 
   start_timer(BGC_ITERATE_KEYS_AND_SPLIT);
   InternalKey prev;
   bool first_entry = true;
   int cnt = 0;
+
   for (; input->Valid() && !shutting_down_.Acquire_Load(); ) {
 	Slice key = input->key();
 	cnt++;
@@ -1399,7 +1395,7 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
       // Open output file if necessary
       if (compact->builder == NULL) {
     	start_timer(BGC_OPEN_COMPACTION_OUTPUT_FILE);
-	//young" OpenCompactionOutputFile() to make output file 
+	//young" (OpenCompactionOutputFile) Make output file (DoCompactionWorkGuards)
         status = OpenCompactionOutputFile(compact);
         record_timer(BGC_OPEN_COMPACTION_OUTPUT_FILE);
         if (!status.ok()) {
@@ -1432,7 +1428,7 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
       // Open output file again in case the file was closed after reaching the guard  limit
       if (compact->builder == NULL) {
       	start_timer(BGC_OPEN_COMPACTION_OUTPUT_FILE);
-	//young" OpenCompactionOutputFile() to make output file
+	//young" (OpenCompactionOutputFile) to Make output file (DoCompactionWorkGuards)
         status = OpenCompactionOutputFile(compact);
         record_timer(BGC_OPEN_COMPACTION_OUTPUT_FILE);
         if (!status.ok()) {
@@ -1441,9 +1437,8 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
       }
       if (compact->builder->NumEntries() == 0) {
         compact->current_output()->smallest.DecodeFrom(key);
-      }
+      } 
       compact->current_output()->largest.DecodeFrom(key);
-      //young" Add key-values to new sstable
       compact->builder->Add(key, input->value());
 
 #ifdef FILE_LEVEL_FILTER
@@ -1500,6 +1495,7 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
       }
     }
   }
+
   for (size_t i = 0; i < compact->outputs.size(); i++) {
     stats.bytes_written += compact->outputs[i].file_size;
     total_output_data_size += compact->outputs[i].file_size;
@@ -1644,9 +1640,8 @@ Status DBImpl::Get(const ReadOptions& options,
       record_timer(GET_TIME_TO_CHECK_MEM_IMM);
 
       start_timer(GET_TIME_TO_CHECK_VERSION);
-      //young" call Version->Get()
+      //young" Call Version->Get()
       s = current->Get(options, lkey, value, &stats);
-      total_files_read += current->num_files_read;
       record_timer(GET_TIME_TO_CHECK_VERSION);
 
       have_stat_update = true;

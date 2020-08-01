@@ -53,7 +53,6 @@
 
 namespace leveldb {
 
-//young" maximum level size 
 static double MaxBytesForLevel(unsigned level) {
   assert(level < leveldb::config::kNumLevels);
   static const double bytes[] = {64 * 1048576.0,
@@ -78,7 +77,6 @@ static double MinBytesForLevel(unsigned level) {
   return bytes[level];
 }
 
-//young" maximum guard size for level 
 static double MaxBytesPerGuardForLevel(unsigned level) {
   assert(level < leveldb::config::kNumLevels);
   static const double bytes[] = {64 * 1048576.0,
@@ -852,7 +850,6 @@ void Version::ForEachOverlapping(Slice user_key, Slice internal_key,
   }
 }
 
-//young" Version::Get
 Status Version::Get(const ReadOptions& options,
                     const LookupKey& k,
                     std::string* value,
@@ -870,10 +867,11 @@ Status Version::Get(const ReadOptions& options,
   FileMetaData* last_file_read = NULL;
   int last_file_read_level = -1;
 
-  num_files_read = 0;
+  //num_files_read = 0;
   // We can search level-by-level since entries never hop across
   // levels.  Therefore we are guaranteed that if we find data
   // in an smaller level, later levels are irrelevant.
+  bool hotness_check = false;
   for (unsigned level = 0; level < config::kNumLevels; level++) {
     std::vector<FileMetaData*> tmp2;
     size_t num_files = files_[level].size();
@@ -888,8 +886,8 @@ Status Version::Get(const ReadOptions& options,
     vstart_timer(GET_FIND_GUARD, BEGIN, 1);
     // Get the guard_index in whose range the key lies in
     //young" FindGuard on Version::Get
-	uint32_t guard_index = FindGuard(vset_->icmp_, guards_[level], ikey);
-	vrecord_timer(GET_FIND_GUARD, BEGIN, 1);
+    uint32_t guard_index = FindGuard(vset_->icmp_, guards_[level], ikey);
+    vrecord_timer(GET_FIND_GUARD, BEGIN, 1);
 
     // Once we find the guard, we need to do binary searches inside
     // the files of each guard.
@@ -904,33 +902,25 @@ Status Version::Get(const ReadOptions& options,
     // of the sentinel files of that level.
 
     vstart_timer(GET_FIND_LIST_OF_FILES, BEGIN, 1);
-    //young" find sentinel file on Get
     if (num_guards == 0				// If there are no guards in the level, look at the sentinel files
     		|| (guard_index == 0	// If there are guards in the level and guard_index is 0, key can either be in sentinel or in the first(0-index) guard
     		&& num_guards > 0
 			&& ucmp->Compare(g->guard_key.user_key(), user_key) > 0)) {
     	vstart_timer(GET_CHECK_SENTINEL_FILES, BEGIN, 1);
+	//young" Read count point for sentinel
+	if (num_guards > 0) {
+		read_current_time++;
+		g->read_count++;
+		g->read_last_accessed_time = read_current_time;
+	}
 
     	std::vector<FileMetaData*> files_in_sentinel = sentinel_files_[level];
     	for (size_t i = 0; i < sentinel_files_[level].size(); i++) {
     		FileMetaData* f = sentinel_files_[level][i];
+
     		// Optimization: Adding only the files where the required key lies between smallest and largest
-		//young" catch the correct sentinel file
     		if (ucmp->Compare(user_key, f->smallest.user_key()) >= 0
     				&& ucmp->Compare(user_key, f->largest.user_key()) <= 0) {
-
-			//young" read count point for sentinel guard
-			//this.total_current_time++;
-			read_current_time++;
-			f->read_count++;
-			f->read_last_accessed_time = read_current_time;
-			//young" hotness update point on read
-			/*
-		        if (this.total_current_time % config::hotness_check_cycle == 0) {
-	  			this.hotness_check = true;
-			}
-			*/
- 
     			tmp2.push_back(f);
     		}
     	}
@@ -945,20 +935,14 @@ Status Version::Get(const ReadOptions& options,
    		vrecord_timer(GET_SORT_SENTINEL_FILES, BEGIN, 1);
     } else if (g->number_segments > 0) {
 		vstart_timer(GET_CHECK_GUARD_FILES, BEGIN, 1);
-
-		//young" read count point for guard 
-		//this.total_current_time++;
-		read_current_time++;
-		g->read_count++;
-		g->read_last_accessed_time = read_current_time;
-		/*
-	        if (this.total_current_time % config::hotness_check_cycle == 0) {
-  			this.hotness_check = true;
-		}
-		*/
+	//young" Read count point for guard
+	read_current_time++;
+	g->read_count++;
+	g->read_last_accessed_time = read_current_time;
  
-		for (size_t i = 0; i < g->number_segments; i++) {
-			FileMetaData* f = g->file_metas[i];
+	for (size_t i = 0; i < g->number_segments; i++) {
+		FileMetaData* f = g->file_metas[i];
+
     		// Optimization: Adding only the files where the required key lies between smallest and largest
     		if (f != NULL && ucmp->Compare(user_key, f->smallest.user_key()) >= 0
     				&& ucmp->Compare(user_key, f->largest.user_key()) <= 0) {
@@ -977,7 +961,6 @@ Status Version::Get(const ReadOptions& options,
     	num_files = 0;
     	files = NULL;
     }
-
     vrecord_timer(GET_FIND_LIST_OF_FILES, BEGIN, 1);
 
 #ifndef READ_PARALLEL
@@ -1018,7 +1001,7 @@ Status Version::Get(const ReadOptions& options,
       s = vset_->table_cache_->Get(options, f->number, f->file_size,
 			  ikey, &saver, SaveValue, vset_->timer);
       vrecord_timer(GET_TABLE_CACHE_GET, BEGIN, 1);
-      num_files_read++;
+      //num_files_read++;
 
       if (!s.ok()) {
         return s;
@@ -1443,7 +1426,6 @@ std::string Version::DebugString() const {
         r.append("]\n");
     }
 
-    //young" appending guard information
     // Appending guard information
     const std::vector<GuardMetaData*>& guards = guards_[level];
     r.append(" ------ Guards ------\n");
@@ -1842,21 +1824,11 @@ class VersionSet::Builder {
       }
       vrecord_timer(MTC_SAVETO_ADD_COMPLETE_GUARDS, BGC_SAVETO_ADD_COMPLETE_GUARDS, mtc);
 
-      //young"" addding files to guard and sentinels
       // Adding files to guards and sentinels
       // NOTE: The files are not added to complete guards (they are not necessary)
       vstart_timer(MTC_SAVETO_POPULATE_FILES, BGC_SAVETO_POPULATE_FILES, mtc);
       PopulateFilesToGuardsAndSentinels(v, level);
       vrecord_timer(MTC_SAVETO_POPULATE_FILES, BGC_SAVETO_POPULATE_FILES, mtc);
-
-      //young" new Version gets hotness information from old Version. 
-      //v->SetHotnessCheck(base_->GetHotnessCheck());
-      //v->SetTotalCurrentTime(base_->GetTotalCurrentTime());
-      v->SetReadCurrentTime(base_->GetReadCurrentTime());
-      //v->SetWriteCurrentTime(base_->GetWriteCurrentTime());
-      //for(int i=0; i<config::kNumLevels; i++) {
-	//    v->SetSentinelMaxFiles(i, base_->GetSentinelMaxFiles(i));
-      //}
 
     }
   }
@@ -1873,7 +1845,6 @@ class VersionSet::Builder {
   }
 
 
-  //young" populate files to guard !!!!!
   // To add the file information to the guards and sentinels
   void PopulateFilesToGuardsAndSentinels(Version* v, unsigned level) {
 	  std::vector<GuardMetaData*>* guards = &v->guards_[level];
@@ -1909,18 +1880,13 @@ class VersionSet::Builder {
 			  FileMetaData* current_file = files[file_no];
 			  if (guard_no == guards->size()
 					  || vset_->icmp_.Compare(current_file->largest, guards->at(guard_no)->guard_key) < 0) {
-				  //young" add new file to guard
 				  // Need to insert this file to sentinel
 				  if (guard_no == 0) {
-					 //young" write count point for sentinels
+					 //young" Write count point for sentinels
 					 //&v->IncreaseTotalCurrentTime();
 					 //&v->IncreaseWriteCurrentTime();
 					 //current_file->write_count++;
 					 //current_file->write_last_accessed_time = &v->GetWriteCurrentTime();
-					 //young" hotness update point on write
-			   	  	 //if ((&v->GetTotalCurrentTime() % config::hotness_check_cycle) == 0) {
-				 	 //	&v->hotness_check = true;	
-				  	 //}
 
 					 sentinel_files->push_back(current_file);
 					 continue;
@@ -1930,15 +1896,11 @@ class VersionSet::Builder {
 						 guards->at(guard_no-1)->file_metas.push_back(current_file);
 						 guards->at(guard_no-1)->number_segments++;
 
-						 //young" write count point for guard
+						 //young" Write count point for guard
 						 //&v->IncreaseTotalCurrentTime();
 						 //&v->IncreaseWriteCurrentTime();
 						 //guards->at(guard_no-1)->write_count++;
 						 //guards->at(guard_no-1)->write_last_accessed_time = &v->GetWriteCurrentTime();				
-              					 //young" hotness update point on write
-				   	  	 //if ((&v->GetTotalCurrentTime() % config::hotness_check_cycle) == 0) {
-					 	 //	&v->hotness_check = true;	
-					  	 //}
 
 						 if (first_entry) {
 							  guards->at(guard_no-1)->smallest = current_file->smallest;
@@ -2316,7 +2278,6 @@ void VersionSet::RemoveFileMetaDataFromTableCache(uint64_t file_number) {
 	table_cache_->RemoveFileMetaDataMapForFile(file_number);
 }
 
-//young" new version
 Status VersionSet::LogAndApply(VersionEdit* edit, port::Mutex* mu, port::CondVar* cv, bool* wt,
 		std::vector<uint64_t> file_numbers, std::vector<std::string*> file_level_filters, int mtc = 0) {
   int cg_sizes[config::kNumLevels];
@@ -2340,25 +2301,26 @@ Status VersionSet::LogAndApply(VersionEdit* edit, port::Mutex* mu, port::CondVar
 
   edit->SetNextFile(next_file_number_);
   edit->SetLastSequence(last_sequence_);
-
-  //young" make new Version 
+  
   Version* v = new Version(this);
   {
     Builder builder(this, current_);
 
     start_timer(MTC_LAA_APPLY_EDIT_TO_BUILDER, BGC_LAA_APPLY_EDIT_TO_BUILDER, mtc);
+    //young" (builder.Apply) Apply builder to apply (LogAndApply)
     builder.Apply(edit);
     record_timer(MTC_LAA_APPLY_EDIT_TO_BUILDER, BGC_LAA_APPLY_EDIT_TO_BUILDER, mtc);
     for (int level = 0; level < config::kNumLevels; level++) {
     	cg_sizes[level] = current()->complete_guards_[level].size();
     }
     start_timer(MTC_LAA_SAVETO, BGC_LAA_SAVETO, mtc);
-    //young" adjust edit to new version
+    //young" (SaveTo) Adjust edit to new version (LogAndApply)
     builder.SaveTo(v, mtc, edit);
     record_timer(MTC_LAA_SAVETO, BGC_LAA_SAVETO, mtc);
   }
+
   start_timer(MTC_LAA_FINALIZE, BGC_LAA_FINALIZE, mtc);
-  Finalize(v);
+  Finalize(v, current_);
   record_timer(MTC_LAA_FINALIZE, BGC_LAA_FINALIZE, mtc);
 
   // Initialize new descriptor log file if necessary by creating
@@ -2426,7 +2388,6 @@ Status VersionSet::LogAndApply(VersionEdit* edit, port::Mutex* mu, port::CondVar
 	  AddFileLevelBloomFilterInfo(file_numbers[i], file_level_filters[i]);
   }
 #endif
-
   // Install the new version
   if (s.ok()) {
 	// Get the delta complete guards added to in-memory version in small time period of manifest write
@@ -2470,7 +2431,7 @@ Status VersionSet::LogAndApply(VersionEdit* edit, port::Mutex* mu, port::CondVar
   }
 
   *wt = false;
-  cv->Signal();
+  cv->Signal(); 
   return s;
 }
 
@@ -2581,7 +2542,7 @@ Status VersionSet::Recover() {
     Version* v = new Version(this);
     builder.SaveTo(v, 1);
     // Install recovered version
-    Finalize(v);
+    Finalize(v, current_);
     AppendVersion(v);
     manifest_file_number_ = next_file;
     next_file_number_ = next_file + 1;
@@ -2641,23 +2602,14 @@ uint64_t VersionSet::GetOverlappingRangeBetweenFiles(FileMetaData* f1, FileMetaD
 	return 0;
 }
 
-void VersionSet::Finalize(Version* v) {
-  //young" update kMaxFilesPerGuard by hotnes
-  /*
-  if(v->GetHotnessCheck()) {
-	for(unsigned level = 1; level < config::kNumLevels; ++level) {
-		
-		for(unsigned i = 0; i < v->guards_[level].size(); i++) {
-			
-		}	
-	}
-	v->SetHotnessCheck(false);
-  }
-  */
-  
+void VersionSet::Finalize(Version* v, Version* current_) {
+
+  //Get hotness metrics
+  uint64_t read_lifetime = config::read_lifetime;
+  uint64_t read_hot_count_limit = config::read_hot_count_limit;
+
   // Compute the ratio of disk usage to its limit
   for (unsigned level = 0; level < config::kNumLevels; ++level) {
-	//young" get max_file_number per guard from user parameter.
 	int max_files_per_segment = config::kMaxFilesPerGuardSentinel;
 	if (MaxFilesPerGuardForLevel(level) > 0) {
 		max_files_per_segment= MaxFilesPerGuardForLevel(level);
@@ -2685,14 +2637,54 @@ void VersionSet::Finalize(Version* v) {
       for (unsigned i = 0; i < v->guards_[level].size(); i++) {
     	  GuardMetaData* g = v->guards_[level][i];
     	  std::string guard_user_key = g->guard_key.user_key().ToString();
-	  //young" give score to guard on Level-0
     	  v->guard_compaction_scores_[level].push_back(g->files.size() /
     			  static_cast<double>(config::kL0_GuardCompactionTrigger));
     	  max_score_in_level = std::max(max_score_in_level, v->guard_compaction_scores_[level][i]);
       }
       v->compaction_scores_[level] = max_score_in_level;
-    } else { //young" not level-0 case
-	//young" compute the compaction scores for all levels.
+    } else {
+      
+      // The new version inherits hotness information from current version.
+      v->read_current_time = current_->read_current_time;
+
+      unsigned next = 0;
+      for(unsigned i = 0; i < current_->guards_[level].size(); i++) {
+	  GuardMetaData* g = current_->guards_[level][i];
+	  Slice guard_key = g->guard_key.user_key(), next_guard_key;
+
+          // Check whether read hotness of guard is expired.
+          if (current_->read_current_time - g->read_last_accessed_time > read_lifetime) {
+                g->read_count = 0;
+                g->read_last_accessed_time = 0;
+          }
+
+	  if (i + 1 < current_->guards_[level].size()) {
+		next_guard_key = current_->guards_[level][i+1]->guard_key.user_key();
+	  } else {
+		for(unsigned j = next; j < v->guards_[level].size(); j++) {
+	          	GuardMetaData* new_g = v->guards_[level][j];
+	
+			new_g->read_count = g->read_count;
+			new_g->read_last_accessed_time = g->read_last_accessed_time;
+		}
+		break;
+	  }
+
+	  for(unsigned j = next; j < v->guards_[level].size(); j++) {
+		GuardMetaData* new_g = v->guards_[level][j];
+		Slice new_guard_key = new_g->guard_key.user_key();
+
+		if ((icmp_.user_comparator()->Compare(new_guard_key, guard_key) >= 0) && (icmp_.user_comparator()->Compare(new_guard_key, next_guard_key) < 0)) {
+			new_g->read_count = g->read_count;
+			new_g->read_last_accessed_time = g->read_last_accessed_time;
+			continue;
+		} 
+		next = j;
+		break;	
+	  }
+
+      }
+
       // Compute the ratio of current size to size limit.
       double score1, score2;
       const uint64_t max_bytes = MaxBytesForLevel(level);
@@ -2706,54 +2698,32 @@ void VersionSet::Finalize(Version* v) {
       const uint64_t sentinel_bytes = TotalFileSize(v->sentinel_files_[level]);
       level_bytes += sentinel_bytes;
 
-      //young" compute score of sentinel guard by total_file_size
       score1 = sentinel_bytes / MaxBytesPerGuardForLevel(level);
-      //young" compute score of sentinel guard by max_file_number
-      //score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(max_files_per_segment+1);
-
-      //young" calculate total sentinel's read_count and most last_accessed_time
-      uint64_t sentinel_read_count = 0;
-      uint64_t sentinel_read_accessed_time = 0;
-      for (unsigned i = 0; i < num_sentinel_files; i++) {
-	sentinel_read_count += v->sentinel_files_[level][i]->read_count;
-	sentinel_read_accessed_time = std::max(v->sentinel_files_[level][i]->read_last_accessed_time, sentinel_read_accessed_time);
-      }
-      //young" caclulate score of sentinel guard by read hotness
-      uint64_t sentinel_age = (v->GetReadCurrentTime() - sentinel_read_accessed_time); 
-      if(sentinel_age > config::read_lifetime) { //read is expired
-      	for(unsigned i = 0; i < num_sentinel_files; i++) {
-		v->sentinel_files_[level][i]->read_count = 0;
-	}
-	score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(max_files_per_segment+1); //do tiering
-      } else { //read is activated
-	score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(1); //do leveling
-      }
+      
+      score2 = static_cast<double>(num_sentinel_files) / static_cast<double>(max_files_per_segment+1); //do tiering
 
       score = std::max(score1, score2);
       v->sentinel_compaction_scores_[level] = score;
       double max_score_in_level = v->sentinel_compaction_scores_[level];
-
-      //young" new per guard score (setting score)
+       
       for (unsigned i = 0; i < num_guards; i++) {
     	  GuardMetaData* g = v->guards_[level][i];
     	  const uint64_t guard_file_bytes = TotalFileSize(g->file_metas); // total file size of current guard
     	  level_bytes += guard_file_bytes; // caculate total file size of current level
-    	   //young" compute score of guard by total_file_size
-	  score1 = guard_file_bytes / MaxBytesPerGuardForLevel(level); // score1 = guard_size / max_guard_size
-	   //young" compute score of guard by max_file_number
-    	  //score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1);
-	  //young" guard's file exceeds g->kMaxFiles
-  	  //score2 = static_cast<double>(g->files.size()) / static_cast<double>(g->kMaxFiles);
+	  
+	  score1 = guard_file_bytes / MaxBytesPerGuardForLevel(level);
 
-	  //young" calculate score by gurad read hotness
-	  uint64_t guard_age = (v->GetReadCurrentTime() - g->read_last_accessed_time); 
-	  if(guard_age > config::read_lifetime) { //read is expired
- 		g->read_count = 0;
+	  // When PartialTiering is adjusted to db, If read is cold, do tiering. Else if read is hot, do leveling.
+          if (config::adjustPartialTiering) {
+                if (g->read_count < read_hot_count_limit) {
+                        score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1);
+                } else {
+                        score2 = static_cast<double>(g->files.size()) / static_cast<double>(2);
+                }
+	  } else {
 		score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1);
-	  } else { //read is activated
-		score2 = static_cast<double>(g->files.size()) / static_cast<double>(1);
-	  }
-
+	  }	
+		
           score = std::max(score1, score2);
           v->guard_compaction_scores_[level].push_back(score);
     	  max_score_in_level = std::max(max_score_in_level, v->guard_compaction_scores_[level][i]);
@@ -2796,9 +2766,9 @@ Status VersionSet::WriteSnapshot(log::Writer* log) {
     for (size_t i = 0; i < guards.size(); i++) {
       const GuardMetaData* g = guards[i];
       if (g->number_segments > 0) {
-    	  edit.AddGuardWithFiles(level, g->number_segments, g->guard_key, g->smallest, g->largest, g->files);
+    	  edit.AddGuardWithFiles(level, g->number_segments, g->guard_key, g->smallest, g->largest, g->files, g->read_count, g->read_last_accessed_time);
       } else {
-    	  edit.AddGuard(level, g->guard_key);
+    	  edit.AddGuard(level, g->guard_key, g->read_count, g->read_last_accessed_time);
       }
     }
 
@@ -2842,7 +2812,6 @@ std::string VersionSet::GetCurrentVersionState() {
 	return current_->DebugString();
 }
 
-//young" NumGuardFiles
 int VersionSet::NumGuardFiles(unsigned level) const {
   assert(level < config::kNumLevels);
   int num_guard_files = 0;
@@ -3246,8 +3215,6 @@ static bool OldestFirst(FileMetaData* a, FileMetaData* b) {
   return a->number < b->number;
 }
 
-
-//young" pick compaction for guards
 Compaction* VersionSet::PickCompactionForGuards(Version* v, unsigned level, std::vector<GuardMetaData*> *complete_guards_used_in_bg_compaction, bool force_compact) {
 	  assert(level < config::kNumLevels);
 
@@ -3359,14 +3326,15 @@ Compaction* VersionSet::PickCompactionForGuards(Version* v, unsigned level, std:
 
 		  int max_files_per_guard = MaxFilesPerGuardForLevel(current_level);
 		  if (max_files_per_guard <= 0) {
+			  //young" max_files_per_guard for horizontal compaction
 			  max_files_per_guard = config::kMaxFilesPerGuardSentinel;
 		  }
+
 		  if (add_sentinel_files) {
 			  // TODO Not taking care of NewestFirst property, this might possibly return old values for updates - not taking care of that now.
 			  if (horizontal_compaction) {
 				  uint64_t total_size = TotalFileSize(v->sentinel_files_[current_level]);
 				  uint64_t avg_file_size = total_size / static_cast<double> (config::kMaxFilesPerGuardSentinel);
-					//young" horizontal compaction avg_file_size, total_size
 				  for (unsigned i = 0; i < v->sentinel_files_[current_level].size(); i++) {
 					  FileMetaData* f = v->sentinel_files_[current_level][i];
 					  if (add_all_sentinel_files || f->file_size < avg_file_size) {
@@ -3419,7 +3387,7 @@ Compaction* VersionSet::PickCompactionForGuards(Version* v, unsigned level, std:
 				  continue;
 			  }
 			  GuardMetaData* g = guards[guard_index];
-			  bool guard_added = false;
+			  bool guard_added = false; 
 			  for (unsigned j = 0; j < g->files.size(); j++) {
 				  FileMetaData* file = g->file_metas[j];
 				  Slice file_smallest = file->smallest.user_key();
@@ -3435,6 +3403,7 @@ Compaction* VersionSet::PickCompactionForGuards(Version* v, unsigned level, std:
 					  break; // No need to check other files
 				  }
 			  }
+			  //young" Add guard to compaction list by score
 			  if (!guard_added && which == 0 && (force_compact || v->guard_compaction_scores_[current_level][guard_index] >= 1.0)) {
 				  guards_to_add_to_compaction.push_back(g);
 				  guards_compaction_add_all_files.push_back(false);
@@ -3444,11 +3413,11 @@ Compaction* VersionSet::PickCompactionForGuards(Version* v, unsigned level, std:
 
 		  // Adding files to c->inputs_
 		  for (int i = 0; i < guards_to_add_to_compaction.size(); i++) {
-			  if (horizontal_compaction) {
+			  
+			  if (horizontal_compaction) { // if max level
 				  GuardMetaData* g = guards_to_add_to_compaction[i];
 				  uint64_t total_bytes = TotalFileSize(g->file_metas);
 				  uint64_t avg_file_size = total_bytes / static_cast<double> (config::kMaxFilesPerGuardSentinel);
-
 				  // WATCH OUT. You are creating a new object, make sure to delete it after processing.
 				  GuardMetaData* new_g = new GuardMetaData;
 				  new_g->guard_key = g->guard_key;
@@ -3456,7 +3425,9 @@ Compaction* VersionSet::PickCompactionForGuards(Version* v, unsigned level, std:
 				  new_g->smallest = g->smallest;
 				  new_g->largest = g->largest;
 				  new_g->number_segments = 0;
-
+				  new_g->read_count = g->read_count;
+				  new_g->read_last_accessed_time = g->read_last_accessed_time;
+			
 				  for (int j = 0; j < g->number_segments; j++) {
 					  FileMetaData* f = g->file_metas[j];
 					  if (guards_compaction_add_all_files[i] || f->file_size < avg_file_size) {
@@ -3481,11 +3452,12 @@ Compaction* VersionSet::PickCompactionForGuards(Version* v, unsigned level, std:
 					  }
 				  }
 				  c->guard_inputs_[which].push_back(new_g);
-			  } else {
+			  } else { // not horizontal compaction
 				  GuardMetaData* g = guards_to_add_to_compaction[i];
 				  for (int j = 0; j < g->number_segments; j++) {
 					  c->inputs_[which].push_back(g->file_metas[j]);
 				  }
+
 				  c->guard_inputs_[which].push_back(g);
 			  }
 		  }

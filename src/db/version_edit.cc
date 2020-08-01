@@ -105,7 +105,6 @@ void VersionEdit::EncodeTo(std::string* dst) const {
     PutVarint32(dst, iter->first);   // level
     PutLengthPrefixedSlice(dst, iter->second.Encode());  // guard key
   }
-
   // Encode added guards
   for (size_t k = 0; k < config::kNumLevels; k++) {
     for (size_t i = 0; i < new_guards_[k].size(); i++) {
