@@ -38,9 +38,11 @@ uniquely identifies a guard.
 //young" GuardMetadata
 struct GuardMetaData {
   // Metrics for Partial Tiering 
+  int kMaxFiles;
   uint64_t read_last_accessed_time;
   uint64_t read_count;
   uint64_t write_count;
+  
 
   int refs;
   int level;
@@ -52,7 +54,7 @@ struct GuardMetaData {
   // The list of file numbers that form a part of this guard.
   std::vector<uint64_t> files;
   std::vector<FileMetaData*> file_metas;
-GuardMetaData() : write_count(0), read_last_accessed_time(0), read_count(0), refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
+GuardMetaData() : kMaxFiles(config::kMaxFilesPerGuardSentinel), write_count(0), read_last_accessed_time(0), read_count(0), refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
 };
  
 class VersionEdit {

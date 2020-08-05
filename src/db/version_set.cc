@@ -2709,10 +2709,14 @@ void VersionSet::Finalize(Version* v, Version* current_) {
 
 	  // When PartialTiering is adjusted to db, If read is cold, do tiering. Else if read is hot, do leveling.
           if (config::adjustPartialTiering) {
-                if ((g->read_count > static_cast<uint64_t>(sum_guard_read_count / num_guards) && (g->write_count < static_cast<uint64_t>(sum_write_count / num_guards)) {
+                if ((g->read_count > static_cast<uint64_t>(sum_guard_read_count / num_guards) 
+			&& (g->write_count / g->kMaxFiles) < static_cast<uint64_t>(sum_write_count / num_guards) 
+				&& (g->read_count > g->write_count)) {
                         score2 = static_cast<double>(g->files.size()) / static_cast<double>(2);
+			g->kMaxFiles = 2;
                 } else {
 			score2 = static_cast<double>(g->files.size()) / static_cast<double>(max_files_per_segment+1);
+			g->kMaxFiles = max_files_per_segment;
                 }
 		g->write_count = 0;
 	  } else {
