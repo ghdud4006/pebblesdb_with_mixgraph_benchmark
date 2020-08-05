@@ -28,7 +28,7 @@ static const unsigned kL0_SentinelCompactionTrigger = 2;
 
 static const unsigned kL0_GuardCompactionTrigger = 2;
 
-static const unsigned kMaxFilesPerGuardSentinel = 2;
+static const unsigned kMaxFilesPerGuardSentinel = 8;
 
 // Hotness metrics
 static const unsigned adjustPartialTiering = true;

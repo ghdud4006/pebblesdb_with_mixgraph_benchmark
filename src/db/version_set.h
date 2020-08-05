@@ -398,6 +398,10 @@ class Version {
   void SetReadCurrentTime(uint64_t new_) {
 	read_current_time = new_;
   }
+
+  void IncreaseTotalWriteCount() {
+	total_write_count++;
+  }
     
  private:
   friend class Compaction;
@@ -440,6 +444,8 @@ class Version {
   uint64_t read_current_time;
   double mean_read_count;
 
+  uint64_t total_write_count;
+
   // Next file to compact based on seek stats.
   FileMetaData* file_to_compact_;
   int file_to_compact_level_;
@@ -458,7 +464,8 @@ class Version {
   explicit Version(VersionSet* vset)
       : vset_(vset), next_(this), prev_(this), refs_(0), 
 	read_current_time(0),
-	mean_read_count(5000),
+	mean_read_count(25000),
+	total_write_count(0),
         file_to_compact_(NULL),
         file_to_compact_level_(-1) {
     for (unsigned i = 0; i < config::kNumLevels; ++i) {

@@ -17,7 +17,9 @@ class VersionSet;
 struct GuardMetaData; 
 
 struct FileMetaData {
-   int refs;
+  uint64_t num_entries;  
+
+  int refs;
   int allowed_seeks;          // Seeks allowed until compaction
   uint64_t number;
   uint64_t file_size;         // File size in bytes
@@ -25,7 +27,7 @@ struct FileMetaData {
   InternalKey largest;        // Largest internal key served by table
   GuardMetaData* guard;       // The guard that the file belongs to.
   
-FileMetaData() : refs(0), allowed_seeks(1 << 30), number(0), file_size(0), smallest(), largest(), guard() { }
+FileMetaData() : num_entries(0), refs(0), allowed_seeks(1 << 30), number(0), file_size(0), smallest(), largest(), guard() { }
 };
 
 /* 
@@ -38,6 +40,7 @@ struct GuardMetaData {
   // Metrics for Partial Tiering 
   uint64_t read_last_accessed_time;
   uint64_t read_count;
+  uint64_t write_count;
 
   int refs;
   int level;
@@ -49,8 +52,7 @@ struct GuardMetaData {
   // The list of file numbers that form a part of this guard.
   std::vector<uint64_t> files;
   std::vector<FileMetaData*> file_metas;
-  
-GuardMetaData() : read_last_accessed_time(0), read_count(0), refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
+GuardMetaData() : write_count(0), read_last_accessed_time(0), read_count(0), refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}
 };
  
 class VersionEdit {
@@ -102,11 +104,12 @@ class VersionEdit {
   // Add the specified file at the specified number.
   // REQUIRES: This version has not been saved (see VersionSet::SaveTo)
   // REQUIRES: "smallest" and "largest" are smallest and largest keys in file
-  void AddFile(int level, uint64_t file,
+  void AddFile(int level, uint64_t num_entries, uint64_t file,
                uint64_t file_size,
                const InternalKey& smallest,
                const InternalKey& largest) {
     FileMetaData f;
+    f.num_entries = num_entries;
     f.number = file;
     f.file_size = file_size;
     f.smallest = smallest;
@@ -136,8 +139,8 @@ class VersionEdit {
   void AddSentinelFileNo(int level, uint64_t number) {
 	  sentinel_file_nos_[level].push_back(number);
   }
-
-  void AddGuard(int level, const InternalKey& guard_key, uint64_t read_count, uint64_t read_last_accessed_time) {
+  
+void AddGuard(int level, const InternalKey& guard_key, uint64_t read_count, uint64_t read_last_accessed_time, uint64_t write_count) {
     assert(level >= 0 && level < config::kNumLevels);
     GuardMetaData g;
     g.guard_key = guard_key;
@@ -145,6 +148,7 @@ class VersionEdit {
     g.number_segments = 0;
     g.read_count = read_count;
     g.read_last_accessed_time = read_last_accessed_time;
+    g.write_count = 0;
 
     new_guards_[level].push_back(g);
   }
@@ -176,9 +180,9 @@ class VersionEdit {
 			 const InternalKey& smallest,
 			 const InternalKey& largest,
 			 const std::vector<uint64_t> files,
-			 //int kMaxFiles,
 			 uint64_t read_count,
-			 uint64_t read_last_accessed_time) {
+			 uint64_t read_last_accessed_time,
+			 uint64_t write_count) {
     assert(level >= 0 && level < config::kNumLevels);
     GuardMetaData g;
     g.guard_key = guard_key;
@@ -189,6 +193,7 @@ class VersionEdit {
     g.files.insert(g.files.end(), files.begin(), files.end());
     g.read_count = read_count;
     g.read_last_accessed_time = read_last_accessed_time;
+    g.write_count = write_count;
 
     new_guards_[level].push_back(g);
   }

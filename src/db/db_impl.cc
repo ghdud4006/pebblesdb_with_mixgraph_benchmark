@@ -120,9 +120,11 @@ struct DBImpl::CompactionState {
   // we can drop all entries for the same key with sequence numbers < S.
   SequenceNumber smallest_snapshot;
 
+  //young" Compaction outputs
   // Files produced by compaction
   struct Output {
-    Output() : number(), file_size(), smallest(), largest() {}
+    Output() : num_entries(0), number(), file_size(), smallest(), largest() {}
+    uint64_t num_entries;
     uint64_t number;
     uint64_t file_size;
     InternalKey smallest, largest;
@@ -705,7 +707,7 @@ Status DBImpl::WriteLevel0TableGuards(MemTable* mem, VersionEdit* edit,
 			const Slice min_user_key = meta.smallest.user_key();
 			const Slice max_user_key = meta.largest.user_key();
 			// Note: We are always putting the new files to level 0
-			edit->AddFile(level, meta.number, meta.file_size,
+			edit->AddFile(level, meta.num_entries, meta.number, meta.file_size,
 						  meta.smallest, meta.largest);
 			numbers.push_back(meta.number);
 			total_file_size += meta.file_size;
@@ -1255,8 +1257,10 @@ Status DBImpl::InstallCompactionResults(CompactionState* compact, const int leve
   compact->compaction->AddInputDeletions(compact->compaction->edit());
   for (size_t i = 0; i < compact->outputs.size(); i++) {
     const CompactionState::Output& out = compact->outputs[i];
+    //young" (AddFile) Make FileMetaData by compaction->outputs (InstallCompactionResults)
     compact->compaction->edit()->AddFile(
         level_to_add_new_files,
+	out.num_entries,
         out.number, out.file_size, out.smallest, out.largest);
   }
   return versions_->LogAndApply(compact->compaction->edit(), &mutex_, &bg_log_cv_, &bg_log_occupied_, file_numbers, file_level_filters, 0);
@@ -1439,6 +1443,10 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
         compact->current_output()->smallest.DecodeFrom(key);
       } 
       compact->current_output()->largest.DecodeFrom(key);
+      //young" Write count point
+      compact->current_output()->num_entries++;
+
+      //young" Add key-value pair to the correct file (write count point)
       compact->builder->Add(key, input->value());
 
 #ifdef FILE_LEVEL_FILTER
@@ -1517,6 +1525,7 @@ Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,
 
   start_timer(BGC_INSTALL_COMPACTION_RESULTS);
   if (status.ok()) {
+	  //young" (InstallCompactionResults)Log and apply metadata about changes to db(DoCompactionWorkGuards)
 	  status = InstallCompactionResults(compact, level_written_to, file_numbers, file_level_filters);
   }
   record_timer(BGC_INSTALL_COMPACTION_RESULTS);

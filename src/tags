@@ -5,7 +5,26 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ACKNOWLEDGED	db/version_set.h	/^	ACKNOWLEDGED$/;"	e	enum:leveldb::SeekReturnStatus
+ACLOCAL	Makefile	/^ACLOCAL = ${SHELL} \/home\/young\/Working\/pebblesdb\/src\/missing aclocal-1.15$/;"	m
+ACLOCAL_AMFLAGS	Makefile	/^ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}$/;"	m
+ACLOCAL_M4	Makefile	/^ACLOCAL_M4 = $(top_srcdir)\/aclocal.m4$/;"	m
 ADD_LEVEL0_FILES_TO_EDIT	util/timer.h	/^	ADD_LEVEL0_FILES_TO_EDIT,$/;"	e	enum:leveldb::TimerStep
+AMTAR	Makefile	/^AMTAR = $${TAR-tar}$/;"	m
+AM_CFLAGS	Makefile	/^AM_CFLAGS = -DLEVELDB_PLATFORM_POSIX $(SNAPPY_FLAGS) ${EXTRA_CFLAGS} $(WANAL_CFLAGS)$/;"	m
+AM_CPPFLAGS	Makefile	/^AM_CPPFLAGS = -I${abs_top_srcdir}\/include$/;"	m
+AM_CXXFLAGS	Makefile	/^AM_CXXFLAGS = -DLEVELDB_PLATFORM_POSIX $(SNAPPY_FLAGS) ${EXTRA_CFLAGS} $(WANAL_CXXFLAGS) -Wno-variadic-macros -std=c++11$/;"	m
+AM_DEFAULT_VERBOSITY	Makefile	/^AM_DEFAULT_VERBOSITY = 0$/;"	m
+AM_MAKEFLAGS	Makefile	/^AM_MAKEFLAGS = --no-print-directory$/;"	m
+AM_RECURSIVE_TARGETS	Makefile	/^AM_RECURSIVE_TARGETS = cscope$/;"	m
+AM_V_CC	Makefile	/^AM_V_CC = $(am__v_CC_$(V))$/;"	m
+AM_V_CCLD	Makefile	/^AM_V_CCLD = $(am__v_CCLD_$(V))$/;"	m
+AM_V_CXX	Makefile	/^AM_V_CXX = $(am__v_CXX_$(V))$/;"	m
+AM_V_CXXLD	Makefile	/^AM_V_CXXLD = $(am__v_CXXLD_$(V))$/;"	m
+AM_V_GEN	Makefile	/^AM_V_GEN = $(am__v_GEN_$(V))$/;"	m
+AM_V_P	Makefile	/^AM_V_P = $(am__v_P_$(V))$/;"	m
+AM_V_at	Makefile	/^AM_V_at = $(am__v_at_$(V))$/;"	m
+AM_V_lt	Makefile	/^AM_V_lt = $(am__v_lt_$(V))$/;"	m
+AR	Makefile	/^AR = ar$/;"	m
 ARCH_CPU_ARM_FAMILY	port/atomic_pointer.h	241;"	d
 ARCH_CPU_ARM_FAMILY	port/atomic_pointer.h	47;"	d
 ARCH_CPU_PPC_FAMILY	port/atomic_pointer.h	242;"	d
@@ -25,6 +44,10 @@ ASSIGNED	db/version_set.h	/^	ASSIGNED,$/;"	e	enum:leveldb::ThreadStatus
 ATOMICOPS_COMPILER_BARRIER	util/atomic.h	63;"	d
 ATOMICOPS_COMPILER_BARRIER	util/atomic.h	65;"	d
 ATOMICOPS_COMPILER_BARRIER	util/atomic.h	667;"	d
+AUTOCONF	Makefile	/^AUTOCONF = ${SHELL} \/home\/young\/Working\/pebblesdb\/src\/missing autoconf$/;"	m
+AUTOHEADER	Makefile	/^AUTOHEADER = ${SHELL} \/home\/young\/Working\/pebblesdb\/src\/missing autoheader$/;"	m
+AUTOMAKE	Makefile	/^AUTOMAKE = ${SHELL} \/home\/young\/Working\/pebblesdb\/src\/missing automake-1.15$/;"	m
+AWK	Makefile	/^AWK = mawk$/;"	m
 Abandon	table/table_builder.cc	/^void TableBuilder::Abandon() {$/;"	f	class:leveldb::TableBuilder
 Acquire	util/env_posix.cc	/^  bool Acquire() {$/;"	f	class:leveldb::__anon26::MmapLimiter
 AcquireLoad	db/db_bench.cc	/^  void AcquireLoad(ThreadState* thread) {$/;"	f	class:leveldb::Benchmark	file:
@@ -44,11 +67,11 @@ AddCompleteGuard	db/version_set.cc	/^  void AddCompleteGuard(Version* v, unsigne
 AddCompleteGuardFromExisting	db/version_edit.h	/^  void AddCompleteGuardFromExisting(int level, GuardMetaData* g) {$/;"	f	class:leveldb::VersionEdit
 AddCompleteGuardsToEdit	db/version_set.h	/^  void AddCompleteGuardsToEdit(VersionEdit* edit) {$/;"	f	class:leveldb::Version
 AddDeltaGuardsToEdit	db/version_set.cc	/^void Version::AddDeltaGuardsToEdit(VersionEdit* edit, std::set<int> level_to_load_complete_guards) {$/;"	f	class:leveldb::Version
-AddFile	db/version_edit.h	/^  void AddFile(int level, uint64_t file,$/;"	f	class:leveldb::VersionEdit
+AddFile	db/version_edit.h	/^  void AddFile(int level, uint64_t num_entries, uint64_t file,$/;"	f	class:leveldb::VersionEdit
 AddFileLevelBloomFilterInfo	db/version_set.cc	/^void VersionSet::AddFileLevelBloomFilterInfo(uint64_t file_number, std::string* filter_string) {$/;"	f	class:leveldb::VersionSet
 AddFileToSentinel	db/version_edit.h	/^  void AddFileToSentinel(FileMetaData* f, int level) {$/;"	f	class:leveldb::VersionEdit
 AddFilterString	db/builder.cc	/^void AddFilterString(FileLevelFilterBuilder* file_level_filter_builder, int n,$/;"	f	namespace:leveldb
-AddGuard	db/version_edit.h	/^  void AddGuard(int level, const InternalKey& guard_key) {$/;"	f	class:leveldb::VersionEdit
+AddGuard	db/version_edit.h	/^  void AddGuard(int level, const InternalKey& guard_key, uint64_t read_count, uint64_t read_last_accessed_time, uint64_t write_count) {$/;"	f	class:leveldb::VersionEdit
 AddGuard	db/version_set.h	/^  void AddGuard(GuardMetaData* g, int level) {$/;"	f	class:leveldb::Version
 AddGuardFromExisting	db/version_edit.h	/^  void AddGuardFromExisting(int level, GuardMetaData* g) {$/;"	f	class:leveldb::VersionEdit
 AddGuardWithFiles	db/version_edit.h	/^  void AddGuardWithFiles(int level, uint64_t number_segments,$/;"	f	class:leveldb::VersionEdit
@@ -72,6 +95,7 @@ AllEntriesFor	db/db_test.cc	/^  std::string AllEntriesFor(const Slice& user_key)
 Allocate	util/arena.cc	/^char* Arena::Allocate(size_t bytes) {$/;"	f	class:leveldb::Arena
 AllocateAligned	util/arena.cc	/^char* Arena::AllocateAligned(size_t bytes) {$/;"	f	class:leveldb::Arena
 AllocateFinalize	util/arena.cc	/^char* Arena::AllocateFinalize(Block* b, size_t bytes) {$/;"	f	class:leveldb::Arena
+AllocateKey	db/db_bench.cc	/^  Slice AllocateKey(std::unique_ptr<const char[]>* key_guard) {$/;"	f	class:leveldb::Benchmark	file:
 AllocateLarge	util/arena.cc	/^char* Arena::AllocateLarge(size_t bytes) {$/;"	f	class:leveldb::Arena
 AllowGarbageCollectBeforeTimestamp	db/db_impl.cc	/^void DBImpl::AllowGarbageCollectBeforeTimestamp(const std::string& timestamp) {$/;"	f	class:leveldb::DBImpl
 AllowGarbageCollectBeforeTimestamp	db/db_test.cc	/^  virtual void AllowGarbageCollectBeforeTimestamp(const std::string& timestamp) {$/;"	f	class:leveldb::ModelDB
@@ -205,14 +229,34 @@ ByteSize	db/write_batch_internal.h	/^  static size_t ByteSize(const WriteBatch* 
 BytewiseComparator	util/comparator.cc	/^const Comparator* BytewiseComparator() {$/;"	f	namespace:leveldb
 BytewiseComparatorImpl	util/comparator.cc	/^  BytewiseComparatorImpl() { }$/;"	f	class:leveldb::__anon23::BytewiseComparatorImpl
 BytewiseComparatorImpl	util/comparator.cc	/^class BytewiseComparatorImpl : public Comparator {$/;"	c	namespace:leveldb::__anon23	file:
+CC	Makefile	/^CC = gcc$/;"	m
+CCDEPMODE	Makefile	/^CCDEPMODE = depmode=gcc3$/;"	m
+CCLD	Makefile	/^CCLD = $(CC)$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -g -O2$/;"	m
 CMT_ADD_COMPLETE_GUARDS_TO_EDIT	util/timer.h	/^	CMT_ADD_COMPLETE_GUARDS_TO_EDIT,$/;"	e	enum:leveldb::TimerStep
 CMT_ADD_GUARDS_TO_EDIT	util/timer.h	/^	CMT_ADD_GUARDS_TO_EDIT,$/;"	e	enum:leveldb::TimerStep
 CMT_DELETE_OBSOLETE_FILES	util/timer.h	/^	CMT_DELETE_OBSOLETE_FILES,$/;"	e	enum:leveldb::TimerStep
 CMT_ERASE_PENDING_OUTPUTS	util/timer.h	/^	CMT_ERASE_PENDING_OUTPUTS,$/;"	e	enum:leveldb::TimerStep
 CMT_LOG_AND_APPLY	util/timer.h	/^	CMT_LOG_AND_APPLY,$/;"	e	enum:leveldb::TimerStep
+COMPILE	Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
 COMPLETED	db/version_set.h	/^	COMPLETED$/;"	e	enum:leveldb::ThreadStatus
+CONFIG_CLEAN_FILES	Makefile	/^CONFIG_CLEAN_FILES = libpebblesdb.pc$/;"	m
+CONFIG_CLEAN_VPATH_FILES	Makefile	/^CONFIG_CLEAN_VPATH_FILES =$/;"	m
+CONFIG_HEADER	Makefile	/^CONFIG_HEADER = config.h$/;"	m
+CPP	Makefile	/^CPP = gcc -E$/;"	m
+CPPFLAGS	Makefile	/^CPPFLAGS = $/;"	m
 CRC	util/crc32c_test.cc	/^class CRC { };$/;"	c	namespace:leveldb::crc32c	file:
 CRC_FFs	util/crc32c.cc	17;"	d	file:
+CSCOPE	Makefile	/^CSCOPE = cscope$/;"	m
+CTAGS	Makefile	/^CTAGS = ctags$/;"	m
+CXX	Makefile	/^CXX = g++$/;"	m
+CXXCOMPILE	Makefile	/^CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \\$/;"	m
+CXXCPP	Makefile	/^CXXCPP = g++ -E$/;"	m
+CXXDEPMODE	Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
+CXXFLAGS	Makefile	/^CXXFLAGS = -g -O2$/;"	m
+CXXLD	Makefile	/^CXXLD = $(CXX)$/;"	m
+CXXLINK	Makefile	/^CXXLINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \\$/;"	m
+CYGPATH_W	Makefile	/^CYGPATH_W = echo$/;"	m
 Cache	include/pebblesdb/cache.h	/^  Cache() : rep_() { }$/;"	f	class:leveldb::Cache
 Cache	include/pebblesdb/cache.h	/^class Cache {$/;"	c	namespace:leveldb
 CacheTest	util/cache_test.cc	/^  CacheTest() : cache_(NewLRUCache(kCacheSize)) {$/;"	f	class:leveldb::CacheTest
@@ -336,10 +380,13 @@ CreateFilter	db/c.cc	/^  virtual void CreateFilter(const Slice* keys, int n, std
 CreateFilter	db/dbformat.cc	/^void InternalFilterPolicy::CreateFilter(const Slice* keys, int n,$/;"	f	class:leveldb::InternalFilterPolicy
 CreateFilter	table/filter_block_test.cc	/^  virtual void CreateFilter(const Slice* keys, int n, std::string* dst) const {$/;"	f	class:leveldb::TestHashFilter
 CreateFilter	util/bloom.cc	/^  virtual void CreateFilter(const Slice* keys, int n, std::string* dst) const {$/;"	f	class:leveldb::__anon28::BloomFilterPolicy
+CreateProcess	libtool	/^   CreateProcess().  We must quote the arguments since Win32 CreateProcess()$/;"	f
+CreateProcess	ltmain.sh	/^   CreateProcess().  We must quote the arguments since Win32 CreateProcess()$/;"	f
 CrossesBoundary	db/version_set.cc	/^bool Compaction::CrossesBoundary(const ParsedInternalKey& old_key,$/;"	f	class:leveldb::Compaction
 CurrentFileName	db/filename.cc	/^std::string CurrentFileName(const std::string& dbname) {$/;"	f	namespace:leveldb
 CurrentOptions	db/db_test.cc	/^  Options CurrentOptions() {$/;"	f	class:leveldb::DBTest
 CurrentSizeEstimate	table/block_builder.cc	/^size_t BlockBuilder::CurrentSizeEstimate() const {$/;"	f	class:leveldb::BlockBuilder
+DATA	Makefile	/^DATA = $(pkgconfig_DATA)$/;"	m
 DB	include/pebblesdb/db.h	/^  DB() { }$/;"	f	class:leveldb::DB
 DB	include/pebblesdb/db.h	/^class DB {$/;"	c	namespace:leveldb
 DBConstructor	table/table_test.cc	/^  explicit DBConstructor(const Comparator* cmp)$/;"	f	class:leveldb::DBConstructor
@@ -354,7 +401,19 @@ DBSynchronize	doc/bench/db_bench_tree_db.cc	/^static void DBSynchronize(kyotocab
 DBTest	db/db_test.cc	/^  DBTest() : option_config_(kDefault),$/;"	f	class:leveldb::DBTest
 DBTest	db/db_test.cc	/^class DBTest {$/;"	c	namespace:leveldb	file:
 DB_TEST	table/table_test.cc	/^  DB_TEST$/;"	e	enum:leveldb::TestType	file:
+DEFAULT_INCLUDES	Makefile	/^DEFAULT_INCLUDES = -I.$/;"	m
+DEFINE_uint32	util/gflags_compat.h	17;"	d
+DEFS	Makefile	/^DEFS = -DHAVE_CONFIG_H$/;"	m
+DEPDIR	Makefile	/^DEPDIR = .deps$/;"	m
+DISTFILES	Makefile	/^DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)$/;"	m
+DIST_ARCHIVES	Makefile	/^DIST_ARCHIVES = $(distdir).tar.gz $(distdir).tar.bz2$/;"	m
+DIST_COMMON	Makefile	/^DIST_COMMON = $(srcdir)\/Makefile.am $(top_srcdir)\/configure \\$/;"	m
+DIST_SOURCES	Makefile	/^DIST_SOURCES = $(libpebblesdb_la_SOURCES) $(arena_test_SOURCES) \\$/;"	m
+DIST_TARGETS	Makefile	/^DIST_TARGETS = dist-bzip2 dist-gzip$/;"	m
+DLLTOOL	Makefile	/^DLLTOOL = false$/;"	m
 DONE	db/skiplist_test.cc	/^    DONE$/;"	e	enum:leveldb::TestState::ReaderState	file:
+DSYMUTIL	Makefile	/^DSYMUTIL = $/;"	m
+DUMPBIN	Makefile	/^DUMPBIN = $/;"	m
 DebugString	db/dbformat.cc	/^std::string InternalKey::DebugString() const {$/;"	f	class:leveldb::InternalKey
 DebugString	db/dbformat.cc	/^std::string ParsedInternalKey::DebugString() const {$/;"	f	class:leveldb::ParsedInternalKey
 DebugString	db/version_edit.cc	/^std::string VersionEdit::DebugString() const {$/;"	f	class:leveldb::VersionEdit
@@ -408,11 +467,13 @@ DestroyAndReopen	db/db_test.cc	/^  void DestroyAndReopen(Options* options = NULL
 DestroyDB	db/db_impl.cc	/^Status DestroyDB(const std::string& dbname, const Options& options) {$/;"	f	namespace:leveldb
 Direction	db/db_iter.cc	/^  enum Direction {$/;"	g	class:leveldb::__anon14::DBIter	file:
 Direction	table/merger.cc	/^  enum Direction {$/;"	g	class:leveldb::__anon18::MergingIterator	file:
+DistGetKeyID	db/db_bench.cc	/^    int64_t DistGetKeyID(int64_t ini_rand, double key_dist_a,$/;"	f	class:leveldb::Benchmark::GenerateTwoTermExpKeys
 DoCompactionWorkGuards	db/db_impl.cc	/^Status DBImpl::DoCompactionWorkGuards(CompactionState* compact,$/;"	f	class:leveldb::DBImpl
 DoDelete	db/db_bench.cc	/^  void DoDelete(ThreadState* thread, bool seq) {$/;"	f	class:leveldb::Benchmark	file:
 DoReads	db/autocompact_test.cc	/^void AutoCompactTest::DoReads(int n) {$/;"	f	class:leveldb::AutoCompactTest
 DoWrite	db/db_bench.cc	/^  void DoWrite(ThreadState* thread, bool seq) {$/;"	f	class:leveldb::Benchmark	file:
 DoWriteStringToFile	util/env.cc	/^static Status DoWriteStringToFile(Env* env, const Slice& data,$/;"	f	namespace:leveldb
+Done	db/db_bench.cc	/^  bool Done(int64_t increment) {$/;"	f	class:leveldb::Benchmark::Duration
 DroppedBytes	db/log_test.cc	/^  size_t DroppedBytes() const {$/;"	f	class:leveldb::log::LogTest
 DumpDescriptor	db/leveldb_main.cc	/^bool DumpDescriptor(Env* env, const std::string& fname) {$/;"	f	namespace:leveldb::__anon8
 DumpDescriptor	leveldb-verify.cc	/^bool DumpDescriptor(Env* env, const std::string& fname) {$/;"	f	namespace:leveldb::__anon15
@@ -425,13 +486,24 @@ DumpLog	leveldb-verify.cc	/^bool DumpLog(Env* env, const std::string& fname) {$/
 DumpSSTableList	db/db_test.cc	/^  std::string DumpSSTableList() {$/;"	f	class:leveldb::DBTest
 DumpTable	db/leveldb_main.cc	/^bool DumpTable(Env* env, const std::string& fname) {$/;"	f	namespace:leveldb::__anon8
 DumpTable	leveldb-verify.cc	/^bool DumpTable(Env* env, const std::string& fname) {$/;"	f	namespace:leveldb::__anon15
+Duration	db/db_bench.cc	/^  Duration(uint64_t max_seconds, int64_t max_ops, int64_t ops_per_stage = 0) {$/;"	f	class:leveldb::Benchmark::Duration
+Duration	db/db_bench.cc	/^  class Duration {$/;"	c	class:leveldb::Benchmark	file:
+ECHO_C	Makefile	/^ECHO_C = $/;"	m
+ECHO_N	Makefile	/^ECHO_N = -n$/;"	m
+ECHO_T	Makefile	/^ECHO_T = $/;"	m
+EGREP	Makefile	/^EGREP = \/bin\/grep -E$/;"	m
 END	util/timer.h	/^	END$/;"	e	enum:leveldb::TimerStep
+ETAGS	Makefile	/^ETAGS = etags$/;"	m
 EXCLUSIVE_LOCKS_REQUIRED	port/thread_annotations.h	12;"	d
 EXCLUSIVE_LOCK_FUNCTION	port/thread_annotations.h	36;"	d
 EXCLUSIVE_LOCK_FUNCTION	util/mutexlock.h	/^  explicit MutexLock(port::Mutex *mu) EXCLUSIVE_LOCK_FUNCTION(mu)$/;"	f	class:leveldb::MutexLock
 EXCLUSIVE_TRYLOCK_FUNCTION	port/thread_annotations.h	44;"	d
+EXEEXT	Makefile	/^EXEEXT = $/;"	m
 EXISTING	doc/bench/db_bench_sqlite3.cc	/^    EXISTING$/;"	e	enum:leveldb::Benchmark::DBState	file:
 EXISTING	doc/bench/db_bench_tree_db.cc	/^    EXISTING$/;"	e	enum:leveldb::Benchmark::DBState	file:
+EXTRA_CFLAGS	Makefile	/^EXTRA_CFLAGS = -fno-builtin-memcmp -fno-builtin-memcmp$/;"	m
+EXTRA_DIST	Makefile	/^EXTRA_DIST = AUTHORS doc\/benchmark.html doc\/doc.css doc\/impl.html \\$/;"	m
+EXTRA_PROGRAMS	Makefile	/^EXTRA_PROGRAMS = benchmark$(EXEEXT) leveldb-dump-all$(EXEEXT) \\$/;"	m
 EmitPhysicalRecordAt	db/log_writer.cc	/^Status Writer::EmitPhysicalRecordAt(RecordType t, const char* ptr, uint64_t offset, size_t n) {$/;"	f	class:leveldb::log::Writer
 EmptyIterator	table/iterator.cc	/^  EmptyIterator(const Status& s) : status_(s) { }$/;"	f	class:leveldb::__anon19::EmptyIterator
 EmptyIterator	table/iterator.cc	/^class EmptyIterator : public Iterator {$/;"	c	namespace:leveldb::__anon19	file:
@@ -468,9 +540,11 @@ ExtractUserKey	db/dbformat.h	/^inline Slice ExtractUserKey(const Slice& internal
 ExtractValueType	db/dbformat.h	/^inline ValueType ExtractValueType(const Slice& internal_key) {$/;"	f	namespace:leveldb
 Extractor	db/skiplist_test.cc	/^struct Extractor {$/;"	s	namespace:leveldb	file:
 FALLTHROUGH_INTENDED	util/hash.cc	13;"	d	file:
+FGREP	Makefile	/^FGREP = \/bin\/grep -F$/;"	m
 FILE_LEVEL_FILTER	db/version_set.h	33;"	d
 FLAGS_WAL_enabled	doc/bench/db_bench_sqlite3.cc	/^static bool FLAGS_WAL_enabled = true;$/;"	v	file:
 FLAGS_base_key	db/db_bench.cc	/^static int FLAGS_base_key = 0;$/;"	v	file:
+FLAGS_benchmark_read_rate_limit	db/db_bench.cc	/^static uint64_t FLAGS_benchmark_read_rate_limit = 0;$/;"	v	file:
 FLAGS_benchmarks	db/db_bench.cc	/^static const char* FLAGS_benchmarks =$/;"	v	file:
 FLAGS_benchmarks	doc/bench/db_bench_sqlite3.cc	/^static const char* FLAGS_benchmarks =$/;"	v	file:
 FLAGS_benchmarks	doc/bench/db_bench_tree_db.cc	/^static const char* FLAGS_benchmarks =$/;"	v	file:
@@ -485,29 +559,59 @@ FLAGS_compression_ratio	doc/bench/db_bench_tree_db.cc	/^static double FLAGS_comp
 FLAGS_db	db/db_bench.cc	/^static const char* FLAGS_db = NULL;$/;"	v	file:
 FLAGS_db	doc/bench/db_bench_sqlite3.cc	/^static const char* FLAGS_db = NULL;$/;"	v	file:
 FLAGS_db	doc/bench/db_bench_tree_db.cc	/^static const char* FLAGS_db = NULL;$/;"	v	file:
+FLAGS_duration	db/db_bench.cc	/^static int32_t FLAGS_duration = 0;$/;"	v	file:
 FLAGS_histogram	db/db_bench.cc	/^static bool FLAGS_histogram = false;$/;"	v	file:
 FLAGS_histogram	doc/bench/db_bench_sqlite3.cc	/^static bool FLAGS_histogram = false;$/;"	v	file:
 FLAGS_histogram	doc/bench/db_bench_tree_db.cc	/^static bool FLAGS_histogram = false;$/;"	v	file:
+FLAGS_iter_k	db/db_bench.cc	/^static double FLAGS_iter_k = 0.0;$/;"	v	file:
+FLAGS_iter_sigma	db/db_bench.cc	/^static double FLAGS_iter_sigma = 0.0;$/;"	v	file:
+FLAGS_iter_theta	db/db_bench.cc	/^static double FLAGS_iter_theta = 0.0;$/;"	v	file:
+FLAGS_key_dist_a	db/db_bench.cc	/^static double FLAGS_key_dist_a = 0.0;$/;"	v	file:
+FLAGS_key_dist_b	db/db_bench.cc	/^static double FLAGS_key_dist_b = 0.0;$/;"	v	file:
+FLAGS_key_size	db/db_bench.cc	/^static int32_t FLAGS_key_size = 16;$/;"	v	file:
+FLAGS_keyrange_dist_a	db/db_bench.cc	/^static double FLAGS_keyrange_dist_a = 0.0;$/;"	v	file:
+FLAGS_keyrange_dist_b	db/db_bench.cc	/^static double FLAGS_keyrange_dist_b = 0.0;$/;"	v	file:
+FLAGS_keyrange_dist_c	db/db_bench.cc	/^static double FLAGS_keyrange_dist_c = 0.0;$/;"	v	file:
+FLAGS_keyrange_dist_d	db/db_bench.cc	/^static double FLAGS_keyrange_dist_d = 0.0;$/;"	v	file:
+FLAGS_keyrange_num	db/db_bench.cc	/^static int64_t FLAGS_keyrange_num = 1;$/;"	v	file:
+FLAGS_keys_per_prefix	db/db_bench.cc	/^static int64_t FLAGS_keys_per_prefix = 0;$/;"	v	file:
+FLAGS_mix_accesses	db/db_bench.cc	/^static int64_t FLAGS_mix_accesses = -1;$/;"	v	file:
+FLAGS_mix_ave_kv_size	db/db_bench.cc	/^static int64_t FLAGS_mix_ave_kv_size = 512;$/;"	v	file:
+FLAGS_mix_get_ratio	db/db_bench.cc	/^static double FLAGS_mix_get_ratio = 1.0;$/;"	v	file:
+FLAGS_mix_max_scan_len	db/db_bench.cc	/^static int64_t FLAGS_mix_max_scan_len = 10000;$/;"	v	file:
+FLAGS_mix_max_value_size	db/db_bench.cc	/^static int64_t FLAGS_mix_max_value_size = 1024;$/;"	v	file:
+FLAGS_mix_put_ratio	db/db_bench.cc	/^static double FLAGS_mix_put_ratio = 0.0;$/;"	v	file:
+FLAGS_mix_seek_ratio	db/db_bench.cc	/^static double FLAGS_mix_seek_ratio = 0.0;$/;"	v	file:
 FLAGS_num	db/db_bench.cc	/^static int FLAGS_num = 1000000;$/;"	v	file:
 FLAGS_num	doc/bench/db_bench_sqlite3.cc	/^static int FLAGS_num = 1000000;$/;"	v	file:
 FLAGS_num	doc/bench/db_bench_tree_db.cc	/^static int FLAGS_num = 1000000;$/;"	v	file:
 FLAGS_num_next	db/db_bench.cc	/^static int FLAGS_num_next = 1;$/;"	v	file:
 FLAGS_num_pages	doc/bench/db_bench_sqlite3.cc	/^static int FLAGS_num_pages = 4096;$/;"	v	file:
 FLAGS_open_files	db/db_bench.cc	/^static int FLAGS_open_files = 0;$/;"	v	file:
+FLAGS_ops_between_duration_checks	db/db_bench.cc	/^static int32_t FLAGS_ops_between_duration_checks = 1000;$/;"	v	file:
 FLAGS_page_size	doc/bench/db_bench_sqlite3.cc	/^static int FLAGS_page_size = 1024;$/;"	v	file:
 FLAGS_page_size	doc/bench/db_bench_tree_db.cc	/^static int FLAGS_page_size = 1024;$/;"	v	file:
+FLAGS_prefix_size	db/db_bench.cc	/^static int32_t FLAGS_prefix_size = 0;$/;"	v	file:
 FLAGS_read_threads	db/db_bench.cc	/^static int FLAGS_read_threads = 1;$/;"	v	file:
 FLAGS_reads	db/db_bench.cc	/^static int FLAGS_reads = -1;$/;"	v	file:
 FLAGS_reads	doc/bench/db_bench_sqlite3.cc	/^static int FLAGS_reads = -1;$/;"	v	file:
 FLAGS_reads	doc/bench/db_bench_tree_db.cc	/^static int FLAGS_reads = -1;$/;"	v	file:
+FLAGS_seed	db/db_bench.cc	/^static int64_t FLAGS_seed = 0;$/;"	v	file:
+FLAGS_sine_mix_rate	db/db_bench.cc	/^static bool FLAGS_sine_mix_rate = false;$/;"	v	file:
+FLAGS_sine_mix_rate_noise	db/db_bench.cc	/^static double FLAGS_sine_mix_rate_noise = 0.0;$/;"	v	file:
 FLAGS_threads	db/db_bench.cc	/^static int FLAGS_threads = 1;$/;"	v	file:
 FLAGS_transaction	doc/bench/db_bench_sqlite3.cc	/^static bool FLAGS_transaction = true;$/;"	v	file:
 FLAGS_use_existing_db	db/db_bench.cc	/^static bool FLAGS_use_existing_db = false;$/;"	v	file:
 FLAGS_use_existing_db	doc/bench/db_bench_sqlite3.cc	/^static bool FLAGS_use_existing_db = false;$/;"	v	file:
 FLAGS_use_existing_db	doc/bench/db_bench_tree_db.cc	/^static bool FLAGS_use_existing_db = false;$/;"	v	file:
+FLAGS_use_existing_keys	db/db_bench.cc	/^static bool FLAGS_use_existing_keys = false;$/;"	v	file:
+FLAGS_value_k	db/db_bench.cc	/^static double FLAGS_value_k = 0.0;$/;"	v	file:
+FLAGS_value_sigma	db/db_bench.cc	/^static double FLAGS_value_sigma = 0.0;$/;"	v	file:
 FLAGS_value_size	db/db_bench.cc	/^static int FLAGS_value_size = 1024;$/;"	v	file:
 FLAGS_value_size	doc/bench/db_bench_sqlite3.cc	/^static int FLAGS_value_size = 100;$/;"	v	file:
 FLAGS_value_size	doc/bench/db_bench_tree_db.cc	/^static int FLAGS_value_size = 100;$/;"	v	file:
+FLAGS_value_theta	db/db_bench.cc	/^static double FLAGS_value_theta = 0.0;$/;"	v	file:
+FLAGS_verify_checksum	db/db_bench.cc	/^static bool FLAGS_verify_checksum = true;$/;"	v	file:
 FLAGS_write_buffer_size	db/db_bench.cc	/^static int FLAGS_write_buffer_size = 0;$/;"	v	file:
 FLAGS_write_threads	db/db_bench.cc	/^static int FLAGS_write_threads = 1;$/;"	v	file:
 FORCE_COMPACT_SIZE_THRESHOLD_IN_MB	db/version_set.cc	52;"	d	file:
@@ -523,7 +627,7 @@ FileLevelFilterBuilder	table/filter_block.cc	/^FileLevelFilterBuilder::FileLevel
 FileLevelFilterBuilder	table/filter_block.h	/^class FileLevelFilterBuilder {$/;"	c	namespace:leveldb
 FileLock	include/pebblesdb/env.h	/^    FileLock()$/;"	f	class:leveldb::FileLock
 FileLock	include/pebblesdb/env.h	/^class FileLock$/;"	c	namespace:leveldb
-FileMetaData	db/version_edit.h	/^FileMetaData() : refs(0), allowed_seeks(1 << 30), number(0), file_size(0), smallest(), largest(), guard() { }$/;"	f	struct:leveldb::FileMetaData
+FileMetaData	db/version_edit.h	/^FileMetaData() : num_entries(0), refs(0), allowed_seeks(1 << 30), number(0), file_size(0), smallest(), largest(), guard() { }$/;"	f	struct:leveldb::FileMetaData
 FileMetaData	db/version_edit.h	/^struct FileMetaData {$/;"	s	namespace:leveldb
 FileNameTest	db/filename_test.cc	/^class FileNameTest { };$/;"	c	namespace:leveldb	file:
 FileSet	db/version_set.cc	/^  typedef std::set<FileMetaData*, BySmallestKey> FileSet;$/;"	t	class:leveldb::VersionSet::Builder	file:
@@ -545,7 +649,7 @@ FilterKeyMatch	db/c_test.c	/^unsigned char FilterKeyMatch($/;"	f
 FilterName	db/c_test.c	/^static const char* FilterName(void* arg) {$/;"	f	file:
 FilterPolicy	include/pebblesdb/filter_policy.h	/^class FilterPolicy {$/;"	c	namespace:leveldb
 FilterSize	util/bloom_test.cc	/^  size_t FilterSize() const {$/;"	f	class:leveldb::BloomTest
-Finalize	db/version_set.cc	/^void VersionSet::Finalize(Version* v) {$/;"	f	class:leveldb::VersionSet
+Finalize	db/version_set.cc	/^void VersionSet::Finalize(Version* v, Version* current_) {$/;"	f	class:leveldb::VersionSet
 Find	db/version_set_test.cc	/^  int Find(const char* key) {$/;"	f	class:leveldb::FindFileTest
 FindFile	db/version_set.cc	/^int FindFile(const InternalKeyComparator& icmp,$/;"	f	namespace:leveldb
 FindFileTest	db/version_set_test.cc	/^  FindFileTest() : disjoint_sorted_files_(true) { }$/;"	f	class:leveldb::FindFileTest
@@ -629,11 +733,17 @@ GET_TIME_TO_FINISH_UNREF	util/timer.h	/^	GET_TIME_TO_FINISH_UNREF,$/;"	e	enum:le
 GET_TIME_TO_GET_MUTEX	util/timer.h	/^	GET_TIME_TO_GET_MUTEX,$/;"	e	enum:leveldb::TimerStep
 GET_TIME_TO_LOCK_MUTEX	util/timer.h	/^	GET_TIME_TO_LOCK_MUTEX,$/;"	e	enum:leveldb::TimerStep
 GET_TIME_TO_REF_MEMS	util/timer.h	/^	GET_TIME_TO_REF_MEMS,$/;"	e	enum:leveldb::TimerStep
+GFLAGS_NAMESPACE	util/gflags_compat.h	11;"	d
+GREP	Makefile	/^GREP = \/bin\/grep$/;"	m
+GZIP_ENV	Makefile	/^GZIP_ENV = --best$/;"	m
 Generate	db/db_bench.cc	/^  Slice Generate(size_t len) {$/;"	f	class:leveldb::__anon11::RandomGenerator
 Generate	doc/bench/db_bench_sqlite3.cc	/^  Slice Generate(int len) {$/;"	f	class:leveldb::__anon32::RandomGenerator
 Generate	doc/bench/db_bench_tree_db.cc	/^  Slice Generate(int len) {$/;"	f	class:leveldb::__anon33::RandomGenerator
 GenerateFilter	table/filter_block.cc	/^std::string* FileLevelFilterBuilder::GenerateFilter() {$/;"	f	class:leveldb::FileLevelFilterBuilder
 GenerateFilter	table/filter_block.cc	/^void FilterBlockBuilder::GenerateFilter() {$/;"	f	class:leveldb::FilterBlockBuilder
+GenerateKeyFromInt	db/db_bench.cc	/^  void GenerateKeyFromInt(uint64_t v, int64_t num_keys, Slice* key) {$/;"	f	class:leveldb::Benchmark	file:
+GenerateTwoTermExpKeys	db/db_bench.cc	/^    GenerateTwoTermExpKeys() {$/;"	f	class:leveldb::Benchmark::GenerateTwoTermExpKeys
+GenerateTwoTermExpKeys	db/db_bench.cc	/^  class GenerateTwoTermExpKeys {$/;"	c	class:leveldb::Benchmark	file:
 Get	db/db_impl.cc	/^Status DBImpl::Get(const ReadOptions& options,$/;"	f	class:leveldb::DBImpl
 Get	db/db_test.cc	/^  std::string Get(const std::string& k, const Snapshot* snapshot = NULL) {$/;"	f	class:leveldb::DBTest
 Get	db/db_test.cc	/^  virtual Status Get(const ReadOptions& options,$/;"	f	class:leveldb::ModelDB
@@ -683,8 +793,10 @@ GetOverlappingInputsGuards	db/version_set.cc	/^void Version::GetOverlappingInput
 GetOverlappingRangeBetweenFiles	db/version_set.cc	/^uint64_t VersionSet::GetOverlappingRangeBetweenFiles(FileMetaData* f1, FileMetaData* f2) {$/;"	f	class:leveldb::VersionSet
 GetProperty	db/db_impl.cc	/^bool DBImpl::GetProperty(const Slice& property, std::string* value) {$/;"	f	class:leveldb::DBImpl
 GetProperty	db/db_test.cc	/^  virtual bool GetProperty(const Slice& property, std::string* value) {$/;"	f	class:leveldb::ModelDB
+GetRandomKey	db/db_bench.cc	/^  int64_t GetRandomKey(Random64* rand) {$/;"	f	class:leveldb::Benchmark	file:
 GetRange	db/version_set.cc	/^void VersionSet::GetRange(const std::vector<FileMetaData*>& inputs,$/;"	f	class:leveldb::VersionSet
 GetRange2	db/version_set.cc	/^void VersionSet::GetRange2(const std::vector<FileMetaData*>& inputs1,$/;"	f	class:leveldb::VersionSet
+GetReadCurrentTime	db/version_set.h	/^  uint64_t GetReadCurrentTime() {$/;"	f	class:leveldb::Version
 GetReplayIterator	db/db_impl.cc	/^Status DBImpl::GetReplayIterator(const std::string& timestamp,$/;"	f	class:leveldb::DBImpl
 GetReplayIterator	db/db_test.cc	/^  virtual Status GetReplayIterator(const std::string& timestamp,$/;"	f	class:leveldb::ModelDB
 GetReplayTimestamp	db/db_impl.cc	/^void DBImpl::GetReplayTimestamp(std::string* timestamp) {$/;"	f	class:leveldb::DBImpl
@@ -693,6 +805,7 @@ GetRestartPoint	table/block.cc	/^  uint32_t GetRestartPoint(uint32_t index) {$/;
 GetSegment	util/env_posix.cc	/^  char* GetSegment(uint64_t block) {$/;"	f	class:leveldb::__anon26::PosixMmapFile	file:
 GetSnapshot	db/db_impl.cc	/^const Snapshot* DBImpl::GetSnapshot() {$/;"	f	class:leveldb::DBImpl
 GetSnapshot	db/db_test.cc	/^  virtual const Snapshot* GetSnapshot() {$/;"	f	class:leveldb::ModelDB
+GetStage	db/db_bench.cc	/^  int64_t GetStage() { return std::min(ops_, max_ops_ - 1) \/ ops_per_stage_; }$/;"	f	class:leveldb::Benchmark::Duration
 GetStats	db/version_set.h	/^  struct GetStats {$/;"	s	class:leveldb::Version
 GetTableCache	db/version_set.h	/^  TableCache* const GetTableCache() {$/;"	f	class:leveldb::VersionSet
 GetTempDir	db/c_test.c	/^static const char* GetTempDir(void) {$/;"	f	file:
@@ -702,6 +815,7 @@ GetTestDirectory	util/env_posix.cc	/^  virtual Status GetTestDirectory(std::stri
 GetThreadId	db/db_test.cc	/^  pthread_t GetThreadId() {$/;"	f	class:leveldb::SpecialEnv
 GetThreadId	include/pebblesdb/env.h	/^    GetThreadId()$/;"	f	class:leveldb::EnvWrapper
 GetThreadId	util/env_posix.cc	/^  virtual pthread_t GetThreadId() {$/;"	f	class:leveldb::__anon26::PosixEnv
+GetType	db/db_bench.cc	/^    int GetType(int64_t rand_num) {$/;"	f	class:leveldb::Benchmark::QueryDecider
 GetVarint32	util/coding.cc	/^bool GetVarint32(Slice* input, uint32_t* value) {$/;"	f	namespace:leveldb
 GetVarint32Ptr	util/coding.h	/^inline const char* GetVarint32Ptr(const char* p,$/;"	f	namespace:leveldb
 GetVarint32PtrFallback	util/coding.cc	/^const char* GetVarint32PtrFallback(const char* p,$/;"	f	namespace:leveldb
@@ -714,7 +828,7 @@ GuardDetailsAtLevel	db/version_set.cc	/^std::string VersionSet::GuardDetailsAtLe
 GuardDetailsAtLevel	db/version_set.h	/^  std::string GuardDetailsAtLevel(unsigned level) const {$/;"	f	class:leveldb::Version
 GuardInserter	db/write_batch.cc	/^   GuardInserter() : sequence_(), bit_mask(0) {$/;"	f	class:leveldb::__anon13::GuardInserter
 GuardInserter	db/write_batch.cc	/^ class GuardInserter : public WriteBatch::Handler {$/;"	c	namespace:leveldb::__anon13	file:
-GuardMetaData	db/version_edit.h	/^GuardMetaData() : refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}$/;"	f	struct:leveldb::GuardMetaData
+GuardMetaData	db/version_edit.h	/^GuardMetaData() : write_count(0), read_last_accessed_time(0), read_count(0), refs(0), level(-1), guard_key(), smallest(), largest(), number_segments(0) { files.clear();}$/;"	f	struct:leveldb::GuardMetaData
 GuardMetaData	db/version_edit.h	/^struct GuardMetaData {$/;"	s	namespace:leveldb
 GuardPair	db/version_edit.h	/^  typedef std::pair<int, InternalKey> GuardPair;$/;"	t	class:leveldb::VersionEdit
 GuardSet	db/version_set.cc	/^  typedef std::set<GuardMetaData*, BySmallestGuard> GuardSet;$/;"	t	class:leveldb::VersionSet::Builder	file:
@@ -722,6 +836,37 @@ GuessType	db/leveldb_main.cc	/^bool GuessType(const std::string& fname, FileType
 GuessType	leveldb-verify.cc	/^bool GuessType(const std::string& fname, FileType* type) {$/;"	f	namespace:leveldb::__anon15
 HACK_IncreaseCompactionScoresForLevel	db/version_set.h	/^  void HACK_IncreaseCompactionScoresForLevel(int level) {$/;"	f	class:leveldb::Version
 HACK_IncreaseCompactionScoresForLevel	db/version_set.h	/^  void HACK_IncreaseCompactionScoresForLevel(int level) {$/;"	f	class:leveldb::VersionSet
+HAVE_ALARM	config.h	5;"	d
+HAVE_CLOCK_GETTIME	config.h	8;"	d
+HAVE_DECL_FDATASYNC	config.h	12;"	d
+HAVE_DLFCN_H	config.h	15;"	d
+HAVE_ENDIAN_H	config.h	18;"	d
+HAVE_FFLUSH	config.h	21;"	d
+HAVE_FFLUSH_UNLOCKED	config.h	24;"	d
+HAVE_FREAD	config.h	27;"	d
+HAVE_FREAD_UNLOCKED	config.h	30;"	d
+HAVE_FSYNC	config.h	33;"	d
+HAVE_FTRUNCATE	config.h	36;"	d
+HAVE_FWRITE	config.h	39;"	d
+HAVE_FWRITE_UNLOCKED	config.h	42;"	d
+HAVE_GETPAGESIZE	config.h	45;"	d
+HAVE_INTTYPES_H	config.h	48;"	d
+HAVE_MEMMOVE	config.h	57;"	d
+HAVE_MEMORY_H	config.h	60;"	d
+HAVE_MKDIR	config.h	63;"	d
+HAVE_MMAP	config.h	66;"	d
+HAVE_MUNMAP	config.h	69;"	d
+HAVE_RMDIR	config.h	72;"	d
+HAVE_SOCKET	config.h	75;"	d
+HAVE_STDINT_H	config.h	78;"	d
+HAVE_STDLIB_H	config.h	81;"	d
+HAVE_STRINGS_H	config.h	84;"	d
+HAVE_STRING_H	config.h	87;"	d
+HAVE_SYS_PARAM_H	config.h	96;"	d
+HAVE_SYS_STAT_H	config.h	99;"	d
+HAVE_SYS_TYPES_H	config.h	102;"	d
+HAVE_UNISTD_H	config.h	105;"	d
+HEADERS	Makefile	/^HEADERS = $(noinst_HEADERS) $(pkginclude_HEADERS)$/;"	m
 Handle	include/pebblesdb/cache.h	/^  struct Handle { };$/;"	s	class:leveldb::Cache
 HandleDumpCommand	db/leveldb_main.cc	/^bool HandleDumpCommand(Env* env, char** files, int num) {$/;"	f	namespace:leveldb::__anon8
 HandleDumpCommand	leveldb-verify.cc	/^bool HandleDumpCommand(Env* env, char** files, int num) {$/;"	f	namespace:leveldb::__anon15
@@ -747,10 +892,18 @@ Histogram	util/histogram.h	/^class Histogram {$/;"	c	namespace:leveldb
 IDLE	db/version_set.h	/^	IDLE,$/;"	e	enum:leveldb::ThreadStatus
 IKey	db/dbformat_test.cc	/^static std::string IKey(const std::string& user_key,$/;"	f	namespace:leveldb
 INITIALIZED	db/version_set.h	/^	INITIALIZED,$/;"	e	enum:leveldb::SeekReturnStatus
+INSTALL	Makefile	/^INSTALL = \/usr\/bin\/install -c$/;"	m
+INSTALL_DATA	Makefile	/^INSTALL_DATA = ${INSTALL} -m 644$/;"	m
+INSTALL_HEADER	Makefile	/^INSTALL_HEADER = $(INSTALL_DATA)$/;"	m
+INSTALL_PROGRAM	Makefile	/^INSTALL_PROGRAM = ${INSTALL}$/;"	m
+INSTALL_SCRIPT	Makefile	/^INSTALL_SCRIPT = ${INSTALL}$/;"	m
+INSTALL_STRIP_PROGRAM	Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
 IOError	include/pebblesdb/status.h	/^  static Status IOError(const Slice& msg, const Slice& msg2 = Slice()) {$/;"	f	class:leveldb::Status
 IOError	util/env_posix.cc	/^static Status IOError(const std::string& context, int err_number) {$/;"	f	namespace:leveldb::__anon26
 InMemoryEnv	helpers/memenv/memenv.cc	/^  explicit InMemoryEnv(Env* base_env) : EnvWrapper(base_env) { }$/;"	f	class:leveldb::__anon30::InMemoryEnv
 InMemoryEnv	helpers/memenv/memenv.cc	/^class InMemoryEnv : public EnvWrapper {$/;"	c	namespace:leveldb::__anon30	file:
+IncreaseReadCurrentTime	db/version_set.h	/^  void IncreaseReadCurrentTime() {$/;"	f	class:leveldb::Version
+IncreaseTotalWriteCount	db/version_set.h	/^  void IncreaseTotalWriteCount() {$/;"	f	class:leveldb::Version
 Increment	db/db_test.cc	/^  void Increment() {$/;"	f	class:leveldb::__anon4::AtomicCounter
 Increment	table/table_test.cc	/^static void Increment(const Comparator* cmp, std::string* key) {$/;"	f	namespace:leveldb
 IncrementBy	db/db_test.cc	/^  void IncrementBy(int count) {$/;"	f	class:leveldb::__anon4::AtomicCounter
@@ -765,6 +918,8 @@ InitMutex	port/port_posix.cc	/^void CondVar::InitMutex(Mutex* mu) {$/;"	f	class:
 InitOnce	port/port_posix.cc	/^void InitOnce(OnceType* once, void (*initializer)()) {$/;"	f	namespace:leveldb::port
 InitializeFileLevelBloomFilter	db/version_set.cc	/^void VersionSet::InitializeFileLevelBloomFilter() {$/;"	f	class:leveldb::VersionSet
 InitializeTableCacheFileMetaData	db/version_set.cc	/^void VersionSet::InitializeTableCacheFileMetaData() {$/;"	f	class:leveldb::VersionSet
+Initiate	db/db_bench.cc	/^    Status Initiate(std::vector<double> ratio_input) {$/;"	f	class:leveldb::Benchmark::QueryDecider
+InitiateExpDistribution	db/db_bench.cc	/^    Status InitiateExpDistribution(int64_t total_keys, double prefix_a,$/;"	f	class:leveldb::Benchmark::GenerateTwoTermExpKeys
 Insert	db/skiplist.h	/^void SkipList<Key,Comparator,Extractor>::Insert(const Key& key) {$/;"	f	class:leveldb::SkipList
 Insert	util/cache.cc	/^  LRUHandle* Insert(LRUHandle* h) {$/;"	f	class:leveldb::__anon25::HandleTable
 Insert	util/cache.cc	/^  virtual Handle* Insert(const Slice& key, void* value, size_t charge,$/;"	f	class:leveldb::__anon25::ShardedLRUCache
@@ -837,11 +992,20 @@ KeyMayMatch	util/bloom.cc	/^  virtual bool KeyMayMatch(const Slice& key, const S
 KeyNum	util/comparator.cc	/^  virtual uint64_t KeyNum(const Slice& key) const {$/;"	f	class:leveldb::__anon23::BytewiseComparatorImpl
 KeyNum	util/comparator.cc	/^uint64_t Comparator::KeyNum(const Slice& \/*key*\/) const {$/;"	f	class:leveldb::Comparator
 KeySet	db/version_set.cc	/^  typedef std::set<InternalKey, BySmallestInternalKey> KeySet;$/;"	t	class:leveldb::VersionSet::Builder	file:
+KeyrangeUnit	db/db_bench.cc	/^  struct KeyrangeUnit {$/;"	s	class:leveldb::Benchmark	file:
+LD	Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
 LDBTableFileName	db/filename.cc	/^std::string LDBTableFileName(const std::string& name, uint64_t number) {$/;"	f	namespace:leveldb
+LDFLAGS	Makefile	/^LDFLAGS = $/;"	m
 LEVELDB_HAVE_MEMORY_BARRIER	port/atomic_pointer.h	239;"	d
 LEVELDB_HAVE_MEMORY_BARRIER	port/atomic_pointer.h	60;"	d
 LEVELDB_ONCE_INIT	port/port_example.h	70;"	d
 LEVELDB_ONCE_INIT	port/port_posix.h	138;"	d
+LIBOBJS	Makefile	/^LIBOBJS = $/;"	m
+LIBS	Makefile	/^LIBS = $/;"	m
+LIBTOOL	Makefile	/^LIBTOOL = $(SHELL) $(top_builddir)\/libtool$/;"	m
+LINK	Makefile	/^LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LIPO	Makefile	/^LIPO = $/;"	m
+LN_S	Makefile	/^LN_S = ln -s$/;"	m
 LOCKABLE	port/thread_annotations.h	28;"	d
 LOCKS_EXCLUDED	port/thread_annotations.h	20;"	d
 LOCK_RETURNED	port/thread_annotations.h	24;"	d
@@ -850,6 +1014,12 @@ LRUCache	util/cache.cc	/^class LRUCache {$/;"	c	namespace:leveldb::__anon25	file
 LRUHandle	util/cache.cc	/^struct LRUHandle {$/;"	s	namespace:leveldb::__anon25	file:
 LRU_Append	util/cache.cc	/^void LRUCache::LRU_Append(LRUHandle* e) {$/;"	f	class:leveldb::__anon25::LRUCache
 LRU_Remove	util/cache.cc	/^void LRUCache::LRU_Remove(LRUHandle* e) {$/;"	f	class:leveldb::__anon25::LRUCache
+LTCOMPILE	Makefile	/^LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LTCXXCOMPILE	Makefile	/^LTCXXCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \\$/;"	m
+LTLIBOBJS	Makefile	/^LTLIBOBJS = $/;"	m
+LTLIBRARIES	Makefile	/^LTLIBRARIES = $(lib_LTLIBRARIES)$/;"	m
+LT_OBJDIR	config.h	108;"	d
+LT_SYS_LIBRARY_PATH	Makefile	/^LT_SYS_LIBRARY_PATH = $/;"	m
 LastRecordOffset	db/log_reader.cc	/^uint64_t Reader::LastRecordOffset() {$/;"	f	class:leveldb::log::Reader
 LastSequence	db/db_impl.cc	/^SequenceNumber DBImpl::LastSequence() {$/;"	f	class:leveldb::DBImpl
 LastSequence	db/version_set.h	/^  uint64_t LastSequence() const { return last_sequence_; }$/;"	f	class:leveldb::VersionSet
@@ -890,11 +1060,14 @@ Lookup	util/cache.cc	/^Cache::Handle* LRUCache::Lookup(const Slice& key, uint32_
 Lookup	util/cache_test.cc	/^  int Lookup(int key) {$/;"	f	class:leveldb::CacheTest
 LookupKey	db/dbformat.cc	/^LookupKey::LookupKey(const Slice& ukey, SequenceNumber s)$/;"	f	class:leveldb::LookupKey
 LookupKey	db/dbformat.h	/^class LookupKey {$/;"	c	namespace:leveldb
+MAKEINFO	Makefile	/^MAKEINFO = ${SHELL} \/home\/young\/Working\/pebblesdb\/src\/missing makeinfo$/;"	m
+MANIFEST_TOOL	Makefile	/^MANIFEST_TOOL = :$/;"	m
 MAP_ANONYMOUS	util/arena.cc	14;"	d	file:
 MAX_NUM_SEEK_THREADS	table/merger.h	9;"	d
-MAX_TRACE_OPS	db/db_bench.cc	34;"	d	file:
-MAX_VALUE_SIZE	db/db_bench.cc	35;"	d	file:
+MAX_TRACE_OPS	db/db_bench.cc	39;"	d	file:
+MAX_VALUE_SIZE	db/db_bench.cc	40;"	d	file:
 MEMTABLE_TEST	table/table_test.cc	/^  MEMTABLE_TEST,$/;"	e	enum:leveldb::TestType	file:
+MKDIR_P	Makefile	/^MKDIR_P = \/bin\/mkdir -p$/;"	m
 MTC_LAA_ADD_RECORD_TO_DESC_LOG	util/timer.h	/^	MTC_LAA_ADD_RECORD_TO_DESC_LOG,$/;"	e	enum:leveldb::TimerStep
 MTC_LAA_APPEND_VERSION	util/timer.h	/^	MTC_LAA_APPEND_VERSION,$/;"	e	enum:leveldb::TimerStep
 MTC_LAA_APPLY_EDIT_TO_BUILDER	util/timer.h	/^	MTC_LAA_APPLY_EDIT_TO_BUILDER,$/;"	e	enum:leveldb::TimerStep
@@ -960,6 +1133,7 @@ MergingIterator	table/merger.cc	/^class MergingIterator : public Iterator {$/;"	
 MinBytesForLevel	db/version_set.cc	/^static double MinBytesForLevel(unsigned level) {$/;"	f	namespace:leveldb
 MinFileSizeForLevel	db/version_set.cc	/^static uint64_t MinFileSizeForLevel(unsigned level) {$/;"	f	namespace:leveldb
 MinOutputFileSize	db/version_set.h	/^  uint64_t MinOutputFileSize() const { return min_output_file_size_; }$/;"	f	class:leveldb::Compaction
+MixGraph	db/db_bench.cc	/^  void MixGraph(ThreadState* thread) {$/;"	f	class:leveldb::Benchmark	file:
 MmapLimiter	util/env_posix.cc	/^  MmapLimiter()$/;"	f	class:leveldb::__anon26::MmapLimiter
 MmapLimiter	util/env_posix.cc	/^class MmapLimiter {$/;"	c	namespace:leveldb::__anon26	file:
 MmapSegment	util/env_posix.cc	/^  struct MmapSegment{$/;"	s	class:leveldb::__anon26::PosixMmapFile	file:
@@ -975,6 +1149,10 @@ Mutex	port/port_example.h	/^class Mutex {$/;"	c	namespace:leveldb::port
 Mutex	port/port_posix.cc	/^Mutex::Mutex() : mu_() { PthreadCall("init mutex", pthread_mutex_init(&mu_, NULL)); }$/;"	f	class:leveldb::port::Mutex
 Mutex	port/port_posix.h	/^class Mutex {$/;"	c	namespace:leveldb::port
 MutexLock	util/mutexlock.h	/^class SCOPED_LOCKABLE MutexLock {$/;"	c	namespace:leveldb
+NM	Makefile	/^NM = \/usr\/bin\/nm -B$/;"	m
+NMEDIT	Makefile	/^NMEDIT = $/;"	m
+NORMAL_INSTALL	Makefile	/^NORMAL_INSTALL = :$/;"	m
+NORMAL_UNINSTALL	Makefile	/^NORMAL_UNINSTALL = :$/;"	m
 NO_THREAD_SAFETY_ANALYSIS	port/thread_annotations.h	56;"	d
 NUM_READ_THREADS	db/version_set.h	46;"	d
 NUM_SEEK_THREADS	util/timer.h	19;"	d
@@ -1052,6 +1230,7 @@ Next	table/table_test.cc	/^  virtual void Next() { iter_->Next(); }$/;"	f	class:
 Next	table/two_level_iterator.cc	/^void TwoLevelIterator::Next() {$/;"	f	class:leveldb::__anon20::TwoLevelIterator
 Next	table/two_level_iterator.cc	/^void TwoLevelIteratorGuards::Next() {$/;"	f	class:leveldb::__anon20::TwoLevelIteratorGuards
 Next	util/random.h	/^  uint32_t Next() {$/;"	f	class:leveldb::Random
+Next	util/random.h	/^  uint64_t Next() { return generator_(); }$/;"	f	class:leveldb::Random64
 NextEntryOffset	table/block.cc	/^  inline uint32_t NextEntryOffset() const {$/;"	f	class:leveldb::Block::Iter	file:
 NextLength	util/bloom_test.cc	/^static int NextLength(int length) {$/;"	f	namespace:leveldb
 NoBarrier_Cmp	db/skiplist.h	/^  uint64_t NoBarrier_Cmp(unsigned n) {$/;"	f	struct:leveldb::SkipList::Node
@@ -1087,12 +1266,17 @@ NumTableFilesAtLevel	db/db_test.cc	/^  int NumTableFilesAtLevel(int level) {$/;"
 NumUncompactedLevels	db/version_set.cc	/^unsigned VersionSet::NumUncompactedLevels() {$/;"	f	class:leveldb::VersionSet
 NumberString	db/log_test.cc	/^static std::string NumberString(int n) {$/;"	f	namespace:leveldb::log
 NumberToString	util/logging.cc	/^std::string NumberToString(uint64_t num) {$/;"	f	namespace:leveldb
+OBJDUMP	Makefile	/^OBJDUMP = objdump$/;"	m
+OBJEXT	Makefile	/^OBJEXT = o$/;"	m
 OK	include/pebblesdb/status.h	/^  static Status OK() { return Status(); }$/;"	f	class:leveldb::Status
+OTOOL	Makefile	/^OTOOL = $/;"	m
+OTOOL64	Makefile	/^OTOOL64 = $/;"	m
 OldInfoLogFileName	db/filename.cc	/^std::string OldInfoLogFileName(const std::string& dbname) {$/;"	f	namespace:leveldb
 OldestFirst	db/version_set.cc	/^static bool OldestFirst(FileMetaData* a, FileMetaData* b) {$/;"	f	namespace:leveldb
 OnceType	port/port_example.h	/^typedef intptr_t OnceType;$/;"	t	namespace:leveldb::port
 OnceType	port/port_posix.h	/^typedef pthread_once_t OnceType;$/;"	t	namespace:leveldb::port
 OneIn	util/random.h	/^  bool OneIn(int n) { return (Next() % n) == 0; }$/;"	f	class:leveldb::Random
+OneIn	util/random.h	/^  bool OneIn(uint64_t n) { return Uniform(n) == 0; }$/;"	f	class:leveldb::Random64
 Open	db/db_bench.cc	/^  void Open() {$/;"	f	class:leveldb::Benchmark	file:
 Open	db/db_impl.cc	/^Status DB::Open(const Options& options, const std::string& dbname,$/;"	f	class:leveldb::DB
 Open	doc/bench/db_bench_sqlite3.cc	/^  void Open() {$/;"	f	class:leveldb::Benchmark
@@ -1104,11 +1288,26 @@ Options	include/pebblesdb/options.h	/^struct Options {$/;"	s	namespace:leveldb
 Options	util/options.cc	/^Options::Options()$/;"	f	class:leveldb::Options
 Order	doc/bench/db_bench_sqlite3.cc	/^  enum Order {$/;"	g	class:leveldb::Benchmark	file:
 Order	doc/bench/db_bench_tree_db.cc	/^  enum Order {$/;"	g	class:leveldb::Benchmark	file:
-Output	db/db_impl.cc	/^    Output() : number(), file_size(), smallest(), largest() {}$/;"	f	struct:leveldb::DBImpl::CompactionState::Output
+Output	db/db_impl.cc	/^    Output() : num_entries(0), number(), file_size(), smallest(), largest() {}$/;"	f	struct:leveldb::DBImpl::CompactionState::Output
 Output	db/db_impl.cc	/^  struct Output {$/;"	s	struct:leveldb::DBImpl::CompactionState	file:
 OverlapInLevel	db/version_set.cc	/^bool Version::OverlapInLevel(unsigned level,$/;"	f	class:leveldb::Version
 OverlapInLevelGuards	db/version_set.cc	/^bool Version::OverlapInLevelGuards(unsigned level,$/;"	f	class:leveldb::Version
 Overlaps	db/version_set_test.cc	/^  bool Overlaps(const char* smallest, const char* largest) {$/;"	f	class:leveldb::FindFileTest
+PACKAGE	Makefile	/^PACKAGE = pebblesdb$/;"	m
+PACKAGE	config.h	111;"	d
+PACKAGE_BUGREPORT	Makefile	/^PACKAGE_BUGREPORT = vijay@cs.utexas.edu$/;"	m
+PACKAGE_BUGREPORT	config.h	114;"	d
+PACKAGE_NAME	Makefile	/^PACKAGE_NAME = pebblesdb$/;"	m
+PACKAGE_NAME	config.h	117;"	d
+PACKAGE_STRING	Makefile	/^PACKAGE_STRING = pebblesdb 1.0.dev$/;"	m
+PACKAGE_STRING	config.h	120;"	d
+PACKAGE_TARNAME	Makefile	/^PACKAGE_TARNAME = pebblesdb$/;"	m
+PACKAGE_TARNAME	config.h	123;"	d
+PACKAGE_URL	Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_URL	config.h	126;"	d
+PACKAGE_VERSION	Makefile	/^PACKAGE_VERSION = 1.0.dev$/;"	m
+PACKAGE_VERSION	config.h	129;"	d
+PATH_SEPARATOR	Makefile	/^PATH_SEPARATOR = :$/;"	m
 PLATFORM_IS_LITTLE_ENDIAN	port/port_posix.h	34;"	d
 PLATFORM_IS_LITTLE_ENDIAN	port/port_posix.h	37;"	d
 PLATFORM_IS_LITTLE_ENDIAN	port/port_posix.h	42;"	d
@@ -1116,7 +1315,13 @@ PLATFORM_IS_LITTLE_ENDIAN	port/port_posix.h	44;"	d
 PLATFORM_IS_LITTLE_ENDIAN	port/port_posix.h	56;"	d
 PLATFORM_IS_LITTLE_ENDIAN	port/port_posix.h	95;"	d
 PORT_ATOMIC_POINTER_H_	port/atomic_pointer.h	20;"	d
+POST_INSTALL	Makefile	/^POST_INSTALL = :$/;"	m
+POST_UNINSTALL	Makefile	/^POST_UNINSTALL = :$/;"	m
+PRE_INSTALL	Makefile	/^PRE_INSTALL = :$/;"	m
+PRE_UNINSTALL	Makefile	/^PRE_UNINSTALL = :$/;"	m
+PROGRAMS	Makefile	/^PROGRAMS = $(noinst_PROGRAMS)$/;"	m
 PackSequenceAndType	db/dbformat.cc	/^static uint64_t PackSequenceAndType(uint64_t seq, ValueType t) {$/;"	f	namespace:leveldb
+ParetoCdfInversion	db/db_bench.cc	/^  int64_t ParetoCdfInversion(double u, double theta, double k, double sigma) {$/;"	f	class:leveldb::Benchmark	file:
 ParseFileName	db/filename.cc	/^bool ParseFileName(const std::string& fname,$/;"	f	namespace:leveldb
 ParseInternalKey	db/dbformat.h	/^inline bool ParseInternalKey(const Slice& internal_key,$/;"	f	namespace:leveldb
 ParseKey	db/db_iter.cc	/^inline bool DBIter::ParseKey(ParsedInternalKey* ikey) {$/;"	f	class:leveldb::__anon14::DBIter
@@ -1153,6 +1358,7 @@ PosixSequentialFile	util/env_posix.cc	/^  PosixSequentialFile(const std::string&
 PosixSequentialFile	util/env_posix.cc	/^class PosixSequentialFile: public SequentialFile {$/;"	c	namespace:leveldb::__anon26	file:
 PosixWritableFile	util/env_posix.cc	/^  PosixWritableFile(const std::string& fname, FILE* f)$/;"	f	class:leveldb::__anon26::PosixWritableFile
 PosixWritableFile	util/env_posix.cc	/^class PosixWritableFile : public WritableFile {$/;"	c	namespace:leveldb::__anon26	file:
+PowerCdfInversion	db/db_bench.cc	/^  int64_t PowerCdfInversion(double u, double a, double b) {$/;"	f	class:leveldb::Benchmark	file:
 Prev	db/db_iter.cc	/^void DBIter::Prev() {$/;"	f	class:leveldb::__anon14::DBIter
 Prev	db/db_test.cc	/^    virtual void Prev() { --iter_; }$/;"	f	class:leveldb::ModelDB::ModelIter
 Prev	db/memtable.cc	/^  virtual void Prev() { iter_.Prev(); }$/;"	f	class:leveldb::MemTableIterator
@@ -1211,8 +1417,11 @@ PutLengthPrefixedSlice	util/coding.cc	/^void PutLengthPrefixedSlice(std::string*
 PutVarint32	util/coding.cc	/^void PutVarint32(StringBuilder* dst, uint32_t v) {$/;"	f	namespace:leveldb
 PutVarint32	util/coding.cc	/^void PutVarint32(std::string* dst, uint32_t v) {$/;"	f	namespace:leveldb
 PutVarint64	util/coding.cc	/^void PutVarint64(std::string* dst, uint64_t v) {$/;"	f	namespace:leveldb
+QueryDecider	db/db_bench.cc	/^    QueryDecider() {}$/;"	f	class:leveldb::Benchmark::QueryDecider
+QueryDecider	db/db_bench.cc	/^  class QueryDecider {$/;"	c	class:leveldb::Benchmark	file:
 RANDOM	doc/bench/db_bench_sqlite3.cc	/^    RANDOM$/;"	e	enum:leveldb::Benchmark::Order	file:
 RANDOM	doc/bench/db_bench_tree_db.cc	/^    RANDOM$/;"	e	enum:leveldb::Benchmark::Order	file:
+RANLIB	Makefile	/^RANLIB = ranlib$/;"	m
 ROTL32	db/murmurhash3.cc	23;"	d	file:
 ROTL32	db/murmurhash3.cc	44;"	d	file:
 ROTL64	db/murmurhash3.cc	24;"	d	file:
@@ -1220,6 +1429,8 @@ ROTL64	db/murmurhash3.cc	45;"	d	file:
 RUNNING	db/skiplist_test.cc	/^    RUNNING,$/;"	e	enum:leveldb::TestState::ReaderState	file:
 Random	util/random.h	/^  explicit Random(uint32_t s) : seed_(s & 0x7fffffffu) {$/;"	f	class:leveldb::Random
 Random	util/random.h	/^class Random {$/;"	c	namespace:leveldb
+Random64	util/random.h	/^  explicit Random64(uint64_t s) : generator_(s) { }$/;"	f	class:leveldb::Random64
+Random64	util/random.h	/^class Random64 {$/;"	c	namespace:leveldb
 RandomAccessFile	include/pebblesdb/env.h	/^    RandomAccessFile()$/;"	f	class:leveldb::RandomAccessFile
 RandomAccessFile	include/pebblesdb/env.h	/^class RandomAccessFile$/;"	c	namespace:leveldb
 RandomAccessFileImpl	helpers/memenv/memenv.cc	/^  explicit RandomAccessFileImpl(FileState* file) : file_(file) {$/;"	f	class:leveldb::__anon30::RandomAccessFileImpl
@@ -1357,6 +1568,7 @@ RunAllTests	util/testharness.cc	/^int RunAllTests() {$/;"	f	namespace:leveldb::t
 RunBenchmark	db/db_bench.cc	/^  void RunBenchmark(int n, Slice name,$/;"	f	class:leveldb::Benchmark	file:
 RunConcurrent	db/skiplist_test.cc	/^static void RunConcurrent(int run) {$/;"	f	namespace:leveldb
 SCOPED_LOCKABLE	port/thread_annotations.h	32;"	d
+SED	Makefile	/^SED = \/bin\/sed$/;"	m
 SEEK_BLOCK_READER_READ_BLOCK	util/timer.h	/^	SEEK_BLOCK_READER_READ_BLOCK,$/;"	e	enum:leveldb::TimerStep
 SEEK_BLOCK_READER_TOTAL	util/timer.h	/^	SEEK_BLOCK_READER_TOTAL,$/;"	e	enum:leveldb::TimerStep
 SEEK_GUARD_NUM_ITERATOR	util/timer.h	/^	SEEK_GUARD_NUM_ITERATOR,$/;"	e	enum:leveldb::TimerStep
@@ -1387,11 +1599,17 @@ SEEK_TITERATOR_SEQUENTIAL_FILES	util/timer.h	/^	SEEK_TITERATOR_SEQUENTIAL_FILES,
 SEEK_TITERATOR_SEQUENTIAL_TOTAL	util/timer.h	/^	SEEK_TITERATOR_SEQUENTIAL_TOTAL,$/;"	e	enum:leveldb::TimerStep
 SEQUENTIAL	doc/bench/db_bench_sqlite3.cc	/^    SEQUENTIAL,$/;"	e	enum:leveldb::Benchmark::Order	file:
 SEQUENTIAL	doc/bench/db_bench_tree_db.cc	/^    SEQUENTIAL,$/;"	e	enum:leveldb::Benchmark::Order	file:
+SET_MAKE	Makefile	/^SET_MAKE = $/;"	m
 SHARED_LOCKS_REQUIRED	port/thread_annotations.h	16;"	d
 SHARED_LOCK_FUNCTION	port/thread_annotations.h	40;"	d
 SHARED_PTR	db/db_impl.h	31;"	d
 SHARED_TRYLOCK_FUNCTION	port/thread_annotations.h	48;"	d
+SHELL	Makefile	/^SHELL = \/bin\/bash$/;"	m
+SNAPPY_FLAGS	Makefile	/^SNAPPY_FLAGS = -DSNAPPY$/;"	m
+SNAPPY_LIBS	Makefile	/^SNAPPY_LIBS = -lsnappy$/;"	m
+SOURCES	Makefile	/^SOURCES = $(libpebblesdb_la_SOURCES) $(arena_test_SOURCES) \\$/;"	m
 STARTING	db/skiplist_test.cc	/^    STARTING,$/;"	e	enum:leveldb::TestState::ReaderState	file:
+STDC_HEADERS	config.h	132;"	d
 STLLessThan	table/table_test.cc	/^  STLLessThan() : cmp(BytewiseComparator()) { }$/;"	f	struct:leveldb::__anon22::STLLessThan
 STLLessThan	table/table_test.cc	/^  STLLessThan(const Comparator* c) : cmp(c) { }$/;"	f	struct:leveldb::__anon22::STLLessThan
 STLLessThan	table/table_test.cc	/^struct STLLessThan {$/;"	s	namespace:leveldb::__anon22	file:
@@ -1448,6 +1666,7 @@ STORAGE_LEVELDB_UTIL_RANDOM_H_	util/random.h	6;"	d
 STORAGE_LEVELDB_UTIL_STRING_BUILDER_H_	util/string_builder.h	9;"	d
 STORAGE_LEVELDB_UTIL_TESTHARNESS_H_	util/testharness.h	6;"	d
 STORAGE_LEVELDB_UTIL_TESTUTIL_H_	util/testutil.h	6;"	d
+STRIP	Makefile	/^STRIP = strip$/;"	m
 SWB_ENQUEUE_MEM	util/timer.h	/^	SWB_ENQUEUE_MEM,$/;"	e	enum:leveldb::TimerStep
 SWB_INIT_MEMTABLES	util/timer.h	/^	SWB_INIT_MEMTABLES,$/;"	e	enum:leveldb::TimerStep
 SWB_INIT_MUTEX	util/timer.h	/^	SWB_INIT_MUTEX,$/;"	e	enum:leveldb::TimerStep
@@ -1556,6 +1775,7 @@ SetLogNumber	db/version_edit.h	/^  void SetLogNumber(uint64_t num) {$/;"	f	class
 SetNext	db/skiplist.h	/^  void SetNext(unsigned n, uint64_t c, Node* x) {$/;"	f	struct:leveldb::SkipList::Node
 SetNextFile	db/version_edit.h	/^  void SetNextFile(uint64_t num) {$/;"	f	class:leveldb::VersionEdit
 SetPrevLogNumber	db/version_edit.h	/^  void SetPrevLogNumber(uint64_t num) {$/;"	f	class:leveldb::VersionEdit
+SetReadCurrentTime	db/version_set.h	/^  void SetReadCurrentTime(uint64_t new_) {$/;"	f	class:leveldb::Version
 SetSequence	db/write_batch.cc	/^void WriteBatchInternal::SetSequence(WriteBatch* b, SequenceNumber seq) {$/;"	f	class:leveldb::WriteBatchInternal
 SetStaticTimers	include/pebblesdb/table.h	/^  void SetStaticTimers(Timer* static_timers[]) {$/;"	f	class:leveldb::Table
 Shard	util/cache.cc	/^  static uint32_t Shard(uint32_t hash) {$/;"	f	class:leveldb::__anon25::ShardedLRUCache	file:
@@ -1573,6 +1793,7 @@ Size	db/db_test.cc	/^  uint64_t Size(const Slice& start, const Slice& limit) {$/
 Size	helpers/memenv/memenv.cc	/^  uint64_t Size() const { return size_; }$/;"	f	class:leveldb::__anon30::FileState
 Size	table/table_test.cc	/^  uint64_t Size() const { return contents_.size(); }$/;"	f	class:leveldb::StringSource
 Skewed	util/random.h	/^  uint32_t Skewed(int max_log) {$/;"	f	class:leveldb::Random
+Skewed	util/random.h	/^  uint64_t Skewed(int max_log) {$/;"	f	class:leveldb::Random64
 Skip	db/log_test.cc	/^    virtual Status Skip(uint64_t n) {$/;"	f	class:leveldb::log::LogTest::StringSource
 Skip	helpers/memenv/memenv.cc	/^  virtual Status Skip(uint64_t n) {$/;"	f	class:leveldb::__anon30::SequentialFileImpl
 Skip	util/env_posix.cc	/^  virtual Status Skip(uint64_t n) {$/;"	f	class:leveldb::__anon26::PosixSequentialFile
@@ -1840,6 +2061,9 @@ TEST	util/env_test.cc	/^TEST(EnvPosixTest, RunImmediately) {$/;"	f	namespace:lev
 TEST	util/env_test.cc	/^TEST(EnvPosixTest, RunMany) {$/;"	f	namespace:leveldb
 TEST	util/env_test.cc	/^TEST(EnvPosixTest, StartThread) {$/;"	f	namespace:leveldb
 TEST	util/testharness.h	117;"	d
+TESTHARNESS	Makefile	/^TESTHARNESS = util\/testharness.cc $(TESTUTIL)$/;"	m
+TESTS	Makefile	/^TESTS = $(check_PROGRAMS)$/;"	m
+TESTUTIL	Makefile	/^TESTUTIL = util\/testutil.cc$/;"	m
 TEST_ComapactFilesToSingleLevel	db/db_impl.cc	/^void DBImpl::TEST_ComapactFilesToSingleLevel() {$/;"	f	class:leveldb::DBImpl
 TEST_CompactAllLevels	db/db_impl.cc	/^void DBImpl::TEST_CompactAllLevels() {$/;"	f	class:leveldb::DBImpl
 TEST_CompactMemTable	db/db_impl.cc	/^Status DBImpl::TEST_CompactMemTable() {$/;"	f	class:leveldb::DBImpl
@@ -1917,6 +2141,7 @@ USE_ATOMIC_FENCE	port/atomic_pointer.h	34;"	d
 USE_OS_MEMBARRIER	port/atomic_pointer.h	37;"	d
 UTIL_TIMER_H_	util/timer.h	9;"	d
 Uniform	util/random.h	/^  uint32_t Uniform(int n) { return Next() % n; }$/;"	f	class:leveldb::Random
+Uniform	util/random.h	/^  uint64_t Uniform(uint64_t n) {$/;"	f	class:leveldb::Random64
 Unlock	port/port_posix.cc	/^void Mutex::Unlock() { PthreadCall("unlock", pthread_mutex_unlock(&mu_)); }$/;"	f	class:leveldb::port::Mutex
 UnlockFile	helpers/memenv/memenv.cc	/^  virtual Status UnlockFile(FileLock* lock) {$/;"	f	class:leveldb::__anon30::InMemoryEnv
 UnlockFile	include/pebblesdb/env.h	/^    UnlockFile(FileLock *l)$/;"	f	class:leveldb::EnvWrapper
@@ -1932,6 +2157,8 @@ Update	table/iterator_wrapper.h	/^  void Update() {$/;"	f	class:leveldb::Iterato
 UpdateGuards	db/version_edit.h	/^  void UpdateGuards(uint64_t* guard_array) {$/;"	f	class:leveldb::VersionEdit
 UpdateStats	db/version_set.cc	/^bool Version::UpdateStats(const GetStats& stats) {$/;"	f	class:leveldb::Version
 Usage	db/leveldb_main.cc	/^static void Usage() {$/;"	f	file:
+VERSION	Makefile	/^VERSION = 1.0.dev$/;"	m
+VERSION	config.h	135;"	d
 Valid	db/db_iter.cc	/^  virtual bool Valid() const { return valid_; }$/;"	f	class:leveldb::__anon14::DBIter
 Valid	db/db_test.cc	/^    virtual bool Valid() const { return iter_ != map_->end(); }$/;"	f	class:leveldb::ModelDB::ModelIter
 Valid	db/memtable.cc	/^  virtual bool Valid() const { return iter_.Valid(); }$/;"	f	class:leveldb::MemTableIterator
@@ -1964,6 +2191,8 @@ VersionEditPrinter	leveldb-verify.cc	/^static void VersionEditPrinter(Slice reco
 VersionEditTest	db/version_edit_test.cc	/^class VersionEditTest { };$/;"	c	namespace:leveldb	file:
 VersionSet	db/version_set.cc	/^VersionSet::VersionSet(const std::string& dbname,$/;"	f	class:leveldb::VersionSet
 VersionSet	db/version_set.h	/^class VersionSet {$/;"	c	namespace:leveldb
+WANAL_CFLAGS	Makefile	/^WANAL_CFLAGS =  $/;"	m
+WANAL_CXXFLAGS	Makefile	/^WANAL_CXXFLAGS =  $/;"	m
 WRITE_INSERT_INTO_VERSION	util/timer.h	/^	WRITE_INSERT_INTO_VERSION,$/;"	e	enum:leveldb::TimerStep
 WRITE_LEVEL0_TABLE_GUARDS	util/timer.h	/^	WRITE_LEVEL0_TABLE_GUARDS,$/;"	e	enum:leveldb::TimerStep
 WRITE_LOG_ADDRECORD	util/timer.h	/^	WRITE_LOG_ADDRECORD,$/;"	e	enum:leveldb::TimerStep
@@ -2051,13 +2280,129 @@ _number	benchmark.cc	/^static long _number = 1000000;$/;"	v	file:
 _output	benchmark.cc	/^static const char* _output = "benchmark.dat";$/;"	v	file:
 _threads	benchmark.cc	/^static long _threads = 1;$/;"	v	file:
 _write_buf	benchmark.cc	/^static long _write_buf = 64ULL * 1024ULL * 1024ULL;$/;"	v	file:
+abs_builddir	Makefile	/^abs_builddir = \/home\/young\/Working\/pebblesdb\/src$/;"	m
+abs_srcdir	Makefile	/^abs_srcdir = \/home\/young\/Working\/pebblesdb\/src$/;"	m
+abs_top_builddir	Makefile	/^abs_top_builddir = \/home\/young\/Working\/pebblesdb\/src$/;"	m
+abs_top_srcdir	Makefile	/^abs_top_srcdir = \/home\/young\/Working\/pebblesdb\/src$/;"	m
+ac_ct_AR	Makefile	/^ac_ct_AR = ar$/;"	m
+ac_ct_CC	Makefile	/^ac_ct_CC = gcc$/;"	m
+ac_ct_CXX	Makefile	/^ac_ct_CXX = g++$/;"	m
+ac_ct_DUMPBIN	Makefile	/^ac_ct_DUMPBIN = $/;"	m
+ac_fn_c_check_func	configure	/^ac_fn_c_check_func ()$/;"	f
+ac_fn_c_check_header_compile	configure	/^ac_fn_c_check_header_compile ()$/;"	f
+ac_fn_c_try_compile	configure	/^ac_fn_c_try_compile ()$/;"	f
+ac_fn_c_try_cpp	configure	/^ac_fn_c_try_cpp ()$/;"	f
+ac_fn_c_try_link	configure	/^ac_fn_c_try_link ()$/;"	f
+ac_fn_c_try_run	configure	/^ac_fn_c_try_run ()$/;"	f
+ac_fn_cxx_check_decl	configure	/^ac_fn_cxx_check_decl ()$/;"	f
+ac_fn_cxx_check_func	configure	/^ac_fn_cxx_check_func ()$/;"	f
+ac_fn_cxx_check_header_compile	configure	/^ac_fn_cxx_check_header_compile ()$/;"	f
+ac_fn_cxx_check_header_mongrel	configure	/^ac_fn_cxx_check_header_mongrel ()$/;"	f
+ac_fn_cxx_try_compile	configure	/^ac_fn_cxx_try_compile ()$/;"	f
+ac_fn_cxx_try_cpp	configure	/^ac_fn_cxx_try_cpp ()$/;"	f
+ac_fn_cxx_try_link	configure	/^ac_fn_cxx_try_link ()$/;"	f
+ac_fn_cxx_try_run	configure	/^ac_fn_cxx_try_run ()$/;"	f
 added_complete_guards	db/version_set.cc	/^    GuardSet* added_complete_guards;$/;"	m	struct:leveldb::VersionSet::Builder::LevelState	file:
 added_files	db/version_set.cc	/^    FileSet* added_files;$/;"	m	struct:leveldb::VersionSet::Builder::LevelState	file:
 added_guards	db/version_set.cc	/^    GuardSet* added_guards;$/;"	m	struct:leveldb::VersionSet::Builder::LevelState	file:
+adjustPartialTiering	db/dbformat.h	/^static const unsigned adjustPartialTiering = true;$/;"	m	namespace:leveldb::config
+aix_post_process_depfile	depcomp	/^aix_post_process_depfile ()$/;"	f
 align_	util/arena.h	/^  const size_t align_;$/;"	m	class:leveldb::Arena
 allow_background_activity_	db/db_impl.h	/^  bool allow_background_activity_;$/;"	m	class:leveldb::DBImpl
 allowed_	util/env_posix.cc	/^  port::AtomicPointer allowed_;$/;"	m	class:leveldb::__anon26::MmapLimiter	file:
 allowed_seeks	db/version_edit.h	/^  int allowed_seeks;          \/\/ Seeks allowed until compaction$/;"	m	struct:leveldb::FileMetaData
+am__CONFIG_DISTCLEAN_FILES	Makefile	/^am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \\$/;"	m
+am__DEPENDENCIES_1	Makefile	/^am__DEPENDENCIES_1 =$/;"	m
+am__DIST_COMMON	Makefile	/^am__DIST_COMMON = $(srcdir)\/Makefile.in $(srcdir)\/config.h.in \\$/;"	m
+am__aclocal_m4_deps	Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/m4\/anal_warnings.m4 \\$/;"	m
+am__base_list	Makefile	/^am__base_list = \\$/;"	m
+am__can_run_installinfo	Makefile	/^am__can_run_installinfo = \\$/;"	m
+am__cd	Makefile	/^am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd$/;"	m
+am__configure_deps	Makefile	/^am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \\$/;"	m
+am__define_uniq_tagged_files	Makefile	/^am__define_uniq_tagged_files = \\$/;"	m
+am__depfiles_maybe	Makefile	/^am__depfiles_maybe = depfiles$/;"	m
+am__dirstamp	Makefile	/^am__dirstamp = $(am__leading_dot)dirstamp$/;"	m
+am__distuninstallcheck_listfiles	Makefile	/^am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \\$/;"	m
+am__include	Makefile	/^am__include = include$/;"	m
+am__install_max	Makefile	/^am__install_max = 40$/;"	m
+am__installdirs	Makefile	/^am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgconfigdir)" \\$/;"	m
+am__is_gnu_make	Makefile	/^am__is_gnu_make = { \\$/;"	m
+am__leading_dot	Makefile	/^am__leading_dot = .$/;"	m
+am__make_dryrun	Makefile	/^am__make_dryrun = (target_option=n; $(am__make_running_with_option))$/;"	m
+am__make_keepgoing	Makefile	/^am__make_keepgoing = (target_option=k; $(am__make_running_with_option))$/;"	m
+am__make_running_with_option	Makefile	/^am__make_running_with_option = \\$/;"	m
+am__mv	Makefile	/^am__mv = mv -f$/;"	m
+am__nobase_list	Makefile	/^am__nobase_list = $(am__nobase_strip_setup); \\$/;"	m
+am__nobase_strip	Makefile	/^am__nobase_strip = \\$/;"	m
+am__nobase_strip_setup	Makefile	/^am__nobase_strip_setup = \\$/;"	m
+am__objects_1	Makefile	/^am__objects_1 = util\/testutil.$(OBJEXT)$/;"	m
+am__objects_2	Makefile	/^am__objects_2 = util\/testharness.$(OBJEXT) $(am__objects_1)$/;"	m
+am__post_remove_distdir	Makefile	/^am__post_remove_distdir = $(am__remove_distdir)$/;"	m
+am__quote	Makefile	/^am__quote = $/;"	m
+am__remove_distdir	Makefile	/^am__remove_distdir = \\$/;"	m
+am__strip_dir	Makefile	/^am__strip_dir = f=`echo $$p | sed -e 's|^.*\/||'`;$/;"	m
+am__tagged_files	Makefile	/^am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) \\$/;"	m
+am__tar	Makefile	/^am__tar = $${TAR-tar} chof - "$$tardir"$/;"	m
+am__tty_colors	Makefile	/^am__tty_colors = { \\$/;"	m
+am__tty_colors_dummy	Makefile	/^am__tty_colors_dummy = \\$/;"	m
+am__uninstall_files_from_dir	Makefile	/^am__uninstall_files_from_dir = { \\$/;"	m
+am__uniquify_input	Makefile	/^am__uniquify_input = $(AWK) '\\$/;"	m
+am__untar	Makefile	/^am__untar = $${TAR-tar} xf -$/;"	m
+am__v_CCLD_	Makefile	/^am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CCLD_0	Makefile	/^am__v_CCLD_0 = @echo "  CCLD    " $@;$/;"	m
+am__v_CCLD_1	Makefile	/^am__v_CCLD_1 = $/;"	m
+am__v_CC_	Makefile	/^am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CC_0	Makefile	/^am__v_CC_0 = @echo "  CC      " $@;$/;"	m
+am__v_CC_1	Makefile	/^am__v_CC_1 = $/;"	m
+am__v_CXXLD_	Makefile	/^am__v_CXXLD_ = $(am__v_CXXLD_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CXXLD_0	Makefile	/^am__v_CXXLD_0 = @echo "  CXXLD   " $@;$/;"	m
+am__v_CXXLD_1	Makefile	/^am__v_CXXLD_1 = $/;"	m
+am__v_CXX_	Makefile	/^am__v_CXX_ = $(am__v_CXX_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CXX_0	Makefile	/^am__v_CXX_0 = @echo "  CXX     " $@;$/;"	m
+am__v_CXX_1	Makefile	/^am__v_CXX_1 = $/;"	m
+am__v_GEN_	Makefile	/^am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_GEN_0	Makefile	/^am__v_GEN_0 = @echo "  GEN     " $@;$/;"	m
+am__v_GEN_1	Makefile	/^am__v_GEN_1 = $/;"	m
+am__v_P_	Makefile	/^am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_P_0	Makefile	/^am__v_P_0 = false$/;"	m
+am__v_P_1	Makefile	/^am__v_P_1 = :$/;"	m
+am__v_at_	Makefile	/^am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_at_0	Makefile	/^am__v_at_0 = @$/;"	m
+am__v_at_1	Makefile	/^am__v_at_1 = $/;"	m
+am__v_lt_	Makefile	/^am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_lt_0	Makefile	/^am__v_lt_0 = --silent$/;"	m
+am__v_lt_1	Makefile	/^am__v_lt_1 = $/;"	m
+am__vpath_adj	Makefile	/^am__vpath_adj = case $$p in \\$/;"	m
+am__vpath_adj_setup	Makefile	/^am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;$/;"	m
+am_arena_test_OBJECTS	Makefile	/^am_arena_test_OBJECTS = util\/arena_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_autocompact_test_OBJECTS	Makefile	/^am_autocompact_test_OBJECTS = db\/autocompact_test.$(OBJEXT) \\$/;"	m
+am_benchmark_OBJECTS	Makefile	/^am_benchmark_OBJECTS = benchmark.$(OBJEXT)$/;"	m
+am_bloom_test_OBJECTS	Makefile	/^am_bloom_test_OBJECTS = util\/bloom_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_c_test_OBJECTS	Makefile	/^am_c_test_OBJECTS = db\/c_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_cache_test_OBJECTS	Makefile	/^am_cache_test_OBJECTS = util\/cache_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_coding_test_OBJECTS	Makefile	/^am_coding_test_OBJECTS = util\/coding_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_corruption_test_OBJECTS	Makefile	/^am_corruption_test_OBJECTS = db\/corruption_test.$(OBJEXT) \\$/;"	m
+am_crc32c_test_OBJECTS	Makefile	/^am_crc32c_test_OBJECTS = util\/crc32c_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_db_bench_OBJECTS	Makefile	/^am_db_bench_OBJECTS = db\/db_bench.$(OBJEXT) $(am__objects_1)$/;"	m
+am_db_bench_sqlite3_OBJECTS	Makefile	/^am_db_bench_sqlite3_OBJECTS = doc\/bench\/db_bench_sqlite3.$(OBJEXT) \\$/;"	m
+am_db_bench_tree_db_OBJECTS	Makefile	/^am_db_bench_tree_db_OBJECTS = doc\/bench\/db_bench_tree_db.$(OBJEXT) \\$/;"	m
+am_db_test_OBJECTS	Makefile	/^am_db_test_OBJECTS = db\/db_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_dbformat_test_OBJECTS	Makefile	/^am_dbformat_test_OBJECTS = db\/dbformat_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_env_test_OBJECTS	Makefile	/^am_env_test_OBJECTS = util\/env_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_filename_test_OBJECTS	Makefile	/^am_filename_test_OBJECTS = db\/filename_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_filter_block_test_OBJECTS	Makefile	/^am_filter_block_test_OBJECTS = table\/filter_block_test.$(OBJEXT) \\$/;"	m
+am_issue178_test_OBJECTS	Makefile	/^am_issue178_test_OBJECTS = issues\/issue178_test.$(OBJEXT) \\$/;"	m
+am_issue200_test_OBJECTS	Makefile	/^am_issue200_test_OBJECTS = issues\/issue200_test.$(OBJEXT) \\$/;"	m
+am_leveldb_dump_all_OBJECTS	Makefile	/^am_leveldb_dump_all_OBJECTS = leveldb-dump-all.$(OBJEXT)$/;"	m
+am_leveldb_verify_OBJECTS	Makefile	/^am_leveldb_verify_OBJECTS = leveldb-verify.$(OBJEXT)$/;"	m
+am_leveldbutil_OBJECTS	Makefile	/^am_leveldbutil_OBJECTS = db\/leveldb_main.$(OBJEXT)$/;"	m
+am_libpebblesdb_la_OBJECTS	Makefile	/^am_libpebblesdb_la_OBJECTS = db\/builder.lo db\/c.lo db\/dbformat.lo \\$/;"	m
+am_log_test_OBJECTS	Makefile	/^am_log_test_OBJECTS = db\/log_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_skiplist_test_OBJECTS	Makefile	/^am_skiplist_test_OBJECTS = db\/skiplist_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_table_test_OBJECTS	Makefile	/^am_table_test_OBJECTS = table\/table_test.$(OBJEXT) $(am__objects_2)$/;"	m
+am_version_edit_test_OBJECTS	Makefile	/^am_version_edit_test_OBJECTS = db\/version_edit_test.$(OBJEXT) \\$/;"	m
+am_version_set_test_OBJECTS	Makefile	/^am_version_set_test_OBJECTS = db\/version_set_test.$(OBJEXT) \\$/;"	m
+am_write_batch_test_OBJECTS	Makefile	/^am_write_batch_test_OBJECTS = db\/write_batch_test.$(OBJEXT) \\$/;"	m
 and_32_nobarrier	util/atomic.h	/^and_32_nobarrier(volatile uint32_t* ptr, uint32_t andwith)$/;"	f	namespace:leveldb::atomic
 and_64_nobarrier	util/atomic.h	/^and_64_nobarrier(volatile uint64_t* ptr, uint64_t andwith)$/;"	f	namespace:leveldb::atomic
 append	util/string_builder.h	/^  void append(const char* buf, size_t sz, int print = 0) {$/;"	f	struct:leveldb::StringBuilder
@@ -2065,6 +2410,10 @@ append	util/string_builder.h	/^  void append(const leveldb::Slice& s) {$/;"	f	st
 arena_	db/memtable.h	/^  Arena arena_;$/;"	m	class:leveldb::MemTable
 arena_	db/skiplist.h	/^  Arena* const arena_;    \/\/ Arena used for allocations of nodes$/;"	m	class:leveldb::SkipList
 arena_	db/skiplist_test.cc	/^  Arena arena_;$/;"	m	class:leveldb::ConcurrentTest	file:
+arena_test_DEPENDENCIES	Makefile	/^arena_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+arena_test_LDADD	Makefile	/^arena_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+arena_test_OBJECTS	Makefile	/^arena_test_OBJECTS = $(am_arena_test_OBJECTS)$/;"	m
+arena_test_SOURCES	Makefile	/^arena_test_SOURCES = util\/arena_test.cc $(TESTHARNESS)$/;"	m
 arg	util/env_posix.cc	/^  struct BGItem { void* arg; void (*function)(void*); };$/;"	m	struct:leveldb::__anon26::PosixEnv::BGItem	file:
 arg	util/env_posix.cc	/^  void* arg;$/;"	m	struct:leveldb::__anon26::__anon27::StartThreadState	file:
 arg1	include/pebblesdb/iterator.h	/^    void* arg1;$/;"	m	struct:leveldb::Iterator::Cleanup
@@ -2073,7 +2422,31 @@ arg2	include/pebblesdb/iterator.h	/^    void* arg2;$/;"	m	struct:leveldb::Iterat
 arg2_	table/two_level_iterator.cc	/^  const void* arg2_;$/;"	m	class:leveldb::__anon20::TwoLevelIteratorGuards	file:
 arg3_	table/two_level_iterator.cc	/^  void* arg3_;$/;"	m	class:leveldb::__anon20::TwoLevelIteratorGuards	file:
 arg_	table/two_level_iterator.cc	/^  void* arg_;$/;"	m	class:leveldb::__anon20::TwoLevelIterator	file:
+as_fn_append	config.status	/^  as_fn_append ()$/;"	f
+as_fn_append	configure	/^  as_fn_append ()$/;"	f
+as_fn_arith	config.status	/^  as_fn_arith ()$/;"	f
+as_fn_arith	configure	/^  as_fn_arith ()$/;"	f
+as_fn_error	config.status	/^as_fn_error ()$/;"	f
+as_fn_error	configure	/^as_fn_error ()$/;"	f
+as_fn_executable_p	config.status	/^as_fn_executable_p ()$/;"	f
+as_fn_executable_p	configure	/^as_fn_executable_p ()$/;"	f
+as_fn_exit	config.status	/^as_fn_exit ()$/;"	f
+as_fn_exit	configure	/^as_fn_exit ()$/;"	f
+as_fn_failure	configure	/^as_fn_failure () { as_fn_return 1; }$/;"	f
+as_fn_mkdir_p	config.status	/^as_fn_mkdir_p ()$/;"	f
+as_fn_mkdir_p	configure	/^as_fn_mkdir_p ()$/;"	f
+as_fn_ret_failure	configure	/^as_fn_ret_failure () { return 1; }$/;"	f
+as_fn_ret_success	configure	/^as_fn_ret_success () { return 0; }$/;"	f
+as_fn_set_status	config.status	/^as_fn_set_status ()$/;"	f
+as_fn_set_status	configure	/^as_fn_set_status ()$/;"	f
+as_fn_success	configure	/^as_fn_success () { as_fn_return 0; }$/;"	f
+as_fn_unset	config.status	/^as_fn_unset ()$/;"	f
+as_fn_unset	configure	/^as_fn_unset ()$/;"	f
 atomic	util/atomic.h	/^namespace atomic$/;"	n	namespace:leveldb
+autocompact_test_DEPENDENCIES	Makefile	/^autocompact_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+autocompact_test_LDADD	Makefile	/^autocompact_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+autocompact_test_OBJECTS	Makefile	/^autocompact_test_OBJECTS = $(am_autocompact_test_OBJECTS)$/;"	m
+autocompact_test_SOURCES	Makefile	/^autocompact_test_SOURCES = db\/autocompact_test.cc $(TESTHARNESS)$/;"	m
 backing_store_	db/log_reader.h	/^  char* const backing_store_;$/;"	m	class:leveldb::log::Reader
 backup_cv_	db/db_impl.h	/^  port::CondVar backup_cv_;$/;"	m	class:leveldb::DBImpl
 backup_deferred_delete_	db/db_impl.h	/^  bool backup_deferred_delete_; \/\/ DeleteObsoleteFiles delayed by backup; protect with mutex_$/;"	m	class:leveldb::DBImpl
@@ -2087,6 +2460,12 @@ base_	db/version_set.cc	/^  Version* base_;$/;"	m	class:leveldb::VersionSet::Bui
 base_	util/env_posix.cc	/^    char* base_;$/;"	m	struct:leveldb::__anon26::PosixMmapFile::MmapSegment	file:
 base_lg_	table/filter_block.h	/^  size_t base_lg_;      \/\/ Encoding parameter (see kFilterBaseLg in .cc file)$/;"	m	class:leveldb::FilterBlockReader
 begin	db/db_impl.h	/^    const InternalKey* begin;   \/\/ NULL means beginning of key range$/;"	m	struct:leveldb::DBImpl::ManualCompaction
+benchmark_DEPENDENCIES	Makefile	/^benchmark_DEPENDENCIES = libpebblesdb.la$/;"	m
+benchmark_LDADD	Makefile	/^benchmark_LDADD = libpebblesdb.la -lpthread -lsnappy -le -lpopt -lygor$/;"	m
+benchmark_LDFLAGS	Makefile	/^benchmark_LDFLAGS = -no-install$/;"	m
+benchmark_LINK	Makefile	/^benchmark_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \\$/;"	m
+benchmark_OBJECTS	Makefile	/^benchmark_OBJECTS = $(am_benchmark_OBJECTS)$/;"	m
+benchmark_SOURCES	Makefile	/^benchmark_SOURCES = benchmark.cc$/;"	m
 bg_compaction_cv_	db/db_impl.h	/^  port::CondVar bg_compaction_cv_;$/;"	m	class:leveldb::DBImpl
 bg_error_	db/db_impl.h	/^  Status bg_error_;$/;"	m	class:leveldb::DBImpl
 bg_fg_cv_	db/db_impl.h	/^  port::CondVar bg_fg_cv_;$/;"	m	class:leveldb::DBImpl
@@ -2095,6 +2474,7 @@ bg_log_occupied_	db/db_impl.h	/^  bool bg_log_occupied_;$/;"	m	class:leveldb::DB
 bg_memtable_cv_	db/db_impl.h	/^  port::CondVar bg_memtable_cv_;$/;"	m	class:leveldb::DBImpl
 bgsignal_	util/env_posix.cc	/^  pthread_cond_t bgsignal_;$/;"	m	class:leveldb::__anon26::PosixEnv	file:
 bgthread_	util/env_posix.cc	/^  pthread_t bgthread_;$/;"	m	class:leveldb::__anon26::PosixEnv	file:
+bindir	Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
 bit_decrement	db/write_batch.cc	/^   const static int bit_decrement = 2;$/;"	m	class:leveldb::__anon13::GuardInserter	file:
 bit_mask	db/write_batch.cc	/^   unsigned bit_mask;$/;"	m	class:leveldb::__anon13::GuardInserter	file:
 bits_per_key_	util/bloom.cc	/^  size_t bits_per_key_;$/;"	m	class:leveldb::__anon28::BloomFilterPolicy	file:
@@ -2108,12 +2488,23 @@ block_size	include/pebblesdb/options.h	/^  size_t block_size;$/;"	m	struct:level
 block_size_	util/env_posix.cc	/^  const size_t block_size_; \/\/ System page size$/;"	m	class:leveldb::__anon26::PosixMmapFile	file:
 blocks_	helpers/memenv/memenv.cc	/^  std::vector<char*> blocks_;$/;"	m	class:leveldb::__anon30::FileState	file:
 blocks_	util/arena.h	/^  Block* blocks_;$/;"	m	class:leveldb::Arena
+bloom_test_DEPENDENCIES	Makefile	/^bloom_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+bloom_test_LDADD	Makefile	/^bloom_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+bloom_test_OBJECTS	Makefile	/^bloom_test_OBJECTS = $(am_bloom_test_OBJECTS)$/;"	m
+bloom_test_SOURCES	Makefile	/^bloom_test_SOURCES = util\/bloom_test.cc $(TESTHARNESS)$/;"	m
 bm	db/db_bench.cc	/^    Benchmark* bm;$/;"	m	struct:leveldb::Benchmark::ThreadArg	file:
 boundaries_	db/version_set.h	/^  std::vector<std::pair<uint64_t, leveldb::Slice> > boundaries_;$/;"	m	class:leveldb::Compaction
 buckets_	util/histogram.h	/^  double buckets_[kNumBuckets];$/;"	m	class:leveldb::Histogram
 buffer	db/version_set.h	/^    char buffer[100];$/;"	m	struct:leveldb::VersionSet::LevelSummaryStorage
 buffer_	db/log_reader.h	/^  Slice buffer_;$/;"	m	class:leveldb::log::Reader
 buffer_	table/block_builder.h	/^  StringBuilder         buffer_;      \/\/ Destination buffer$/;"	m	class:leveldb::BlockBuilder
+build	Makefile	/^build = x86_64-pc-linux-gnu$/;"	m
+build_alias	Makefile	/^build_alias = $/;"	m
+build_cpu	Makefile	/^build_cpu = x86_64$/;"	m
+build_os	Makefile	/^build_os = linux-gnu$/;"	m
+build_triplet	Makefile	/^build_triplet = x86_64-pc-linux-gnu$/;"	m
+build_vendor	Makefile	/^build_vendor = pc$/;"	m
+builddir	Makefile	/^builddir = .$/;"	m
 builder	db/db_impl.cc	/^  TableBuilder* builder;$/;"	m	struct:leveldb::DBImpl::CompactionState	file:
 byte_size	include/pebblesdb/filter_policy.h	/^  mutable size_t byte_size;$/;"	m	class:leveldb::FilterPolicy
 bytes_	db/db_bench.cc	/^  int64_t bytes_;$/;"	m	class:leveldb::__anon11::Stats	file:
@@ -2123,13 +2514,22 @@ bytes_counter_	db/db_iter.cc	/^  ssize_t bytes_counter_;$/;"	m	class:leveldb::__
 bytes_read	db/db_impl.h	/^    int64_t bytes_read;$/;"	m	struct:leveldb::DBImpl::CompactionStats
 bytes_written	db/db_impl.h	/^    int64_t bytes_written;$/;"	m	struct:leveldb::DBImpl::CompactionStats
 bytewise	util/comparator.cc	/^static const Comparator* bytewise;$/;"	m	namespace:leveldb	file:
+c_test_DEPENDENCIES	Makefile	/^c_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+c_test_LDADD	Makefile	/^c_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+c_test_OBJECTS	Makefile	/^c_test_OBJECTS = $(am_c_test_OBJECTS)$/;"	m
+c_test_SOURCES	Makefile	/^c_test_SOURCES = db\/c_test.c $(TESTHARNESS)$/;"	m
 cachable	table/format.h	/^  bool cachable;        \/\/ True iff data can be cached$/;"	m	struct:leveldb::BlockContents
 cache_	db/db_bench.cc	/^  Cache* cache_;$/;"	m	class:leveldb::Benchmark	file:
 cache_	db/table_cache.h	/^  Cache* cache_;$/;"	m	class:leveldb::TableCache
 cache_	util/cache_test.cc	/^  Cache* cache_;$/;"	m	class:leveldb::CacheTest	file:
 cache_id	table/table.cc	/^  uint64_t cache_id;$/;"	m	struct:leveldb::Table::Rep	file:
+cache_test_DEPENDENCIES	Makefile	/^cache_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+cache_test_LDADD	Makefile	/^cache_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+cache_test_OBJECTS	Makefile	/^cache_test_OBJECTS = $(am_cache_test_OBJECTS)$/;"	m
+cache_test_SOURCES	Makefile	/^cache_test_SOURCES = util\/cache_test.cc $(TESTHARNESS)$/;"	m
 capacity_	util/cache.cc	/^  size_t capacity_;$/;"	m	class:leveldb::__anon25::LRUCache	file:
 charge	util/cache.cc	/^  size_t charge;      \/\/ TODO(opt): Only allow uint32_t?$/;"	m	struct:leveldb::__anon25::LRUHandle	file:
+check_PROGRAMS	Makefile	/^check_PROGRAMS = autocompact_test$(EXEEXT) arena_test$(EXEEXT) \\$/;"	m
 checksum_	db/log_reader.h	/^  bool const checksum_;$/;"	m	class:leveldb::log::Reader
 children_	table/merger.cc	/^  IteratorWrapper* children_;$/;"	m	class:leveldb::__anon18::MergingIterator	file:
 choose_crc32c	util/crc32c.cc	/^choose_crc32c() {$/;"	f	namespace:leveldb::crc32c
@@ -2146,6 +2546,10 @@ cmp	table/table_test.cc	/^  const Comparator* cmp;$/;"	m	struct:leveldb::__anon2
 cmp_	db/version_set.cc	/^    const InternalKeyComparator* cmp_;$/;"	m	struct:leveldb::CmpByRange	file:
 cnd_	util/env_posix.cc	/^  port::CondVar cnd_;       \/\/ Wait for truncate$/;"	m	class:leveldb::__anon26::PosixMmapFile	file:
 code	include/pebblesdb/status.h	/^  Code code() const {$/;"	f	class:leveldb::Status
+coding_test_DEPENDENCIES	Makefile	/^coding_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+coding_test_LDADD	Makefile	/^coding_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+coding_test_OBJECTS	Makefile	/^coding_test_OBJECTS = $(am_coding_test_OBJECTS)$/;"	m
+coding_test_SOURCES	Makefile	/^coding_test_SOURCES = util\/coding_test.cc $(TESTHARNESS)$/;"	m
 comp_	doc/bench/db_bench_tree_db.cc	/^  kyotocabinet::LZOCompressor<kyotocabinet::LZO::RAW> comp_;$/;"	m	class:leveldb::Benchmark	file:
 compact_pointer_	db/version_set.h	/^  std::string compact_pointer_[config::kNumLevels];$/;"	m	class:leveldb::VersionSet
 compact_pointers_	db/version_edit.h	/^  std::vector< std::pair<int, InternalKey> > compact_pointers_;$/;"	m	class:leveldb::VersionEdit
@@ -2185,6 +2589,10 @@ contents_	db/log_test.cc	/^    Slice contents_;$/;"	m	class:leveldb::log::LogTes
 contents_	db/log_test.cc	/^    std::string contents_;$/;"	m	class:leveldb::log::LogTest::StringDest	file:
 contents_	table/table_test.cc	/^  std::string contents_;$/;"	m	class:leveldb::StringSink	file:
 contents_	table/table_test.cc	/^  std::string contents_;$/;"	m	class:leveldb::StringSource	file:
+corruption_test_DEPENDENCIES	Makefile	/^corruption_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+corruption_test_LDADD	Makefile	/^corruption_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+corruption_test_OBJECTS	Makefile	/^corruption_test_OBJECTS = $(am_corruption_test_OBJECTS)$/;"	m
+corruption_test_SOURCES	Makefile	/^corruption_test_SOURCES = db\/corruption_test.cc $(TESTHARNESS)$/;"	m
 count_	db/db_test.cc	/^  int count_;$/;"	m	class:leveldb::__anon4::AtomicCounter	file:
 count_random_reads_	db/db_test.cc	/^  bool count_random_reads_;$/;"	m	class:leveldb::SpecialEnv	file:
 counter	db/db_test.cc	/^  port::AtomicPointer counter[kNumThreads];$/;"	m	struct:leveldb::__anon5::MTState	file:
@@ -2204,6 +2612,10 @@ crc32c	util/crc32c_test.cc	/^namespace crc32c {$/;"	n	namespace:leveldb	file:
 crc32c_func	util/crc32c.cc	/^static crc32c_func_t crc32c_func = choose_crc32c();$/;"	m	namespace:leveldb::crc32c	file:
 crc32c_func_t	util/crc32c.cc	/^typedef uint32_t (*crc32c_func_t)(uint32_t init_crc, const char* data, size_t n);$/;"	t	namespace:leveldb::crc32c	file:
 crc32c_sb8_64_bit	util/crc32c.cc	/^crc32c_sb8_64_bit($/;"	f	namespace:leveldb::crc32c
+crc32c_test_DEPENDENCIES	Makefile	/^crc32c_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+crc32c_test_LDADD	Makefile	/^crc32c_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+crc32c_test_OBJECTS	Makefile	/^crc32c_test_OBJECTS = $(am_crc32c_test_OBJECTS)$/;"	m
+crc32c_test_SOURCES	Makefile	/^crc32c_test_SOURCES = util\/crc32c_test.cc $(TESTHARNESS)$/;"	m
 crc_tableil8_o32	util/crc32c.cc	/^uint32_t crc_tableil8_o32[256] =$/;"	m	namespace:leveldb::crc32c	file:
 crc_tableil8_o40	util/crc32c.cc	/^uint32_t crc_tableil8_o40[256] =$/;"	m	namespace:leveldb::crc32c	file:
 crc_tableil8_o48	util/crc32c.cc	/^uint32_t crc_tableil8_o48[256] =$/;"	m	namespace:leveldb::crc32c	file:
@@ -2249,6 +2661,8 @@ data_block_handle_	table/two_level_iterator.cc	/^  std::string data_block_handle
 data_iter_	table/two_level_iterator.cc	/^  IteratorWrapper data_iter_; \/\/ May be NULL$/;"	m	class:leveldb::__anon20::TwoLevelIterator	file:
 data_iter_	table/two_level_iterator.cc	/^  IteratorWrapper data_iter_; \/\/ May be NULL$/;"	m	class:leveldb::__anon20::TwoLevelIteratorGuards	file:
 data_sync_error_	db/db_test.cc	/^  port::AtomicPointer data_sync_error_;$/;"	m	class:leveldb::SpecialEnv	file:
+datadir	Makefile	/^datadir = ${datarootdir}$/;"	m
+datarootdir	Makefile	/^datarootdir = ${prefix}\/share$/;"	m
 db	table/table_test.cc	/^  DB* db() const { return constructor_->db(); }$/;"	f	class:leveldb::Harness
 db	table/table_test.cc	/^  virtual DB* db() const { return NULL; }  \/\/ Overridden in DBConstructor$/;"	f	class:leveldb::Constructor
 db	table/table_test.cc	/^  virtual DB* db() const { return db_; }$/;"	f	class:leveldb::DBConstructor
@@ -2261,9 +2675,29 @@ db_	db/replay_iterator.h	/^  DBImpl* const db_;$/;"	m	class:leveldb::ReplayItera
 db_	doc/bench/db_bench_sqlite3.cc	/^  sqlite3* db_;$/;"	m	class:leveldb::Benchmark	file:
 db_	doc/bench/db_bench_tree_db.cc	/^  kyotocabinet::TreeDB* db_;$/;"	m	class:leveldb::Benchmark	file:
 db_	table/table_test.cc	/^  DB* db_;$/;"	m	class:leveldb::DBConstructor	file:
+db_bench_DEPENDENCIES	Makefile	/^db_bench_DEPENDENCIES = libpebblesdb.la$/;"	m
+db_bench_LDADD	Makefile	/^db_bench_LDADD = libpebblesdb.la -lpthread -lsnappy$/;"	m
+db_bench_OBJECTS	Makefile	/^db_bench_OBJECTS = $(am_db_bench_OBJECTS)$/;"	m
+db_bench_SOURCES	Makefile	/^db_bench_SOURCES = db\/db_bench.cc $(TESTUTIL)$/;"	m
+db_bench_sqlite3_DEPENDENCIES	Makefile	/^db_bench_sqlite3_DEPENDENCIES =$/;"	m
+db_bench_sqlite3_LDADD	Makefile	/^db_bench_sqlite3_LDADD = -lsqlite3$/;"	m
+db_bench_sqlite3_OBJECTS	Makefile	/^db_bench_sqlite3_OBJECTS = $(am_db_bench_sqlite3_OBJECTS)$/;"	m
+db_bench_sqlite3_SOURCES	Makefile	/^db_bench_sqlite3_SOURCES = doc\/bench\/db_bench_sqlite3.cc $(TESTUTIL)$/;"	m
+db_bench_tree_db_DEPENDENCIES	Makefile	/^db_bench_tree_db_DEPENDENCIES =$/;"	m
+db_bench_tree_db_LDADD	Makefile	/^db_bench_tree_db_LDADD = -lkyotocabinet$/;"	m
+db_bench_tree_db_OBJECTS	Makefile	/^db_bench_tree_db_OBJECTS = $(am_db_bench_tree_db_OBJECTS)$/;"	m
+db_bench_tree_db_SOURCES	Makefile	/^db_bench_tree_db_SOURCES = doc\/bench\/db_bench_tree_db.cc $(TESTUTIL)$/;"	m
 db_lock_	db/db_impl.h	/^  FileLock* db_lock_;$/;"	m	class:leveldb::DBImpl
 db_num_	doc/bench/db_bench_sqlite3.cc	/^  int db_num_;$/;"	m	class:leveldb::Benchmark	file:
 db_num_	doc/bench/db_bench_tree_db.cc	/^  int db_num_;$/;"	m	class:leveldb::Benchmark	file:
+db_test_DEPENDENCIES	Makefile	/^db_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+db_test_LDADD	Makefile	/^db_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+db_test_OBJECTS	Makefile	/^db_test_OBJECTS = $(am_db_test_OBJECTS)$/;"	m
+db_test_SOURCES	Makefile	/^db_test_SOURCES = db\/db_test.cc $(TESTHARNESS)$/;"	m
+dbformat_test_DEPENDENCIES	Makefile	/^dbformat_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+dbformat_test_LDADD	Makefile	/^dbformat_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+dbformat_test_OBJECTS	Makefile	/^dbformat_test_OBJECTS = $(am_dbformat_test_OBJECTS)$/;"	m
+dbformat_test_SOURCES	Makefile	/^dbformat_test_SOURCES = db\/dbformat_test.cc $(TESTHARNESS)$/;"	m
 dbfull	db/db_bench.cc	/^  DBImpl* dbfull() {$/;"	f	class:leveldb::Benchmark	file:
 dbfull	db/db_test.cc	/^  DBImpl* dbfull() {$/;"	f	class:leveldb::DBTest
 dbname	db/c_test.c	/^static char dbname[200];$/;"	v	file:
@@ -2285,6 +2719,7 @@ deleted_keys_	util/cache_test.cc	/^  std::vector<int> deleted_keys_;$/;"	m	class
 deleted_sentinel_files_	db/version_edit.h	/^  DeletedFileSet deleted_sentinel_files_;$/;"	m	class:leveldb::VersionEdit
 deleted_values_	util/cache_test.cc	/^  std::vector<int> deleted_values_;$/;"	m	class:leveldb::CacheTest	file:
 deleter	util/cache.cc	/^  void (*deleter)(const Slice&, void* value);$/;"	m	struct:leveldb::__anon25::LRUHandle	file:
+depcomp	Makefile	/^depcomp = $(SHELL) $(top_srcdir)\/depcomp$/;"	m
 descriptor_file_	db/version_set.h	/^  ConcurrentWritableFile* descriptor_file_;$/;"	m	class:leveldb::VersionSet
 descriptor_log_	db/version_set.h	/^  log::Writer* descriptor_log_;$/;"	m	class:leveldb::VersionSet
 dest_	db/log_test.cc	/^  StringDest dest_;$/;"	m	class:leveldb::log::LogTest	file:
@@ -2295,12 +2730,17 @@ destructor_	db/c.cc	/^  void (*destructor_)(void*);$/;"	m	struct:leveldb_filterp
 direction_	db/db_iter.cc	/^  Direction direction_;$/;"	m	class:leveldb::__anon14::DBIter	file:
 direction_	table/merger.cc	/^  Direction direction_;$/;"	m	class:leveldb::__anon18::MergingIterator	file:
 disjoint_sorted_files_	db/version_set_test.cc	/^  bool disjoint_sorted_files_;$/;"	m	class:leveldb::FindFileTest	file:
+distcleancheck_listfiles	Makefile	/^distcleancheck_listfiles = find . -type f -print$/;"	m
+distdir	Makefile	/^distdir = $(PACKAGE)-$(VERSION)$/;"	m
+distuninstallcheck_listfiles	Makefile	/^distuninstallcheck_listfiles = find . -type f -print$/;"	m
+docdir	Makefile	/^docdir = ${datarootdir}\/doc\/${PACKAGE_TARNAME}$/;"	m
 done	db/db_impl.h	/^    bool done;$/;"	m	struct:leveldb::DBImpl::ManualCompaction
 done_	db/db_bench.cc	/^  int done_;$/;"	m	class:leveldb::__anon11::Stats	file:
 done_	doc/bench/db_bench_sqlite3.cc	/^  int done_;$/;"	m	class:leveldb::Benchmark	file:
 done_	doc/bench/db_bench_tree_db.cc	/^  int done_;$/;"	m	class:leveldb::Benchmark	file:
 dropped_bytes_	db/log_test.cc	/^    size_t dropped_bytes_;$/;"	m	class:leveldb::log::LogTest::ReportCollector	file:
 dummy_versions_	db/version_set.h	/^  Version dummy_versions_;  \/\/ Head of circular doubly-linked list of versions.$/;"	m	class:leveldb::VersionSet
+dvidir	Makefile	/^dvidir = ${docdir}$/;"	m
 edit	db/version_set.h	/^  VersionEdit* edit() { return &edit_; }$/;"	f	class:leveldb::Compaction
 edit_	db/repair.cc	/^  VersionEdit edit_;$/;"	m	class:leveldb::__anon12::Repairer	file:
 edit_	db/version_set.h	/^  VersionEdit edit_;$/;"	m	class:leveldb::Compaction
@@ -2325,14 +2765,19 @@ env_	db/table_cache.h	/^  Env* const env_;$/;"	m	class:leveldb::TableCache
 env_	db/version_set.h	/^  Env* const env_;$/;"	m	class:leveldb::VersionSet
 env_	helpers/memenv/memenv_test.cc	/^  Env* env_;$/;"	m	class:leveldb::MemEnvTest	file:
 env_	util/env_test.cc	/^  Env* env_;$/;"	m	class:leveldb::EnvPosixTest	file:
-envinput	db/db_bench.cc	694;"	d	file:
-envstrinput	db/db_bench.cc	695;"	d	file:
+env_test_DEPENDENCIES	Makefile	/^env_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+env_test_LDADD	Makefile	/^env_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+env_test_OBJECTS	Makefile	/^env_test_OBJECTS = $(am_env_test_OBJECTS)$/;"	m
+env_test_SOURCES	Makefile	/^env_test_SOURCES = util\/env_test.cc $(TESTHARNESS)$/;"	m
+envinput	db/db_bench.cc	765;"	d	file:
+envstrinput	db/db_bench.cc	766;"	d	file:
 eof_	db/log_reader.h	/^  bool eof_;   \/\/ Last Read() indicated EOF by returning < kBlockSize$/;"	m	class:leveldb::log::Reader
 error_if_exists	include/pebblesdb/options.h	/^  bool error_if_exists;$/;"	m	struct:leveldb::Options
 events_	util/env_test.cc	/^  std::string events_;$/;"	m	class:leveldb::EnvPosixTest	file:
 exchange_32_nobarrier	util/atomic.h	/^exchange_32_nobarrier(volatile uint32_t* ptr, uint32_t new_value)$/;"	f	namespace:leveldb::atomic
 exchange_64_nobarrier	util/atomic.h	/^exchange_64_nobarrier(volatile uint64_t* ptr, uint64_t new_value)$/;"	f	namespace:leveldb::atomic
 exchange_ptr_nobarrier	util/atomic.h	/^exchange_ptr_nobarrier(P* volatile* ptr, P* new_value)$/;"	f	namespace:leveldb::atomic
+exec_prefix	Makefile	/^exec_prefix = ${prefix}$/;"	m
 extractor_	db/memtable.h	/^  KeyExtractor extractor_;$/;"	m	class:leveldb::MemTable
 extractor_	db/skiplist.h	/^  Extractor const extractor_;$/;"	m	class:leveldb::SkipList
 fake_filter_result	db/c_test.c	/^static unsigned char fake_filter_result = 1;$/;"	v	file:
@@ -2366,6 +2811,10 @@ filename_	util/env_posix.cc	/^  std::string filename_;$/;"	m	class:leveldb::__an
 filename_	util/env_posix.cc	/^  std::string filename_;$/;"	m	class:leveldb::__anon26::PosixRandomAccessFile	file:
 filename_	util/env_posix.cc	/^  std::string filename_;$/;"	m	class:leveldb::__anon26::PosixSequentialFile	file:
 filename_	util/env_posix.cc	/^  std::string filename_;$/;"	m	class:leveldb::__anon26::PosixWritableFile	file:
+filename_test_DEPENDENCIES	Makefile	/^filename_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+filename_test_LDADD	Makefile	/^filename_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+filename_test_OBJECTS	Makefile	/^filename_test_OBJECTS = $(am_filename_test_OBJECTS)$/;"	m
+filename_test_SOURCES	Makefile	/^filename_test_SOURCES = db\/filename_test.cc $(TESTHARNESS)$/;"	m
 files	db/version_edit.h	/^  std::vector<uint64_t> files;$/;"	m	struct:leveldb::GuardMetaData
 files_	db/version_set.h	/^  std::vector<FileMetaData*> files_[config::kNumLevels];$/;"	m	class:leveldb::Version
 files_	db/version_set_test.cc	/^  std::vector<FileMetaData*> files_;$/;"	m	class:leveldb::FindFileTest	file:
@@ -2373,6 +2822,10 @@ fill_cache	include/pebblesdb/options.h	/^  bool fill_cache;$/;"	m	struct:leveldb
 filter	table/table.cc	/^  FilterBlockReader* filter;$/;"	m	struct:leveldb::Table::Rep	file:
 filter_	util/bloom_test.cc	/^  std::string filter_;$/;"	m	class:leveldb::BloomTest	file:
 filter_block	table/table_builder.cc	/^  FilterBlockBuilder* filter_block;$/;"	m	struct:leveldb::TableBuilder::Rep	file:
+filter_block_test_DEPENDENCIES	Makefile	/^filter_block_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+filter_block_test_LDADD	Makefile	/^filter_block_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+filter_block_test_OBJECTS	Makefile	/^filter_block_test_OBJECTS = $(am_filter_block_test_OBJECTS)$/;"	m
+filter_block_test_SOURCES	Makefile	/^filter_block_test_SOURCES = table\/filter_block_test.cc $(TESTHARNESS)$/;"	m
 filter_count	include/pebblesdb/filter_policy.h	/^  mutable unsigned long filter_count;$/;"	m	class:leveldb::FilterPolicy
 filter_data	table/table.cc	/^  const char* filter_data;$/;"	m	struct:leveldb::Table::Rep	file:
 filter_offsets_	table/filter_block.h	/^  std::vector<uint32_t> filter_offsets_;$/;"	m	class:leveldb::FilterBlockBuilder
@@ -2389,6 +2842,270 @@ fname_	util/testharness.h	/^  const char* fname_;$/;"	m	class:leveldb::test::Tes
 force_error_	db/log_test.cc	/^    bool force_error_;$/;"	m	class:leveldb::log::LogTest::StringSource	file:
 fread_unlocked	port/port_posix.h	70;"	d
 func	util/testharness.cc	/^  void (*func)();$/;"	m	struct:leveldb::test::__anon24::Test	file:
+func_add_hook	libtool	/^func_add_hook ()$/;"	f
+func_add_hook	ltmain.sh	/^func_add_hook ()$/;"	f
+func_append	libtool	/^  func_append ()$/;"	f
+func_append	ltmain.sh	/^  func_append ()$/;"	f
+func_append_quoted	libtool	/^  func_append_quoted ()$/;"	f
+func_append_quoted	ltmain.sh	/^  func_append_quoted ()$/;"	f
+func_append_uniq	libtool	/^func_append_uniq ()$/;"	f
+func_append_uniq	ltmain.sh	/^func_append_uniq ()$/;"	f
+func_arith	libtool	/^  func_arith ()$/;"	f
+func_arith	ltmain.sh	/^  func_arith ()$/;"	f
+func_cc_basename	config.status	/^func_cc_basename ()$/;"	f
+func_cc_basename	configure	/^func_cc_basename ()$/;"	f
+func_cc_basename	libtool	/^func_cc_basename ()$/;"	f
+func_check_prog_grep	libtool	/^  func_check_prog_grep ()$/;"	f
+func_check_prog_grep	ltmain.sh	/^  func_check_prog_grep ()$/;"	f
+func_check_prog_sed	libtool	/^  func_check_prog_sed ()$/;"	f
+func_check_prog_sed	ltmain.sh	/^  func_check_prog_sed ()$/;"	f
+func_check_version_match	libtool	/^func_check_version_match ()$/;"	f
+func_check_version_match	ltmain.sh	/^func_check_version_match ()$/;"	f
+func_cl_dashL	compile	/^func_cl_dashL ()$/;"	f
+func_cl_dashl	compile	/^func_cl_dashl ()$/;"	f
+func_cl_wrapper	compile	/^func_cl_wrapper ()$/;"	f
+func_config	libtool	/^func_config ()$/;"	f
+func_config	ltmain.sh	/^func_config ()$/;"	f
+func_convert_core_file_wine_to_w32	libtool	/^func_convert_core_file_wine_to_w32 ()$/;"	f
+func_convert_core_file_wine_to_w32	ltmain.sh	/^func_convert_core_file_wine_to_w32 ()$/;"	f
+func_convert_core_msys_to_w32	libtool	/^func_convert_core_msys_to_w32 ()$/;"	f
+func_convert_core_msys_to_w32	ltmain.sh	/^func_convert_core_msys_to_w32 ()$/;"	f
+func_convert_core_path_wine_to_w32	libtool	/^func_convert_core_path_wine_to_w32 ()$/;"	f
+func_convert_core_path_wine_to_w32	ltmain.sh	/^func_convert_core_path_wine_to_w32 ()$/;"	f
+func_convert_file_check	libtool	/^func_convert_file_check ()$/;"	f
+func_convert_file_check	ltmain.sh	/^func_convert_file_check ()$/;"	f
+func_convert_file_cygwin_to_w32	libtool	/^func_convert_file_cygwin_to_w32 ()$/;"	f
+func_convert_file_cygwin_to_w32	ltmain.sh	/^func_convert_file_cygwin_to_w32 ()$/;"	f
+func_convert_file_msys_to_cygwin	libtool	/^func_convert_file_msys_to_cygwin ()$/;"	f
+func_convert_file_msys_to_cygwin	ltmain.sh	/^func_convert_file_msys_to_cygwin ()$/;"	f
+func_convert_file_msys_to_w32	libtool	/^func_convert_file_msys_to_w32 ()$/;"	f
+func_convert_file_msys_to_w32	ltmain.sh	/^func_convert_file_msys_to_w32 ()$/;"	f
+func_convert_file_nix_to_cygwin	libtool	/^func_convert_file_nix_to_cygwin ()$/;"	f
+func_convert_file_nix_to_cygwin	ltmain.sh	/^func_convert_file_nix_to_cygwin ()$/;"	f
+func_convert_file_nix_to_w32	libtool	/^func_convert_file_nix_to_w32 ()$/;"	f
+func_convert_file_nix_to_w32	ltmain.sh	/^func_convert_file_nix_to_w32 ()$/;"	f
+func_convert_file_noop	libtool	/^func_convert_file_noop ()$/;"	f
+func_convert_file_noop	ltmain.sh	/^func_convert_file_noop ()$/;"	f
+func_convert_path_check	libtool	/^func_convert_path_check ()$/;"	f
+func_convert_path_check	ltmain.sh	/^func_convert_path_check ()$/;"	f
+func_convert_path_cygwin_to_w32	libtool	/^func_convert_path_cygwin_to_w32 ()$/;"	f
+func_convert_path_cygwin_to_w32	ltmain.sh	/^func_convert_path_cygwin_to_w32 ()$/;"	f
+func_convert_path_front_back_pathsep	libtool	/^func_convert_path_front_back_pathsep ()$/;"	f
+func_convert_path_front_back_pathsep	ltmain.sh	/^func_convert_path_front_back_pathsep ()$/;"	f
+func_convert_path_msys_to_cygwin	libtool	/^func_convert_path_msys_to_cygwin ()$/;"	f
+func_convert_path_msys_to_cygwin	ltmain.sh	/^func_convert_path_msys_to_cygwin ()$/;"	f
+func_convert_path_msys_to_w32	libtool	/^func_convert_path_msys_to_w32 ()$/;"	f
+func_convert_path_msys_to_w32	ltmain.sh	/^func_convert_path_msys_to_w32 ()$/;"	f
+func_convert_path_nix_to_cygwin	libtool	/^func_convert_path_nix_to_cygwin ()$/;"	f
+func_convert_path_nix_to_cygwin	ltmain.sh	/^func_convert_path_nix_to_cygwin ()$/;"	f
+func_convert_path_nix_to_w32	libtool	/^func_convert_path_nix_to_w32 ()$/;"	f
+func_convert_path_nix_to_w32	ltmain.sh	/^func_convert_path_nix_to_w32 ()$/;"	f
+func_convert_path_noop	libtool	/^func_convert_path_noop ()$/;"	f
+func_convert_path_noop	ltmain.sh	/^func_convert_path_noop ()$/;"	f
+func_cygming_dll_for_implib	libtool	/^func_cygming_dll_for_implib ()$/;"	f
+func_cygming_dll_for_implib	ltmain.sh	/^func_cygming_dll_for_implib ()$/;"	f
+func_cygming_dll_for_implib_fallback	libtool	/^func_cygming_dll_for_implib_fallback ()$/;"	f
+func_cygming_dll_for_implib_fallback	ltmain.sh	/^func_cygming_dll_for_implib_fallback ()$/;"	f
+func_cygming_dll_for_implib_fallback_core	libtool	/^func_cygming_dll_for_implib_fallback_core ()$/;"	f
+func_cygming_dll_for_implib_fallback_core	ltmain.sh	/^func_cygming_dll_for_implib_fallback_core ()$/;"	f
+func_cygming_gnu_implib_p	libtool	/^func_cygming_gnu_implib_p ()$/;"	f
+func_cygming_gnu_implib_p	ltmain.sh	/^func_cygming_gnu_implib_p ()$/;"	f
+func_cygming_ms_implib_p	libtool	/^func_cygming_ms_implib_p ()$/;"	f
+func_cygming_ms_implib_p	ltmain.sh	/^func_cygming_ms_implib_p ()$/;"	f
+func_cygpath	libtool	/^func_cygpath ()$/;"	f
+func_cygpath	ltmain.sh	/^func_cygpath ()$/;"	f
+func_dll_def_p	libtool	/^func_dll_def_p ()$/;"	f
+func_dll_def_p	ltmain.sh	/^func_dll_def_p ()$/;"	f
+func_echo	libtool	/^func_echo ()$/;"	f
+func_echo	ltmain.sh	/^func_echo ()$/;"	f
+func_echo_all	configure	/^func_echo_all ()$/;"	f
+func_echo_all	libtool	/^func_echo_all ()$/;"	f
+func_echo_all	ltmain.sh	/^func_echo_all ()$/;"	f
+func_echo_infix_1	libtool	/^func_echo_infix_1 ()$/;"	f
+func_echo_infix_1	ltmain.sh	/^func_echo_infix_1 ()$/;"	f
+func_emit_cwrapperexe_src	libtool	/^func_emit_cwrapperexe_src ()$/;"	f
+func_emit_cwrapperexe_src	ltmain.sh	/^func_emit_cwrapperexe_src ()$/;"	f
+func_emit_wrapper	libtool	/^func_emit_wrapper ()$/;"	f
+func_emit_wrapper	ltmain.sh	/^func_emit_wrapper ()$/;"	f
+func_enable_tag	libtool	/^func_enable_tag ()$/;"	f
+func_enable_tag	ltmain.sh	/^func_enable_tag ()$/;"	f
+func_error	libtool	/^func_error ()$/;"	f
+func_error	ltmain.sh	/^func_error ()$/;"	f
+func_exec_program	db_bench	/^func_exec_program ()$/;"	f
+func_exec_program	leveldb-verify	/^func_exec_program ()$/;"	f
+func_exec_program	leveldbutil	/^func_exec_program ()$/;"	f
+func_exec_program	libtool	/^func_exec_program ()$/;"	f
+func_exec_program	ltmain.sh	/^func_exec_program ()$/;"	f
+func_exec_program_core	db_bench	/^func_exec_program_core ()$/;"	f
+func_exec_program_core	leveldb-verify	/^func_exec_program_core ()$/;"	f
+func_exec_program_core	leveldbutil	/^func_exec_program_core ()$/;"	f
+func_exec_program_core	libtool	/^func_exec_program_core ()$/;"	f
+func_exec_program_core	ltmain.sh	/^func_exec_program_core ()$/;"	f
+func_executable_p	libtool	/^func_executable_p ()$/;"	f
+func_executable_p	ltmain.sh	/^func_executable_p ()$/;"	f
+func_execute_cmds	libtool	/^func_execute_cmds ()$/;"	f
+func_execute_cmds	ltmain.sh	/^func_execute_cmds ()$/;"	f
+func_extract_an_archive	libtool	/^func_extract_an_archive ()$/;"	f
+func_extract_an_archive	ltmain.sh	/^func_extract_an_archive ()$/;"	f
+func_extract_archives	libtool	/^func_extract_archives ()$/;"	f
+func_extract_archives	ltmain.sh	/^func_extract_archives ()$/;"	f
+func_fallback_echo	config.status	/^func_fallback_echo ()$/;"	f
+func_fallback_echo	configure	/^  func_fallback_echo ()$/;"	f
+func_fallback_echo	configure	/^func_fallback_echo ()$/;"	f
+func_fallback_echo	db_bench	/^func_fallback_echo ()$/;"	f
+func_fallback_echo	leveldb-verify	/^func_fallback_echo ()$/;"	f
+func_fallback_echo	leveldbutil	/^func_fallback_echo ()$/;"	f
+func_fallback_echo	libtool	/^func_fallback_echo ()$/;"	f
+func_fallback_echo	ltmain.sh	/^func_fallback_echo ()$/;"	f
+func_fatal_configuration	libtool	/^func_fatal_configuration ()$/;"	f
+func_fatal_configuration	ltmain.sh	/^func_fatal_configuration ()$/;"	f
+func_fatal_error	libtool	/^func_fatal_error ()$/;"	f
+func_fatal_error	ltmain.sh	/^func_fatal_error ()$/;"	f
+func_fatal_help	libtool	/^func_fatal_help ()$/;"	f
+func_fatal_help	ltmain.sh	/^func_fatal_help ()$/;"	f
+func_features	libtool	/^func_features ()$/;"	f
+func_features	ltmain.sh	/^func_features ()$/;"	f
+func_file_conv	compile	/^func_file_conv ()$/;"	f
+func_generate_dlsyms	libtool	/^func_generate_dlsyms ()$/;"	f
+func_generate_dlsyms	ltmain.sh	/^func_generate_dlsyms ()$/;"	f
+func_generated_by_libtool_p	libtool	/^func_generated_by_libtool_p ()$/;"	f
+func_generated_by_libtool_p	ltmain.sh	/^func_generated_by_libtool_p ()$/;"	f
+func_grep	libtool	/^func_grep ()$/;"	f
+func_grep	ltmain.sh	/^func_grep ()$/;"	f
+func_help	libtool	/^func_help ()$/;"	f
+func_help	ltmain.sh	/^func_help ()$/;"	f
+func_hookable	libtool	/^func_hookable ()$/;"	f
+func_hookable	ltmain.sh	/^func_hookable ()$/;"	f
+func_infer_tag	libtool	/^func_infer_tag ()$/;"	f
+func_infer_tag	ltmain.sh	/^func_infer_tag ()$/;"	f
+func_init_to_host_path_cmd	libtool	/^func_init_to_host_path_cmd ()$/;"	f
+func_init_to_host_path_cmd	ltmain.sh	/^func_init_to_host_path_cmd ()$/;"	f
+func_lalib_p	libtool	/^func_lalib_p ()$/;"	f
+func_lalib_p	ltmain.sh	/^func_lalib_p ()$/;"	f
+func_lalib_unsafe_p	libtool	/^func_lalib_unsafe_p ()$/;"	f
+func_lalib_unsafe_p	ltmain.sh	/^func_lalib_unsafe_p ()$/;"	f
+func_len	libtool	/^  func_len ()$/;"	f
+func_len	ltmain.sh	/^  func_len ()$/;"	f
+func_lo2o	libtool	/^  func_lo2o ()$/;"	f
+func_lo2o	ltmain.sh	/^  func_lo2o ()$/;"	f
+func_lt_dump_args	db_bench	/^func_lt_dump_args ()$/;"	f
+func_lt_dump_args	leveldb-verify	/^func_lt_dump_args ()$/;"	f
+func_lt_dump_args	leveldbutil	/^func_lt_dump_args ()$/;"	f
+func_lt_dump_args	libtool	/^func_lt_dump_args ()$/;"	f
+func_lt_dump_args	ltmain.sh	/^func_lt_dump_args ()$/;"	f
+func_lt_ver	libtool	/^func_lt_ver ()$/;"	f
+func_lt_ver	ltmain.sh	/^func_lt_ver ()$/;"	f
+func_ltwrapper_executable_p	libtool	/^func_ltwrapper_executable_p ()$/;"	f
+func_ltwrapper_executable_p	ltmain.sh	/^func_ltwrapper_executable_p ()$/;"	f
+func_ltwrapper_p	libtool	/^func_ltwrapper_p ()$/;"	f
+func_ltwrapper_p	ltmain.sh	/^func_ltwrapper_p ()$/;"	f
+func_ltwrapper_script_p	libtool	/^func_ltwrapper_script_p ()$/;"	f
+func_ltwrapper_script_p	ltmain.sh	/^func_ltwrapper_script_p ()$/;"	f
+func_ltwrapper_scriptname	libtool	/^func_ltwrapper_scriptname ()$/;"	f
+func_ltwrapper_scriptname	ltmain.sh	/^func_ltwrapper_scriptname ()$/;"	f
+func_missing_arg	libtool	/^func_missing_arg ()$/;"	f
+func_missing_arg	ltmain.sh	/^func_missing_arg ()$/;"	f
+func_mkdir_p	libtool	/^func_mkdir_p ()$/;"	f
+func_mkdir_p	ltmain.sh	/^func_mkdir_p ()$/;"	f
+func_mktempdir	libtool	/^func_mktempdir ()$/;"	f
+func_mktempdir	ltmain.sh	/^func_mktempdir ()$/;"	f
+func_mode_compile	libtool	/^func_mode_compile ()$/;"	f
+func_mode_compile	ltmain.sh	/^func_mode_compile ()$/;"	f
+func_mode_execute	libtool	/^func_mode_execute ()$/;"	f
+func_mode_execute	ltmain.sh	/^func_mode_execute ()$/;"	f
+func_mode_finish	libtool	/^func_mode_finish ()$/;"	f
+func_mode_finish	ltmain.sh	/^func_mode_finish ()$/;"	f
+func_mode_help	libtool	/^func_mode_help ()$/;"	f
+func_mode_help	ltmain.sh	/^func_mode_help ()$/;"	f
+func_mode_install	libtool	/^func_mode_install ()$/;"	f
+func_mode_install	ltmain.sh	/^func_mode_install ()$/;"	f
+func_mode_link	libtool	/^func_mode_link ()$/;"	f
+func_mode_link	ltmain.sh	/^func_mode_link ()$/;"	f
+func_mode_uninstall	libtool	/^func_mode_uninstall ()$/;"	f
+func_mode_uninstall	ltmain.sh	/^func_mode_uninstall ()$/;"	f
+func_munge_path_list	config.status	/^func_munge_path_list ()$/;"	f
+func_munge_path_list	configure	/^func_munge_path_list ()$/;"	f
+func_munge_path_list	libtool	/^func_munge_path_list ()$/;"	f
+func_normal_abspath	libtool	/^func_normal_abspath ()$/;"	f
+func_normal_abspath	ltmain.sh	/^func_normal_abspath ()$/;"	f
+func_notquiet	libtool	/^func_notquiet ()$/;"	f
+func_notquiet	ltmain.sh	/^func_notquiet ()$/;"	f
+func_options	libtool	/^func_options ()$/;"	f
+func_options	ltmain.sh	/^func_options ()$/;"	f
+func_options_prep	libtool	/^func_options_prep ()$/;"	f
+func_options_prep	ltmain.sh	/^func_options_prep ()$/;"	f
+func_parse_lt_options	db_bench	/^func_parse_lt_options ()$/;"	f
+func_parse_lt_options	leveldb-verify	/^func_parse_lt_options ()$/;"	f
+func_parse_lt_options	leveldbutil	/^func_parse_lt_options ()$/;"	f
+func_parse_lt_options	libtool	/^func_parse_lt_options ()$/;"	f
+func_parse_lt_options	ltmain.sh	/^func_parse_lt_options ()$/;"	f
+func_parse_options	libtool	/^func_parse_options ()$/;"	f
+func_parse_options	ltmain.sh	/^func_parse_options ()$/;"	f
+func_path_progs	libtool	/^func_path_progs ()$/;"	f
+func_path_progs	ltmain.sh	/^func_path_progs ()$/;"	f
+func_quote_for_eval	libtool	/^func_quote_for_eval ()$/;"	f
+func_quote_for_eval	ltmain.sh	/^func_quote_for_eval ()$/;"	f
+func_quote_for_expand	libtool	/^func_quote_for_expand ()$/;"	f
+func_quote_for_expand	ltmain.sh	/^func_quote_for_expand ()$/;"	f
+func_relative_path	libtool	/^func_relative_path ()$/;"	f
+func_relative_path	ltmain.sh	/^func_relative_path ()$/;"	f
+func_remove_hook	libtool	/^func_remove_hook ()$/;"	f
+func_remove_hook	ltmain.sh	/^func_remove_hook ()$/;"	f
+func_replace_sysroot	libtool	/^func_replace_sysroot ()$/;"	f
+func_replace_sysroot	ltmain.sh	/^func_replace_sysroot ()$/;"	f
+func_require_term_colors	libtool	/^func_require_term_colors ()$/;"	f
+func_require_term_colors	ltmain.sh	/^func_require_term_colors ()$/;"	f
+func_resolve_sysroot	libtool	/^func_resolve_sysroot ()$/;"	f
+func_resolve_sysroot	ltmain.sh	/^func_resolve_sysroot ()$/;"	f
+func_run_hooks	libtool	/^func_run_hooks ()$/;"	f
+func_run_hooks	ltmain.sh	/^func_run_hooks ()$/;"	f
+func_show_eval	libtool	/^func_show_eval ()$/;"	f
+func_show_eval	ltmain.sh	/^func_show_eval ()$/;"	f
+func_show_eval_locale	libtool	/^func_show_eval_locale ()$/;"	f
+func_show_eval_locale	ltmain.sh	/^func_show_eval_locale ()$/;"	f
+func_sort_ver	libtool	/^func_sort_ver ()$/;"	f
+func_sort_ver	ltmain.sh	/^func_sort_ver ()$/;"	f
+func_source	libtool	/^func_source ()$/;"	f
+func_source	ltmain.sh	/^func_source ()$/;"	f
+func_split_equals	libtool	/^  func_split_equals ()$/;"	f
+func_split_equals	ltmain.sh	/^  func_split_equals ()$/;"	f
+func_split_short_opt	libtool	/^  func_split_short_opt ()$/;"	f
+func_split_short_opt	ltmain.sh	/^  func_split_short_opt ()$/;"	f
+func_stripname	libtool	/^  func_stripname ()$/;"	f
+func_stripname	ltmain.sh	/^  func_stripname ()$/;"	f
+func_stripname_cnf	configure	/^func_stripname_cnf ()$/;"	f
+func_suncc_cstd_abi	libtool	/^func_suncc_cstd_abi ()$/;"	f
+func_suncc_cstd_abi	ltmain.sh	/^func_suncc_cstd_abi ()$/;"	f
+func_to_host_file	libtool	/^func_to_host_file ()$/;"	f
+func_to_host_file	ltmain.sh	/^func_to_host_file ()$/;"	f
+func_to_host_path	libtool	/^func_to_host_path ()$/;"	f
+func_to_host_path	ltmain.sh	/^func_to_host_path ()$/;"	f
+func_to_tool_file	libtool	/^func_to_tool_file ()$/;"	f
+func_to_tool_file	ltmain.sh	/^func_to_tool_file ()$/;"	f
+func_tr_sh	libtool	/^func_tr_sh ()$/;"	f
+func_tr_sh	ltmain.sh	/^func_tr_sh ()$/;"	f
+func_usage	libtool	/^func_usage ()$/;"	f
+func_usage	ltmain.sh	/^func_usage ()$/;"	f
+func_usage_message	libtool	/^func_usage_message ()$/;"	f
+func_usage_message	ltmain.sh	/^func_usage_message ()$/;"	f
+func_validate_options	libtool	/^func_validate_options ()$/;"	f
+func_validate_options	ltmain.sh	/^func_validate_options ()$/;"	f
+func_verbose	libtool	/^func_verbose ()$/;"	f
+func_verbose	ltmain.sh	/^func_verbose ()$/;"	f
+func_version	libtool	/^func_version ()$/;"	f
+func_version	ltmain.sh	/^func_version ()$/;"	f
+func_warn_and_continue	libtool	/^func_warn_and_continue ()$/;"	f
+func_warn_and_continue	ltmain.sh	/^func_warn_and_continue ()$/;"	f
+func_warning	libtool	/^func_warning ()$/;"	f
+func_warning	ltmain.sh	/^func_warning ()$/;"	f
+func_win32_import_lib_p	libtool	/^func_win32_import_lib_p ()$/;"	f
+func_win32_import_lib_p	ltmain.sh	/^func_win32_import_lib_p ()$/;"	f
+func_win32_libid	libtool	/^func_win32_libid ()$/;"	f
+func_win32_libid	ltmain.sh	/^func_win32_libid ()$/;"	f
+func_write_libtool_object	libtool	/^func_write_libtool_object ()$/;"	f
+func_write_libtool_object	ltmain.sh	/^func_write_libtool_object ()$/;"	f
+func_xform	libtool	/^  func_xform ()$/;"	f
+func_xform	ltmain.sh	/^  func_xform ()$/;"	f
 function	include/pebblesdb/iterator.h	/^    CleanupFunction function;$/;"	m	struct:leveldb::Iterator::Cleanup
 function	util/env_posix.cc	/^  struct BGItem { void* arg; void (*function)(void*); };$/;"	m	struct:leveldb::__anon26::PosixEnv::BGItem	file:
 fwrite_unlocked	port/port_posix.h	78;"	d
@@ -2396,11 +3113,13 @@ gen	db/skiplist_test.cc	/^  static uint64_t gen(Key key) { return (key >> 8) & 0
 gen_	doc/bench/db_bench_sqlite3.cc	/^  RandomGenerator gen_;$/;"	m	class:leveldb::Benchmark	file:
 gen_	doc/bench/db_bench_tree_db.cc	/^  RandomGenerator gen_;$/;"	m	class:leveldb::Benchmark	file:
 generation	db/skiplist_test.cc	/^    port::AtomicPointer generation[K];$/;"	m	struct:leveldb::ConcurrentTest::State	file:
+generator_	util/random.h	/^  std::mt19937_64 generator_;$/;"	m	class:leveldb::Random64
 getEnv	db/version_set.h	/^  Env* getEnv() {$/;"	f	class:leveldb::VersionSet
 getblock32	db/murmurhash3.cc	/^FORCE_INLINE uint32_t getblock32 ( const uint32_t * p, int i )$/;"	f
 getblock64	db/murmurhash3.cc	/^FORCE_INLINE uint64_t getblock64 ( const uint64_t * p, int i )$/;"	f
 gettid	util/env_posix.cc	/^  static uint64_t gettid() {$/;"	f	class:leveldb::__anon26::PosixEnv
 gettid_	util/posix_logger.h	/^  uint64_t (*gettid_)();  \/\/ Return the thread id for the current thread$/;"	m	class:leveldb::PosixLogger
+give_advice	missing	/^give_advice ()$/;"	f
 glist_	db/version_set.cc	/^  const std::vector<GuardMetaData*>* const glist_;$/;"	m	class:leveldb::Version::LevelGuardNumIterator::std	file:
 grow_at_least	util/string_builder.h	/^  void grow_at_least(size_t sz, int print) {$/;"	f	struct:leveldb::StringBuilder
 guard	db/version_edit.h	/^  GuardMetaData* guard;       \/\/ The guard that the file belongs to.$/;"	m	struct:leveldb::FileMetaData
@@ -2431,10 +3150,17 @@ heap_sz_	table/merger.cc	/^  size_t heap_sz_;$/;"	m	class:leveldb::__anon18::Mer
 hist_	db/db_bench.cc	/^  Histogram hist_;$/;"	m	class:leveldb::__anon11::Stats	file:
 hist_	doc/bench/db_bench_sqlite3.cc	/^  Histogram hist_;$/;"	m	class:leveldb::Benchmark	file:
 hist_	doc/bench/db_bench_tree_db.cc	/^  Histogram hist_;$/;"	m	class:leveldb::Benchmark	file:
+host	Makefile	/^host = x86_64-pc-linux-gnu$/;"	m
+host_alias	Makefile	/^host_alias = $/;"	m
+host_cpu	Makefile	/^host_cpu = x86_64$/;"	m
+host_os	Makefile	/^host_os = linux-gnu$/;"	m
+host_triplet	Makefile	/^host_triplet = x86_64-pc-linux-gnu$/;"	m
+host_vendor	Makefile	/^host_vendor = pc$/;"	m
 hrecord_timer	db/version_set.h	39;"	d
 hrecord_timer	db/version_set.h	42;"	d
 hstart_timer	db/version_set.h	38;"	d
 hstart_timer	db/version_set.h	41;"	d
+htmldir	Makefile	/^htmldir = ${docdir}$/;"	m
 icmp_	db/repair.cc	/^  InternalKeyComparator const icmp_;$/;"	m	class:leveldb::__anon12::Repairer	file:
 icmp_	db/version_set.cc	/^  const InternalKeyComparator icmp_;$/;"	m	class:leveldb::Version::LevelFileNumIterator	file:
 icmp_	db/version_set.cc	/^  const InternalKeyComparator icmp_;$/;"	m	class:leveldb::Version::LevelGuardNumIterator	file:
@@ -2444,6 +3170,7 @@ id	db/db_test.cc	/^  int id;$/;"	m	struct:leveldb::__anon5::MTThread	file:
 id_mutex_	util/cache.cc	/^  port::Mutex id_mutex_;$/;"	m	class:leveldb::__anon25::ShardedLRUCache	file:
 imm	db/db_impl.cc	/^  MemTable* imm;$/;"	m	struct:leveldb::__anon7::IterState	file:
 imm_	db/db_impl.h	/^  MemTable* imm_;                \/\/ Memtable being compacted$/;"	m	class:leveldb::DBImpl
+includedir	Makefile	/^includedir = ${prefix}\/include$/;"	m
 increment_32_fullbarrier	util/atomic.h	/^increment_32_fullbarrier(volatile uint32_t* ptr, uint32_t increment)$/;"	f	namespace:leveldb::atomic
 increment_32_nobarrier	util/atomic.h	/^increment_32_nobarrier(volatile uint32_t* ptr, uint32_t increment)$/;"	f	namespace:leveldb::atomic
 increment_64_fullbarrier	util/atomic.h	/^increment_64_fullbarrier(volatile uint64_t* ptr, uint64_t increment)$/;"	f	namespace:leveldb::atomic
@@ -2458,6 +3185,7 @@ index_handle_	table/format.h	/^  BlockHandle index_handle_;$/;"	m	class:leveldb:
 index_iter_	table/two_level_iterator.cc	/^  IteratorWrapper index_iter_;$/;"	m	class:leveldb::__anon20::TwoLevelIterator	file:
 index_iter_	table/two_level_iterator.cc	/^  IteratorWrapper index_iter_;$/;"	m	class:leveldb::__anon20::TwoLevelIteratorGuards	file:
 info_log	include/pebblesdb/options.h	/^  Logger* info_log;$/;"	m	struct:leveldb::Options
+infodir	Makefile	/^infodir = ${datarootdir}\/info$/;"	m
 init	util/atomic.cc	/^static initializer init;$/;"	v	file:
 init	util/timer.h	/^	void init() {$/;"	f	class:leveldb::Timer
 init_buffer	util/string_builder.h	/^  void init_buffer(int size) {$/;"	f	struct:leveldb::StringBuilder
@@ -2468,9 +3196,14 @@ initial_offset_record_sizes_	db/log_test.cc	/^  static size_t initial_offset_rec
 initial_offset_record_sizes_	db/log_test.cc	/^size_t LogTest::initial_offset_record_sizes_[] =$/;"	m	class:leveldb::log::LogTest	file:
 initializer	util/atomic.cc	/^        initializer() { LevelDB_AtomicOps_Internalx86CPUFeaturesInit(); }$/;"	f	class:initializer
 initializer	util/atomic.cc	/^class __attribute__ ((visibility ("hidden"))) initializer$/;"	c	file:
+initiated_	db/db_bench.cc	/^    bool initiated_;$/;"	m	class:leveldb::Benchmark::GenerateTwoTermExpKeys	file:
 input	db/version_set.h	/^  FileMetaData* input(int which, int i) const { return inputs_[which][i]; }$/;"	f	class:leveldb::Compaction
 input_version_	db/version_set.h	/^  Version* input_version_;$/;"	m	class:leveldb::Compaction
 inputs_	db/version_set.h	/^  std::vector<FileMetaData*> inputs_[2]; \/\/ The three sets of inputs$/;"	m	class:leveldb::Compaction
+install_sh	Makefile	/^install_sh = ${SHELL} \/home\/young\/Working\/pebblesdb\/src\/install-sh$/;"	m
+install_sh_DATA	Makefile	/^install_sh_DATA = $(install_sh) -c -m 644$/;"	m
+install_sh_PROGRAM	Makefile	/^install_sh_PROGRAM = $(install_sh) -c$/;"	m
+install_sh_SCRIPT	Makefile	/^install_sh_SCRIPT = $(install_sh) -c$/;"	m
 int16_t	port/win/stdint.h	/^typedef signed short          int16_t;$/;"	t
 int32_t	port/win/stdint.h	/^typedef signed int            int32_t;$/;"	t
 int64_t	port/win/stdint.h	/^typedef signed long long      int64_t;$/;"	t
@@ -2491,6 +3224,14 @@ is_default	db/c.cc	/^  bool is_default;$/;"	m	struct:leveldb_env_t	file:
 is_horizontal_compaction	db/version_set.h	/^  bool is_horizontal_compaction;$/;"	m	class:leveldb::Compaction
 is_merging_iterator_for_files_	table/merger.cc	/^  bool is_merging_iterator_for_files_;$/;"	m	class:leveldb::__anon18::MergingIterator	file:
 is_valid_key_for_random_seek	db/db_test.cc	/^bool is_valid_key_for_random_seek(int n) {$/;"	f	namespace:leveldb
+issue178_test_DEPENDENCIES	Makefile	/^issue178_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+issue178_test_LDADD	Makefile	/^issue178_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+issue178_test_OBJECTS	Makefile	/^issue178_test_OBJECTS = $(am_issue178_test_OBJECTS)$/;"	m
+issue178_test_SOURCES	Makefile	/^issue178_test_SOURCES = issues\/issue178_test.cc $(TESTHARNESS)$/;"	m
+issue200_test_DEPENDENCIES	Makefile	/^issue200_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+issue200_test_LDADD	Makefile	/^issue200_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+issue200_test_OBJECTS	Makefile	/^issue200_test_OBJECTS = $(am_issue200_test_OBJECTS)$/;"	m
+issue200_test_SOURCES	Makefile	/^issue200_test_SOURCES = issues\/issue200_test.cc $(TESTHARNESS)$/;"	m
 iter	table/iterator_wrapper.h	/^  Iterator* iter() const { return iter_; }$/;"	f	class:leveldb::IteratorWrapper
 iter_	db/db_iter.cc	/^  Iterator* const iter_;$/;"	m	class:leveldb::__anon14::DBIter	file:
 iter_	db/db_test.cc	/^    KVMap::const_iterator iter_;$/;"	m	class:leveldb::ModelDB::ModelIter	file:
@@ -2624,9 +3365,19 @@ key_data	util/cache.cc	/^  char key_data[1];   \/\/ Beginning of key$/;"	m	struc
 key_length	util/cache.cc	/^  size_t key_length;$/;"	m	struct:leveldb::__anon25::LRUHandle	file:
 key_match_	db/c.cc	/^  unsigned char (*key_match_)($/;"	m	struct:leveldb_filterpolicy_t	file:
 key_offsets_	table/filter_block.h	/^  std::vector<size_t> key_offsets_;     \/\/ Starting index in keys_ of each key$/;"	m	class:leveldb::FileLevelFilterBuilder
+key_size_	db/db_bench.cc	/^  int key_size_;$/;"	m	class:leveldb::Benchmark	file:
+keyrange_access	db/db_bench.cc	/^    int64_t keyrange_access;$/;"	m	struct:leveldb::Benchmark::KeyrangeUnit	file:
+keyrange_keys	db/db_bench.cc	/^    int64_t keyrange_keys;$/;"	m	struct:leveldb::Benchmark::KeyrangeUnit	file:
+keyrange_num_	db/db_bench.cc	/^    int64_t keyrange_num_;$/;"	m	class:leveldb::Benchmark::GenerateTwoTermExpKeys	file:
+keyrange_rand_max_	db/db_bench.cc	/^    int64_t keyrange_rand_max_;$/;"	m	class:leveldb::Benchmark::GenerateTwoTermExpKeys	file:
+keyrange_set_	db/db_bench.cc	/^    std::vector<KeyrangeUnit> keyrange_set_;$/;"	m	class:leveldb::Benchmark::GenerateTwoTermExpKeys	file:
+keyrange_size_	db/db_bench.cc	/^    int64_t keyrange_size_;$/;"	m	class:leveldb::Benchmark::GenerateTwoTermExpKeys	file:
+keyrange_start	db/db_bench.cc	/^    int64_t keyrange_start;$/;"	m	struct:leveldb::Benchmark::KeyrangeUnit	file:
+keys_	db/db_bench.cc	/^  std::vector<std::string> keys_;$/;"	m	class:leveldb::Benchmark	file:
 keys_	table/filter_block.h	/^  StringBuilder keys_;            \/\/ Flattened key contents$/;"	m	class:leveldb::FileLevelFilterBuilder
 keys_	table/filter_block.h	/^  StringBuilder keys_;            \/\/ Flattened key contents$/;"	m	class:leveldb::FilterBlockBuilder
 keys_	util/bloom_test.cc	/^  std::vector<std::string> keys_;$/;"	m	class:leveldb::BloomTest	file:
+keys_per_prefix_	db/db_bench.cc	/^  int64_t keys_per_prefix_;$/;"	m	class:leveldb::Benchmark	file:
 kstart_	db/dbformat.h	/^  const char* kstart_;$/;"	m	class:leveldb::LookupKey
 kv_d	db/db_bench.cc	/^  	unsigned long long kv_d;$/;"	m	struct:leveldb::Benchmark::result_t	file:
 kv_g	db/db_bench.cc	/^  	unsigned long long kv_g;$/;"	m	struct:leveldb::Benchmark::result_t	file:
@@ -2794,6 +3545,10 @@ leveldb_create_iterator	db/c.cc	/^leveldb_iterator_t* leveldb_create_iterator($/
 leveldb_create_snapshot	db/c.cc	/^const leveldb_snapshot_t* leveldb_create_snapshot($/;"	f
 leveldb_delete	db/c.cc	/^void leveldb_delete($/;"	f
 leveldb_destroy_db	db/c.cc	/^void leveldb_destroy_db($/;"	f
+leveldb_dump_all_DEPENDENCIES	Makefile	/^leveldb_dump_all_DEPENDENCIES = libpebblesdb.la$/;"	m
+leveldb_dump_all_LDADD	Makefile	/^leveldb_dump_all_LDADD = libpebblesdb.la -lpthread$/;"	m
+leveldb_dump_all_OBJECTS	Makefile	/^leveldb_dump_all_OBJECTS = $(am_leveldb_dump_all_OBJECTS)$/;"	m
+leveldb_dump_all_SOURCES	Makefile	/^leveldb_dump_all_SOURCES = leveldb-dump-all.cc$/;"	m
 leveldb_env_destroy	db/c.cc	/^void leveldb_env_destroy(leveldb_env_t* env) {$/;"	f
 leveldb_env_t	db/c.cc	/^struct leveldb_env_t {$/;"	s	file:
 leveldb_env_t	include/pebblesdb/c.h	/^typedef struct leveldb_env_t           leveldb_env_t;$/;"	t	typeref:struct:leveldb_env_t
@@ -2861,6 +3616,10 @@ leveldb_snapshot_t	db/c.cc	/^struct leveldb_snapshot_t     { const Snapshot*   r
 leveldb_snapshot_t	include/pebblesdb/c.h	/^typedef struct leveldb_snapshot_t      leveldb_snapshot_t;$/;"	t	typeref:struct:leveldb_snapshot_t
 leveldb_t	db/c.cc	/^struct leveldb_t              { DB*               rep; };$/;"	s	file:
 leveldb_t	include/pebblesdb/c.h	/^typedef struct leveldb_t               leveldb_t;$/;"	t	typeref:struct:leveldb_t
+leveldb_verify_DEPENDENCIES	Makefile	/^leveldb_verify_DEPENDENCIES = libpebblesdb.la$/;"	m
+leveldb_verify_LDADD	Makefile	/^leveldb_verify_LDADD = libpebblesdb.la -lpthread$/;"	m
+leveldb_verify_OBJECTS	Makefile	/^leveldb_verify_OBJECTS = $(am_leveldb_verify_OBJECTS)$/;"	m
+leveldb_verify_SOURCES	Makefile	/^leveldb_verify_SOURCES = leveldb-verify.cc$/;"	m
 leveldb_writablefile_t	db/c.cc	/^struct leveldb_writablefile_t { WritableFile*     rep; };$/;"	s	file:
 leveldb_writablefile_t	include/pebblesdb/c.h	/^typedef struct leveldb_writablefile_t  leveldb_writablefile_t;$/;"	t	typeref:struct:leveldb_writablefile_t
 leveldb_write	db/c.cc	/^void leveldb_write($/;"	f
@@ -2877,8 +3636,27 @@ leveldb_writeoptions_destroy	db/c.cc	/^void leveldb_writeoptions_destroy(leveldb
 leveldb_writeoptions_set_sync	db/c.cc	/^void leveldb_writeoptions_set_sync($/;"	f
 leveldb_writeoptions_t	db/c.cc	/^struct leveldb_writeoptions_t { WriteOptions      rep; };$/;"	s	file:
 leveldb_writeoptions_t	include/pebblesdb/c.h	/^typedef struct leveldb_writeoptions_t  leveldb_writeoptions_t;$/;"	t	typeref:struct:leveldb_writeoptions_t
+leveldbutil_DEPENDENCIES	Makefile	/^leveldbutil_DEPENDENCIES = libpebblesdb.la$/;"	m
+leveldbutil_LDADD	Makefile	/^leveldbutil_LDADD = libpebblesdb.la -lpthread -lsnappy$/;"	m
+leveldbutil_OBJECTS	Makefile	/^leveldbutil_OBJECTS = $(am_leveldbutil_OBJECTS)$/;"	m
+leveldbutil_SOURCES	Makefile	/^leveldbutil_SOURCES = db\/leveldb_main.cc$/;"	m
 levels_	db/version_set.cc	/^  LevelState levels_[config::kNumLevels];$/;"	m	class:leveldb::VersionSet::Builder	file:
 levels_locked_	db/db_impl.h	/^  bool levels_locked_[leveldb::config::kNumLevels];$/;"	m	class:leveldb::DBImpl
+lib_LTLIBRARIES	Makefile	/^lib_LTLIBRARIES = libpebblesdb.la$/;"	m
+libdir	Makefile	/^libdir = ${exec_prefix}\/lib$/;"	m
+libexecdir	Makefile	/^libexecdir = ${exec_prefix}\/libexec$/;"	m
+libpebblesdb_la_DEPENDENCIES	Makefile	/^libpebblesdb_la_DEPENDENCIES = $(am__DEPENDENCIES_1)$/;"	m
+libpebblesdb_la_LDFLAGS	Makefile	/^libpebblesdb_la_LDFLAGS = -lpthread -lsnappy $(AM_LDFLAGS) $(LDFLAGS)$/;"	m
+libpebblesdb_la_LIBADD	Makefile	/^libpebblesdb_la_LIBADD = $(SNAPPY_LIBS) -lpthread -lsnappy$/;"	m
+libpebblesdb_la_LINK	Makefile	/^libpebblesdb_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \\$/;"	m
+libpebblesdb_la_OBJECTS	Makefile	/^libpebblesdb_la_OBJECTS = $(am_libpebblesdb_la_OBJECTS)$/;"	m
+libpebblesdb_la_SOURCES	Makefile	/^libpebblesdb_la_SOURCES = db\/builder.cc db\/c.cc db\/dbformat.cc \\$/;"	m
+libtool_options_prep	libtool	/^libtool_options_prep ()$/;"	f
+libtool_options_prep	ltmain.sh	/^libtool_options_prep ()$/;"	f
+libtool_parse_options	libtool	/^libtool_parse_options ()$/;"	f
+libtool_parse_options	ltmain.sh	/^libtool_parse_options ()$/;"	f
+libtool_validate_options	libtool	/^libtool_validate_options ()$/;"	f
+libtool_validate_options	ltmain.sh	/^libtool_validate_options ()$/;"	f
 limit	db/version_set.cc	/^  size_t limit;$/;"	m	struct:leveldb::CompactionBoundary	file:
 limit	include/pebblesdb/db.h	/^  Slice limit;          \/\/ Not included in the range$/;"	m	struct:leveldb::Range
 limiter_	util/env_posix.cc	/^  MmapLimiter* limiter_;$/;"	m	class:leveldb::__anon26::PosixMmapReadableFile	file:
@@ -2898,6 +3676,8 @@ load_64_release	util/atomic.h	/^load_64_release(volatile const uint64_t* ptr)$/;
 load_ptr_acquire	util/atomic.h	/^load_ptr_acquire(P* volatile const* ptr)$/;"	f	namespace:leveldb::atomic
 load_ptr_nobarrier	util/atomic.h	/^load_ptr_nobarrier(P* volatile const* ptr)$/;"	f	namespace:leveldb::atomic
 load_ptr_release	util/atomic.h	/^load_ptr_release(P* volatile const* ptr)$/;"	f	namespace:leveldb::atomic
+localedir	Makefile	/^localedir = ${datarootdir}\/locale$/;"	m
+localstatedir	Makefile	/^localstatedir = ${prefix}\/var$/;"	m
 locked_files_	util/env_posix.cc	/^  std::set<std::string> locked_files_;$/;"	m	class:leveldb::__anon26::PosixLockTable	file:
 locks_	util/env_posix.cc	/^  PosixLockTable locks_;$/;"	m	class:leveldb::__anon26::PosixEnv	file:
 log	db/log_format.h	/^namespace log {$/;"	n	namespace:leveldb
@@ -2911,6 +3691,10 @@ log_	db/db_impl.cc	/^  SHARED_PTR<log::Writer> log_;$/;"	m	struct:leveldb::DBImp
 log_	db/db_impl.h	/^  SHARED_PTR<log::Writer> log_;$/;"	m	class:leveldb::DBImpl
 log_number_	db/version_edit.h	/^  uint64_t log_number_;$/;"	m	class:leveldb::VersionEdit
 log_number_	db/version_set.h	/^  uint64_t log_number_;$/;"	m	class:leveldb::VersionSet
+log_test_DEPENDENCIES	Makefile	/^log_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+log_test_LDADD	Makefile	/^log_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+log_test_OBJECTS	Makefile	/^log_test_OBJECTS = $(am_log_test_OBJECTS)$/;"	m
+log_test_SOURCES	Makefile	/^log_test_SOURCES = db\/log_test.cc $(TESTHARNESS)$/;"	m
 logfile_	db/db_impl.cc	/^  SHARED_PTR<WritableFile> logfile_;$/;"	m	struct:leveldb::DBImpl::Writer	file:
 logfile_	db/db_impl.h	/^  SHARED_PTR<WritableFile> logfile_;$/;"	m	class:leveldb::DBImpl
 logfile_number_	db/db_impl.h	/^  uint64_t logfile_number_;$/;"	m	class:leveldb::DBImpl
@@ -2920,6 +3704,8 @@ m_buf	util/string_builder.h	/^  char* m_buf;$/;"	m	struct:leveldb::StringBuilder
 m_cap	util/string_builder.h	/^  size_t m_cap;$/;"	m	struct:leveldb::StringBuilder
 m_sz	util/string_builder.h	/^  size_t m_sz;$/;"	m	struct:leveldb::StringBuilder
 main	benchmark.cc	/^main(int argc, const char* argv[])$/;"	f
+main	config.guess	/^		main()$/;"	f
+main	config.guess	/^	main ()$/;"	f
 main	db/autocompact_test.cc	/^int main(int argc, char** argv) {$/;"	f
 main	db/c_test.c	/^int main(int argc, char** argv) {$/;"	f
 main	db/corruption_test.cc	/^main(int argc, char **argv)$/;"	f
@@ -2949,6 +3735,8 @@ main	util/cache_test.cc	/^int main(int argc, char** argv) {$/;"	f
 main	util/coding_test.cc	/^int main(int argc, char** argv) {$/;"	f
 main	util/crc32c_test.cc	/^int main(int argc, char** argv) {$/;"	f
 main	util/env_test.cc	/^int main(int argc, char** argv) {$/;"	f
+make_dummy_depfile	depcomp	/^make_dummy_depfile ()$/;"	f
+mandir	Makefile	/^mandir = ${datarootdir}\/man$/;"	m
 manifest_file_number_	db/version_set.h	/^  uint64_t manifest_file_number_;$/;"	m	class:leveldb::VersionSet
 manifest_sync_error_	db/db_test.cc	/^  port::AtomicPointer manifest_sync_error_;$/;"	m	class:leveldb::SpecialEnv	file:
 manifest_write_error_	db/db_test.cc	/^  port::AtomicPointer manifest_write_error_;$/;"	m	class:leveldb::SpecialEnv	file:
@@ -2961,8 +3749,11 @@ map_	db/db_test.cc	/^    const KVMap* const map_;$/;"	m	class:leveldb::ModelDB::
 map_	db/db_test.cc	/^  KVMap map_;$/;"	m	class:leveldb::ModelDB	file:
 max_	util/histogram.h	/^  double max_;$/;"	m	class:leveldb::Histogram
 max_open_files	include/pebblesdb/options.h	/^  int max_open_files;$/;"	m	struct:leveldb::Options
+max_ops_	db/db_bench.cc	/^  int64_t max_ops_;$/;"	m	class:leveldb::Benchmark::Duration	file:
 max_output_file_size_	db/version_set.h	/^  uint64_t max_output_file_size_;$/;"	m	class:leveldb::Compaction
+max_seconds_	db/db_bench.cc	/^  uint64_t max_seconds_;$/;"	m	class:leveldb::Benchmark::Duration	file:
 max_sequence	db/repair.cc	/^    SequenceNumber max_sequence;$/;"	m	struct:leveldb::__anon12::Repairer::TableInfo	file:
+mean_read_count	db/version_set.h	/^  double mean_read_count;$/;"	m	class:leveldb::Version
 mem	db/db_impl.cc	/^  MemTable* mem;$/;"	m	struct:leveldb::__anon7::IterState	file:
 mem_	db/db_impl.cc	/^  MemTable* mem_;$/;"	m	struct:leveldb::DBImpl::Writer	file:
 mem_	db/db_impl.h	/^  MemTable* mem_;$/;"	m	class:leveldb::DBImpl
@@ -2984,14 +3775,17 @@ metaindex_handle	table/table.cc	/^  BlockHandle metaindex_handle;  \/\/ Handle t
 metaindex_handle_	table/format.h	/^  BlockHandle metaindex_handle_;$/;"	m	class:leveldb::Footer
 method	db/db_bench.cc	/^    void (Benchmark::*method)(ThreadState*);$/;"	m	struct:leveldb::Benchmark::ThreadArg	file:
 mi_	table/merger.cc	/^  MergingIterator* mi_;$/;"	m	struct:leveldb::__anon18::HeapComparator	file:
-micros	db/db_bench.cc	39;"	d	file:
-micros	db/db_bench.cc	42;"	d	file:
+micros	db/db_bench.cc	44;"	d	file:
+micros	db/db_bench.cc	47;"	d	file:
 micros	db/db_impl.h	/^    int64_t micros;$/;"	m	struct:leveldb::DBImpl::CompactionStats
 micros	db/db_test.cc	/^uint64_t micros() {$/;"	f	namespace:leveldb
 micros_	db/db_impl.cc	/^  uint64_t micros_;$/;"	m	struct:leveldb::DBImpl::Writer	file:
 micros_array	util/timer.h	/^	uint64_t micros_array[200];$/;"	m	class:leveldb::Timer
 min_	util/histogram.h	/^  double min_;$/;"	m	class:leveldb::Histogram
 min_output_file_size_	db/version_set.h	/^  uint64_t min_output_file_size_;$/;"	m	class:leveldb::Compaction
+mixgraph_rand	db/db_bench.cc	/^  Random64 mixgraph_rand;$/;"	m	struct:leveldb::__anon11::ThreadState	file:
+mkdir_p	Makefile	/^mkdir_p = $(MKDIR_P)$/;"	m
+mkinstalldirs	Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
 mmap_limit_	util/env_posix.cc	/^  MmapLimiter mmap_limit_;$/;"	m	class:leveldb::__anon26::PosixEnv	file:
 mmapped_region_	util/env_posix.cc	/^  void* mmapped_region_;$/;"	m	class:leveldb::__anon26::PosixMmapReadableFile	file:
 mtx_	util/env_posix.cc	/^  port::Mutex mtx_;         \/\/ Protection for state$/;"	m	class:leveldb::__anon26::PosixMmapFile	file:
@@ -3039,6 +3833,8 @@ next_report_	doc/bench/db_bench_tree_db.cc	/^  int next_report_;     \/\/ When t
 next_upper	util/arena.cc	/^  char* next_upper;$/;"	m	struct:leveldb::Arena::Block	file:
 no_space_	db/db_test.cc	/^  port::AtomicPointer no_space_;$/;"	m	class:leveldb::SpecialEnv	file:
 node_	db/skiplist.h	/^    Node* node_;$/;"	m	class:leveldb::SkipList::Iterator
+noinst_HEADERS	Makefile	/^noinst_HEADERS = db\/builder.h db\/dbformat.h db\/db_impl.h \\$/;"	m
+noinst_PROGRAMS	Makefile	/^noinst_PROGRAMS = db_bench$(EXEEXT) leveldbutil$(EXEEXT) \\$/;"	m
 non_writable_	db/db_test.cc	/^  port::AtomicPointer non_writable_;$/;"	m	class:leveldb::SpecialEnv	file:
 num_	db/db_bench.cc	/^  int num_;$/;"	m	class:leveldb::Benchmark	file:
 num_	doc/bench/db_bench_sqlite3.cc	/^  int num_;$/;"	m	class:leveldb::Benchmark	file:
@@ -3049,9 +3845,10 @@ num_bg_compaction_threads_	db/db_impl.h	/^  int num_bg_compaction_threads_;$/;"	
 num_bg_threads_	db/db_impl.h	/^  int num_bg_threads_;$/;"	m	class:leveldb::DBImpl
 num_complete_guards_	db/version_set.h	/^  int num_complete_guards_[config::kNumLevels];$/;"	m	class:leveldb::Version
 num_done	db/db_bench.cc	/^  int num_done;$/;"	m	struct:leveldb::__anon11::SharedState	file:
+num_entries	db/db_impl.cc	/^    uint64_t num_entries;$/;"	m	struct:leveldb::DBImpl::CompactionState::Output	file:
 num_entries	db/memtable.h	/^  int num_entries;$/;"	m	class:leveldb::MemTable
+num_entries	db/version_edit.h	/^  uint64_t num_entries;  $/;"	m	struct:leveldb::FileMetaData
 num_entries	table/table_builder.cc	/^  int64_t num_entries;$/;"	m	struct:leveldb::TableBuilder::Rep	file:
-num_files_read	db/version_set.h	/^    int num_files_read;$/;"	m	class:leveldb::Version
 num_guards	db/write_batch.cc	/^   int num_guards[config::kNumLevels];$/;"	m	class:leveldb::__anon13::GuardInserter	file:
 num_initialized	db/db_bench.cc	/^  int num_initialized;$/;"	m	struct:leveldb::__anon11::SharedState	file:
 num_input_files	db/version_set.h	/^  size_t num_input_files(int which) const { return inputs_[which].size(); }$/;"	f	class:leveldb::Compaction
@@ -3076,6 +3873,7 @@ ok	include/pebblesdb/status.h	/^  bool ok() const { return (state_ == NULL); }$/
 ok	include/pebblesdb/table_builder.h	/^  bool ok() const { return status().ok(); }$/;"	f	class:leveldb::TableBuilder
 ok_	util/testharness.h	/^  bool ok_;$/;"	m	class:leveldb::test::Tester
 oldest	db/snapshot.h	/^  SnapshotImpl* oldest() const { assert(!empty()); return list_.next_; }$/;"	f	class:leveldb::SnapshotList
+oldincludedir	Makefile	/^oldincludedir = \/usr\/include$/;"	m
 once	util/comparator.cc	/^static port::OnceType once = LEVELDB_ONCE_INIT;$/;"	m	namespace:leveldb	file:
 once	util/env_posix.cc	/^static pthread_once_t once = PTHREAD_ONCE_INIT;$/;"	m	namespace:leveldb	file:
 operator !=	include/pebblesdb/slice.h	/^inline bool operator!=(const Slice& x, const Slice& y) {$/;"	f	namespace:leveldb
@@ -3098,6 +3896,8 @@ operator =	db/dbformat.h	/^  InternalKeyComparator& operator = (const InternalKe
 operator =	include/pebblesdb/status.h	/^inline Status& Status::operator=(const Status& s) {$/;"	f	class:leveldb::Status
 operator ==	include/pebblesdb/slice.h	/^inline bool operator==(const Slice& x, const Slice& y) {$/;"	f	namespace:leveldb
 operator []	include/pebblesdb/slice.h	/^  char operator[](size_t n) const {$/;"	f	class:leveldb::Slice
+ops_	db/db_bench.cc	/^  int64_t ops_;$/;"	m	class:leveldb::Benchmark::Duration	file:
+ops_per_stage_	db/db_bench.cc	/^  int64_t ops_per_stage_;$/;"	m	class:leveldb::Benchmark::Duration	file:
 option_config_	db/db_test.cc	/^  int option_config_;$/;"	m	class:leveldb::DBTest	file:
 options	table/table.cc	/^  Options options;$/;"	m	struct:leveldb::Table::Rep	file:
 options	table/table_builder.cc	/^  Options options;$/;"	m	struct:leveldb::TableBuilder::Rep	file:
@@ -3127,11 +3927,19 @@ page_size_	util/env_posix.cc	/^  size_t page_size_;$/;"	m	class:leveldb::__anon2
 param	db/db_bench.cc	/^  	unsigned long param;$/;"	m	struct:leveldb::Benchmark::trace_operation_t	file:
 paranoid_checks	include/pebblesdb/options.h	/^  bool paranoid_checks;$/;"	m	struct:leveldb::Options
 parse_trace	db/db_bench.cc	/^  void parse_trace(const char *file, int tid) {$/;"	f	class:leveldb::Benchmark
+pdfdir	Makefile	/^pdfdir = ${docdir}$/;"	m
 pending_handle	table/table_builder.cc	/^  BlockHandle pending_handle;  \/\/ Handle to add to index block$/;"	m	struct:leveldb::TableBuilder::Rep	file:
 pending_index_entry	table/table_builder.cc	/^  bool pending_index_entry;$/;"	m	struct:leveldb::TableBuilder::Rep	file:
 pending_outputs_	db/db_impl.h	/^  std::set<uint64_t> pending_outputs_;$/;"	m	class:leveldb::DBImpl
 perform_op	db/db_bench.cc	/^  Status perform_op(DB *db, struct trace_operation_t *op, int tid) {$/;"	f	class:leveldb::Benchmark
 phase	db/c_test.c	/^const char* phase = "";$/;"	v
+pkgconfig_DATA	Makefile	/^pkgconfig_DATA = libpebblesdb.pc$/;"	m
+pkgconfigdir	Makefile	/^pkgconfigdir = $(libdir)\/pkgconfig$/;"	m
+pkgdatadir	Makefile	/^pkgdatadir = $(datadir)\/pebblesdb$/;"	m
+pkginclude_HEADERS	Makefile	/^pkginclude_HEADERS = include\/pebblesdb\/cache.h include\/pebblesdb\/c.h \\$/;"	m
+pkgincludedir	Makefile	/^pkgincludedir = $(includedir)\/pebblesdb$/;"	m
+pkglibdir	Makefile	/^pkglibdir = $(libdir)\/pebblesdb$/;"	m
+pkglibexecdir	Makefile	/^pkglibexecdir = $(libexecdir)\/pebblesdb$/;"	m
 policy_	table/filter_block.h	/^  const FilterPolicy* policy_;$/;"	m	class:leveldb::FileLevelFilterBuilder
 policy_	table/filter_block.h	/^  const FilterPolicy* policy_;$/;"	m	class:leveldb::FilterBlockBuilder
 policy_	table/filter_block.h	/^  const FilterPolicy* policy_;$/;"	m	class:leveldb::FilterBlockReader
@@ -3145,6 +3953,8 @@ pos_	db/db_bench.cc	/^  int pos_;$/;"	m	class:leveldb::__anon11::RandomGenerator
 pos_	doc/bench/db_bench_sqlite3.cc	/^  int pos_;$/;"	m	class:leveldb::__anon32::RandomGenerator	file:
 pos_	doc/bench/db_bench_tree_db.cc	/^  int pos_;$/;"	m	class:leveldb::__anon33::RandomGenerator	file:
 pos_	helpers/memenv/memenv.cc	/^  size_t pos_;$/;"	m	class:leveldb::__anon30::SequentialFileImpl	file:
+prefix	Makefile	/^prefix = \/usr\/local$/;"	m
+prefix_size_	db/db_bench.cc	/^  int prefix_size_;$/;"	m	class:leveldb::Benchmark	file:
 prev	util/cache.cc	/^  LRUHandle* prev;$/;"	m	struct:leveldb::__anon25::LRUHandle	file:
 prev_	db/db_impl.cc	/^  Writer* prev_;$/;"	m	struct:leveldb::DBImpl::Writer	file:
 prev_	db/snapshot.h	/^  SnapshotImpl* prev_;$/;"	m	class:leveldb::SnapshotImpl
@@ -3157,9 +3967,13 @@ print_current_db_contents	db/db_test.cc	/^  void print_current_db_contents() {$/
 print_divider	db/db_test.cc	/^void print_divider() {$/;"	f	namespace:leveldb
 print_file_counts	db/db_test.cc	/^  void print_file_counts() {$/;"	f	class:leveldb::DBTest
 print_splitup	db/db_bench.cc	/^  unsigned long long print_splitup(int tid) {$/;"	f	class:leveldb::Benchmark
-print_timer_info	db/db_bench.cc	40;"	d	file:
-print_timer_info	db/db_bench.cc	43;"	d	file:
+print_timer_info	db/db_bench.cc	45;"	d	file:
+print_timer_info	db/db_bench.cc	48;"	d	file:
 print_timer_info	db/db_test.cc	/^void print_timer_info(std::string msg, uint64_t a, uint64_t b) {$/;"	f	namespace:leveldb
+program_details	missing	/^program_details ()$/;"	f
+program_transform_name	Makefile	/^program_transform_name = s,x,x,$/;"	m
+prototypes	configure	/^   function prototypes and stuff, but not '\\xHH' hex character constants.$/;"	f
+psdir	Makefile	/^psdir = ${docdir}$/;"	m
 ptrs_	db/skiplist.h	/^  PointerHintPair ptrs_[1];$/;"	m	struct:leveldb::SkipList::Node
 queue_	util/env_posix.cc	/^  BGQueue queue_;$/;"	m	class:leveldb::__anon26::PosixEnv	file:
 quit_flag_	db/skiplist_test.cc	/^  port::AtomicPointer quit_flag_;$/;"	m	class:leveldb::TestState	file:
@@ -3167,6 +3981,13 @@ rand	db/db_bench.cc	/^  Random rand;         \/\/ Has different seeds for differ
 rand_	doc/bench/db_bench_sqlite3.cc	/^  Random rand_;$/;"	m	class:leveldb::Benchmark	file:
 rand_	doc/bench/db_bench_tree_db.cc	/^  Random rand_;$/;"	m	class:leveldb::Benchmark	file:
 random_read_counter_	db/db_test.cc	/^  AtomicCounter random_read_counter_;$/;"	m	class:leveldb::SpecialEnv	file:
+range_	db/db_bench.cc	/^    int range_;$/;"	m	class:leveldb::Benchmark::QueryDecider	file:
+ratio_	db/db_bench.cc	/^    std::vector<double> ratio_;$/;"	m	class:leveldb::Benchmark::QueryDecider	file:
+read_count	db/version_edit.h	/^  uint64_t read_count;$/;"	m	struct:leveldb::GuardMetaData
+read_current_time	db/version_set.h	/^  uint64_t read_current_time;$/;"	m	class:leveldb::Version
+read_last_accessed_time	db/version_edit.h	/^  uint64_t read_last_accessed_time;$/;"	m	struct:leveldb::GuardMetaData
+read_lifetime	db/dbformat.h	/^static const unsigned read_lifetime = 30000;$/;"	m	namespace:leveldb::config
+read_random_exp_range_	db/db_bench.cc	/^  double read_random_exp_range_;$/;"	m	class:leveldb::Benchmark	file:
 reader_	db/log_test.cc	/^  Reader reader_;$/;"	m	class:leveldb::log::LogTest	file:
 reading_	db/log_test.cc	/^  bool reading_;$/;"	m	class:leveldb::log::LogTest	file:
 reads_	db/db_bench.cc	/^  int reads_;$/;"	m	class:leveldb::Benchmark	file:
@@ -3234,9 +4055,11 @@ rnd_mutex_	db/skiplist.h	/^  port::Mutex rnd_mutex_;$/;"	m	class:leveldb::SkipLi
 rotl32	db/murmurhash3.cc	/^inline uint32_t rotl32 ( uint32_t x, int8_t r )$/;"	f
 rotl64	db/murmurhash3.cc	/^inline uint64_t rotl64 ( uint64_t x, int8_t r )$/;"	f
 rs_	db/replay_iterator.h	/^  ReplayState rs_;$/;"	m	class:leveldb::ReplayIteratorImpl
-sassert	db/db_bench.cc	36;"	d	file:
+runstatedir	Makefile	/^runstatedir = ${localstatedir}\/run$/;"	m
+sassert	db/db_bench.cc	41;"	d	file:
 saved_key_	db/db_iter.cc	/^  std::string saved_key_;     \/\/ == current key when direction_==kReverse$/;"	m	class:leveldb::__anon14::DBIter	file:
 saved_value_	db/db_iter.cc	/^  std::string saved_value_;   \/\/ == current raw value when direction_==kReverse$/;"	m	class:leveldb::__anon14::DBIter	file:
+sbindir	Makefile	/^sbindir = ${exec_prefix}\/sbin$/;"	m
 seconds_	db/db_bench.cc	/^  double seconds_;$/;"	m	class:leveldb::__anon11::Stats	file:
 seed_	db/db_impl.h	/^  uint32_t seed_;                \/\/ For sampling.$/;"	m	class:leveldb::DBImpl
 seed_	db/skiplist_test.cc	/^  int seed_;$/;"	m	class:leveldb::TestState	file:
@@ -3289,7 +4112,9 @@ sequence_	db/leveldb_main.cc	/^  uint64_t sequence_;$/;"	m	class:leveldb::__anon
 sequence_	db/write_batch.cc	/^   SequenceNumber sequence_;$/;"	m	class:leveldb::__anon13::GuardInserter	file:
 sequence_	db/write_batch.cc	/^  SequenceNumber sequence_;$/;"	m	class:leveldb::__anon13::MemTableInserter	file:
 sequence_	leveldb-verify.cc	/^  uint64_t sequence_;$/;"	m	class:leveldb::__anon15::WriteBatchItemPrinter	file:
+set_base_from	depcomp	/^set_base_from ()$/;"	f
 set_data	include/pebblesdb/slice.h	/^  void set_data(const std::string &s) {$/;"	f	class:leveldb::Slice
+set_dir_from	depcomp	/^set_dir_from ()$/;"	f
 set_index_handle	table/format.h	/^  void set_index_handle(const BlockHandle& h) {$/;"	f	class:leveldb::Footer
 set_mask	db/write_batch.cc	/^   void set_mask(unsigned num_bits) {$/;"	f	class:leveldb::__anon13::GuardInserter	file:
 set_metaindex_handle	table/format.h	/^  void set_metaindex_handle(const BlockHandle& h) { metaindex_handle_ = h; }$/;"	f	class:leveldb::Footer
@@ -3298,6 +4123,7 @@ set_size	table/format.h	/^  void set_size(uint64_t _size) { size_ = _size; }$/;"
 shard_	util/cache.cc	/^  LRUCache shard_[kNumShards];$/;"	m	class:leveldb::__anon25::ShardedLRUCache	file:
 shared	db/db_bench.cc	/^    SharedState* shared;$/;"	m	struct:leveldb::Benchmark::ThreadArg	file:
 shared	db/db_bench.cc	/^  SharedState* shared;$/;"	m	struct:leveldb::__anon11::ThreadState	file:
+sharedstatedir	Makefile	/^sharedstatedir = ${prefix}\/com$/;"	m
 shrink	util/string_builder.h	/^  void shrink(size_t sz) {$/;"	f	struct:leveldb::StringBuilder
 shutting_down_	db/db_impl.h	/^  port::AtomicPointer shutting_down_;$/;"	m	class:leveldb::DBImpl
 size	include/pebblesdb/slice.h	/^  size_t size() const { return size_; }$/;"	f	class:leveldb::Slice
@@ -3309,6 +4135,10 @@ size_	helpers/memenv/memenv.cc	/^  uint64_t size_;$/;"	m	class:leveldb::__anon30
 size_	include/pebblesdb/slice.h	/^  size_t size_;$/;"	m	class:leveldb::Slice
 size_	table/block.h	/^  size_t size_;$/;"	m	class:leveldb::Block
 size_	table/format.h	/^  uint64_t size_;$/;"	m	class:leveldb::BlockHandle
+skiplist_test_DEPENDENCIES	Makefile	/^skiplist_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+skiplist_test_LDADD	Makefile	/^skiplist_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+skiplist_test_OBJECTS	Makefile	/^skiplist_test_OBJECTS = $(am_skiplist_test_OBJECTS)$/;"	m
+skiplist_test_SOURCES	Makefile	/^skiplist_test_SOURCES = db\/skiplist_test.cc $(TESTHARNESS)$/;"	m
 slice	util/string_builder.h	/^  Slice slice() const { return Slice(m_buf, m_sz); }$/;"	f	struct:leveldb::StringBuilder
 smallest	db/db_impl.cc	/^    InternalKey smallest, largest;$/;"	m	struct:leveldb::DBImpl::CompactionState::Output	file:
 smallest	db/version_edit.h	/^  InternalKey smallest;       \/\/ Smallest internal key served by table$/;"	m	struct:leveldb::FileMetaData
@@ -3320,6 +4150,7 @@ source_	db/log_test.cc	/^  StringSource source_;$/;"	m	class:leveldb::log::LogTe
 source_	table/table_test.cc	/^  StringSource* source_;$/;"	m	class:leveldb::TableConstructor	file:
 space_	db/dbformat.h	/^  char space_[200];      \/\/ Avoid allocation for short keys$/;"	m	class:leveldb::LookupKey
 split_file_names	db/db_bench.cc	/^  int split_file_names(const char *file, char file_names[20][100]) {$/;"	f	class:leveldb::Benchmark
+srcdir	Makefile	/^srcdir = .$/;"	m
 srecord_timer	table/table.cc	30;"	d	file:
 srecord_timer	table/table.cc	33;"	d	file:
 ss_	util/testharness.h	/^  std::stringstream ss_;$/;"	m	class:leveldb::test::Tester
@@ -3333,6 +4164,7 @@ start_	db/dbformat.h	/^  const char* start_;$/;"	m	class:leveldb::LookupKey
 start_	doc/bench/db_bench_sqlite3.cc	/^  double start_;$/;"	m	class:leveldb::Benchmark	file:
 start_	doc/bench/db_bench_tree_db.cc	/^  double start_;$/;"	m	class:leveldb::Benchmark	file:
 start_	table/filter_block.h	/^  std::vector<size_t> start_;     \/\/ Starting index in keys_ of each key$/;"	m	class:leveldb::FilterBlockBuilder
+start_at_	db/db_bench.cc	/^  uint64_t start_at_;$/;"	m	class:leveldb::Benchmark::Duration	file:
 start_at_	db/replay_iterator.h	/^  SequenceNumber const start_at_;$/;"	m	class:leveldb::ReplayIteratorImpl
 start_sequence_	db/db_impl.cc	/^  uint64_t start_sequence_;$/;"	m	struct:leveldb::DBImpl::Writer	file:
 start_timer	db/db_impl.cc	44;"	d	file:
@@ -3401,9 +4233,11 @@ store_ptr_fullbarrier	util/atomic.h	/^store_ptr_fullbarrier(P* volatile* ptr, P*
 store_ptr_nobarrier	util/atomic.h	/^store_ptr_nobarrier(P* volatile* ptr, P* value)$/;"	f	namespace:leveldb::atomic
 store_ptr_release	util/atomic.h	/^store_ptr_release(P* volatile* ptr, P* value)$/;"	f	namespace:leveldb::atomic
 straight_reads_	db/db_impl.h	/^  uint64_t straight_reads_;$/;"	m	class:leveldb::DBImpl
+subdir	Makefile	/^subdir = .$/;"	m
 sum_	util/histogram.h	/^  double sum_;$/;"	m	class:leveldb::Histogram
 sum_squares_	util/histogram.h	/^  double sum_squares_;$/;"	m	class:leveldb::Histogram
 sync	include/pebblesdb/options.h	/^  bool sync;$/;"	m	struct:leveldb::WriteOptions
+sysconfdir	Makefile	/^sysconfdir = ${prefix}\/etc$/;"	m
 t_	db/skiplist_test.cc	/^  ConcurrentTest t_;$/;"	m	class:leveldb::TestState	file:
 table	db/table_cache.cc	/^  Table* table;$/;"	m	struct:leveldb::TableAndFile	file:
 table_	db/memtable.h	/^  Table table_;$/;"	m	class:leveldb::MemTable
@@ -3413,9 +4247,19 @@ table_cache_	db/db_impl.h	/^  TableCache* table_cache_;$/;"	m	class:leveldb::DBI
 table_cache_	db/repair.cc	/^  TableCache* table_cache_;$/;"	m	class:leveldb::__anon12::Repairer	file:
 table_cache_	db/version_set.h	/^  TableCache* const table_cache_;$/;"	m	class:leveldb::VersionSet
 table_numbers_	db/repair.cc	/^  std::vector<uint64_t> table_numbers_;$/;"	m	class:leveldb::__anon12::Repairer	file:
+table_test_DEPENDENCIES	Makefile	/^table_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+table_test_LDADD	Makefile	/^table_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+table_test_OBJECTS	Makefile	/^table_test_OBJECTS = $(am_table_test_OBJECTS)$/;"	m
+table_test_SOURCES	Makefile	/^table_test_SOURCES = table\/table_test.cc $(TESTHARNESS)$/;"	m
 tables_	db/repair.cc	/^  std::vector<TableInfo> tables_;$/;"	m	class:leveldb::__anon12::Repairer	file:
+tardir	Makefile	/^	tardir=$(distdir) && $(am__tar) | BZIP2=$${BZIP2--9} bzip2 -c >$(distdir).tar.bz2$/;"	m
+tardir	Makefile	/^	tardir=$(distdir) && $(am__tar) | GZIP=$(GZIP_ENV) gzip -c >$(distdir).tar.gz$/;"	m
+tardir	Makefile	/^	tardir=$(distdir) && $(am__tar) | XZ_OPT=$${XZ_OPT--e} xz -c >$(distdir).tar.xz$/;"	m
+tardir	Makefile	/^	tardir=$(distdir) && $(am__tar) | compress -c >$(distdir).tar.Z$/;"	m
+tardir	Makefile	/^	tardir=$(distdir) && $(am__tar) | lzip -c $${LZIP_OPT--9} >$(distdir).tar.lz$/;"	m
 target	include/pebblesdb/env.h	/^    target() const$/;"	f	class:leveldb::EnvWrapper
 target_	include/pebblesdb/env.h	/^    Env *target_;$/;"	m	class:leveldb::EnvWrapper
+target_alias	Makefile	/^target_alias = $/;"	m
 test	db/db_test.cc	/^  DBTest* test;$/;"	m	struct:leveldb::__anon5::MTState	file:
 test	util/testharness.cc	/^namespace test {$/;"	n	namespace:leveldb	file:
 test	util/testharness.h	/^namespace test {$/;"	n	namespace:leveldb
@@ -3438,16 +4282,23 @@ tmp_keys_	table/filter_block.h	/^  std::vector<Slice> tmp_keys_;   \/\/ policy_-
 tmp_keys_	table/filter_block.h	/^  std::vector<Slice> tmp_keys_;   \/\/ policy_->CreateFilter() argument$/;"	m	class:leveldb::FilterBlockBuilder
 tmp_storage	db/db_impl.h	/^    InternalKey tmp_storage;    \/\/ Used to keep track of compaction progress$/;"	m	struct:leveldb::DBImpl::ManualCompaction
 tombstones_counter_	db/db_iter.cc	/^  ssize_t tombstones_counter_;$/;"	m	class:leveldb::__anon14::DBIter	file:
+top_build_prefix	Makefile	/^top_build_prefix = $/;"	m
+top_builddir	Makefile	/^top_builddir = .$/;"	m
+top_distdir	Makefile	/^top_distdir = $(distdir)$/;"	m
 top_level_bits	db/write_batch.cc	/^   const static unsigned top_level_bits = 27;$/;"	m	class:leveldb::__anon13::GuardInserter	file:
+top_srcdir	Makefile	/^top_srcdir = .$/;"	m
 total	db/db_bench.cc	/^  int total;$/;"	m	struct:leveldb::__anon11::SharedState	file:
 total_bytes	db/db_impl.cc	/^  uint64_t total_bytes;$/;"	m	struct:leveldb::DBImpl::CompactionState	file:
 total_files_read	include/pebblesdb/db.h	/^    int total_files_read = 0;$/;"	m	class:leveldb::DB
+total_write_count	db/version_set.h	/^  uint64_t total_write_count;$/;"	m	class:leveldb::Version
 trace_operation_t	db/db_bench.cc	/^  struct trace_operation_t {$/;"	s	class:leveldb::Benchmark	file:
 trace_ops	db/db_bench.cc	/^  struct trace_operation_t *trace_ops[10]; \/\/ Assuming maximum of 10 concurrent threads$/;"	m	class:leveldb::Benchmark	typeref:struct:leveldb::Benchmark::trace_operation_t	file:
+transform	Makefile	/^transform = $(program_transform_name)$/;"	m
 trunc_in_progress_	util/env_posix.cc	/^  bool trunc_in_progress_;  \/\/ is there an ongoing truncate operation?$/;"	m	class:leveldb::__anon26::PosixMmapFile	file:
 trunc_waiters_	util/env_posix.cc	/^  uint64_t trunc_waiters_;  \/\/ number of threads waiting for truncate$/;"	m	class:leveldb::__anon26::PosixMmapFile	file:
 type	db/dbformat.h	/^  ValueType type;$/;"	m	struct:leveldb::ParsedInternalKey
 type	table/table_test.cc	/^  TestType type;$/;"	m	struct:leveldb::TestArgs	file:
+type_	db/db_bench.cc	/^    std::vector<int> type_;$/;"	m	class:leveldb::Benchmark::QueryDecider	file:
 type_crc_	db/log_writer.h	/^  uint32_t type_crc_[kMaxRecordType + 1];$/;"	m	class:leveldb::log::Writer
 ucmp	db/version_set.h	/^  const Comparator* ucmp;$/;"	m	struct:leveldb::Saver
 uint16_t	port/win/stdint.h	/^typedef unsigned short        uint16_t;$/;"	t
@@ -3496,6 +4347,14 @@ valuebuf	db/db_bench.cc	/^  char valuebuf[MAX_VALUE_SIZE];$/;"	m	class:leveldb::
 verify_checksums	include/pebblesdb/options.h	/^  bool verify_checksums;$/;"	m	struct:leveldb::ReadOptions
 version	db/db_impl.cc	/^  Version* version;$/;"	m	struct:leveldb::__anon7::IterState	file:
 version_	db/write_batch.cc	/^  Version* version_;$/;"	m	class:leveldb::__anon13::MemTableInserter	file:
+version_edit_test_DEPENDENCIES	Makefile	/^version_edit_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+version_edit_test_LDADD	Makefile	/^version_edit_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+version_edit_test_OBJECTS	Makefile	/^version_edit_test_OBJECTS = $(am_version_edit_test_OBJECTS)$/;"	m
+version_edit_test_SOURCES	Makefile	/^version_edit_test_SOURCES = db\/version_edit_test.cc $(TESTHARNESS)$/;"	m
+version_set_test_DEPENDENCIES	Makefile	/^version_set_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+version_set_test_LDADD	Makefile	/^version_set_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+version_set_test_OBJECTS	Makefile	/^version_set_test_OBJECTS = $(am_version_set_test_OBJECTS)$/;"	m
+version_set_test_SOURCES	Makefile	/^version_set_test_SOURCES = db\/version_set_test.cc $(TESTHARNESS)$/;"	m
 versions_	db/db_impl.h	/^  VersionSet* versions_;$/;"	m	class:leveldb::DBImpl
 vrecord_timer	db/version_set.cc	43;"	d	file:
 vrecord_timer	db/version_set.cc	49;"	d	file:
@@ -3519,7 +4378,12 @@ vvstart_timer	db/version_set.cc	33;"	d	file:
 wake_me_when_head_	db/db_impl.cc	/^  bool wake_me_when_head_;$/;"	m	struct:leveldb::DBImpl::Writer	file:
 worker_thread	benchmark.cc	/^worker_thread(leveldb::DB* db,$/;"	f
 writable_file_error_	util/testutil.h	/^  bool writable_file_error_;$/;"	m	class:leveldb::test::ErrorEnv
+write_batch_test_DEPENDENCIES	Makefile	/^write_batch_test_DEPENDENCIES = libpebblesdb.la$/;"	m
+write_batch_test_LDADD	Makefile	/^write_batch_test_LDADD = libpebblesdb.la -lpthread$/;"	m
+write_batch_test_OBJECTS	Makefile	/^write_batch_test_OBJECTS = $(am_write_batch_test_OBJECTS)$/;"	m
+write_batch_test_SOURCES	Makefile	/^write_batch_test_SOURCES = db\/write_batch_test.cc $(TESTHARNESS)$/;"	m
 write_buffer_size	include/pebblesdb/options.h	/^  size_t write_buffer_size;$/;"	m	struct:leveldb::Options
+write_count	db/version_edit.h	/^  uint64_t write_count;$/;"	m	struct:leveldb::GuardMetaData
 write_options_	db/db_bench.cc	/^  WriteOptions write_options_;$/;"	m	class:leveldb::Benchmark	file:
 writer_	db/log_test.cc	/^  Writer writer_;$/;"	m	class:leveldb::log::LogTest	file:
 writers_mutex_	db/db_impl.h	/^  port::Mutex writers_mutex_;$/;"	m	class:leveldb::DBImpl
@@ -3561,6 +4425,7 @@ ycsbdata	db/db_bench.cc	/^  	unsigned long long ycsbdata;$/;"	m	struct:leveldb::
 ~FileState	helpers/memenv/memenv.cc	/^  ~FileState() {$/;"	f	class:leveldb::__anon30::FileState	file:
 ~FilterPolicy	util/filter_policy.cc	/^FilterPolicy::~FilterPolicy() { }$/;"	f	class:leveldb::FilterPolicy
 ~FindFileTest	db/version_set_test.cc	/^  ~FindFileTest() {$/;"	f	class:leveldb::FindFileTest
+~GenerateTwoTermExpKeys	db/db_bench.cc	/^    ~GenerateTwoTermExpKeys() {}$/;"	f	class:leveldb::Benchmark::GenerateTwoTermExpKeys
 ~HandleTable	util/cache.cc	/^  ~HandleTable() { delete[] list_; }$/;"	f	class:leveldb::__anon25::HandleTable
 ~Handler	db/write_batch.cc	/^WriteBatch::Handler::~Handler() { }$/;"	f	class:leveldb::WriteBatch::Handler
 ~Harness	table/table_test.cc	/^  ~Harness() {$/;"	f	class:leveldb::Harness
@@ -3587,6 +4452,7 @@ ycsbdata	db/db_bench.cc	/^  	unsigned long long ycsbdata;$/;"	m	struct:leveldb::
 ~PosixRandomAccessFile	util/env_posix.cc	/^  virtual ~PosixRandomAccessFile() { close(fd_); }$/;"	f	class:leveldb::__anon26::PosixRandomAccessFile
 ~PosixSequentialFile	util/env_posix.cc	/^  virtual ~PosixSequentialFile() { fclose(file_); }$/;"	f	class:leveldb::__anon26::PosixSequentialFile
 ~PosixWritableFile	util/env_posix.cc	/^  ~PosixWritableFile() {$/;"	f	class:leveldb::__anon26::PosixWritableFile
+~QueryDecider	db/db_bench.cc	/^    ~QueryDecider() {}$/;"	f	class:leveldb::Benchmark::QueryDecider
 ~RandomAccessFile	util/env.cc	/^RandomAccessFile::~RandomAccessFile() {$/;"	f	class:leveldb::RandomAccessFile
 ~RandomAccessFileImpl	helpers/memenv/memenv.cc	/^  ~RandomAccessFileImpl() {$/;"	f	class:leveldb::__anon30::RandomAccessFileImpl
 ~Reader	db/log_reader.cc	/^Reader::~Reader() {$/;"	f	class:leveldb::log::Reader
